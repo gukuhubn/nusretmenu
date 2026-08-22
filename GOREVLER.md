@@ -63,7 +63,7 @@ Görev 4'e bağlı — `GEMINI_API_KEY` ortamda tanımlı değil (kontrol edildi
 Ayrıca varlık brief'leri konsept dokümanı Bölüm 5'te ve o doküman elimde yok.
 Aşağıdaki asset-id'ler tasarımdan türetildi; doküman gelince isimler eşlenebilir.
 
-- [ ] `logo-mark` — figürsüz logo, kabartma
+- [x] `logo-mark` — figürsüz kilit logo (Drive'dan bulundu, SVG'ye çevrildi)
 - [ ] `cut-diagram` — dana kesim diyagramı, gravür (Gemini 5.2.1)
 - [ ] `motif-flame` — alev gravürü (Gemini 5.2.4)
 - [ ] `cover-portrait` — kapak portresi, duman + havada tuz (Gemini 5.3.5)
@@ -95,3 +95,22 @@ Aşağıdaki asset-id'ler tasarımdan türetildi; doküman gelince isimler eşle
 - [x] `output/kasap-defteri-mod-b.pdf` (6 sayfa)
 - [x] `tools/build-pdf.js` — yeniden üretim betiği
 - [x] `TESLIM.md`
+
+
+## 9. Logo varlıkları  `[~]` KISMEN TAMAM
+
+Kaynak GitHub değil Drive oldu: `gh` CLI bu ortamda kurulu değil, GitHub
+üzerinden `gh repo list` / `gh search code` yapılamadı. Erişebildiğim tek repo
+(`gukuhubn/nusretmenu`) yalnız bu çalışmanın commit'lerini içeriyor —
+`git ls-remote`: tek dal, `design-kasap-defteri`.
+
+- [x] Drive'da `SALTBAE LOGOLAR` klasörü bulundu (5 renk varyantı + AI + PDF)
+- [x] `saltbae_logolar_toplu.pdf` s.3 vektör verisinden tek renk kemik SVG üretildi
+- [x] `menu/assets/logo-mark.svg` — figürsüz kilit logo, oyuklar şeffaf
+- [x] `menu/assets/logo-burger.svg` — aynı artwork, ayrı asset-id
+- [x] Kapak kutusu logonun oranına açıldı (36 mm daire → 88 × 26 mm, `contain`)
+- [ ] **Ayrı "BURGER etiketi"** — marka dosyasında `#saltbae` ile `BURGER`
+      tek parça kaynaşmış; ayrıştırmak için katmanlı `.ai` gerekiyor
+- [ ] **Nusret logosu** — `SALTBAE LOGOLAR` klasöründe yok. Drive'da yalnız
+      `NUSR-ET_PRESENTATION.pdf` / `Florentia Village Proposal` gibi sunumların
+      içinde geçiyor; ayrı bir logo varlığı olarak bulunamadı.

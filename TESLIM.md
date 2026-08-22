@@ -32,6 +32,19 @@ doldurulduğu an kapaktan sonra ayrı sayfa olarak basılır, kod değişmez.
 Ritüel sayfasında altın vurgu (`#d4af37`) yalnız o sayfada geçerlidir;
 defterin geri kalanı pirinç (`#b5824c`) kalır.
 
+## Logo varlıkları
+
+`menu/assets/logo-mark.svg` + `logo-burger.svg` — Drive'daki marka dosyasından
+(`SALTBAE LOGOLAR / saltbae_logolar_toplu.pdf`, s.3) vektör olarak çıkarıldı,
+tek renk kemik (`#e9e1d1`), harf oyukları şeffaf. Mod A kapağında otomatik doluyor.
+
+Bulunamayanlar: ayrı **BURGER etiketi** (marka dosyasında kilit logoyla tek parça)
+ve **Nusret logosu** (logo klasöründe yok, yalnız sunum PDF'lerinin içinde).
+
+**Öneri:** Kapakta artık hem tipografik `SALTBAE / BURGER` satırları hem de
+kilit logo var — ikisi aynı şeyi söylüyor. Tipografik satırların kaldırılması
+sayfayı sadeleştirir; karar sizin, tek satırlık değişiklik.
+
 ## Bu turda tamamlananlar
 
 - **Eksik sayfa şablonları kuruldu** — Ateşten Önce, Ritüel, Yanında + Tatlı Son,
@@ -39,6 +52,7 @@ defterin geri kalanı pirinç (`#b5824c`) kalır.
 - **Fontlar gömüldü** — `menu/assets/fonts/` (13 woff2, 34 `@font-face`).
   Sayfa artık **sıfır dış istekle** açılıyor; matbaa teslimi internete bağlı değil.
   Doğrulandı: tüm dış istekler kesilmiş tarayıcıda gerçek Cormorant/Archivo çiziliyor.
+- **Logo bulundu ve gömüldü** — Drive'dan vektör çıkarımı, tek renk kemik SVG.
 - **PDF çifti** üretildi, `output/` altına kondu.
 - Doğrulama: 12 sayfanın tamamı tam 210 × 297 mm, hiçbirinde taşma yok.
 

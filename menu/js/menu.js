@@ -35,6 +35,7 @@
   let slotSeq = 0;
   const slot = (assetId, caption, opts = {}) => {
     const shape = opts.shape || 'rect';
+    const fit = opts.fit || 'cover';
     const cls = ['slot'];
     if (shape === 'circle') cls.push('slot--circle');
     if (opts.tight) cls.push('slot--tight');
@@ -53,7 +54,7 @@
           <div class="slot__ph-id">${esc(assetId)}</div>
         </div>
         <image-slot id="${esc(id)}" data-asset-id="${esc(assetId)}"
-                    shape="${esc(shape)}" fit="cover"
+                    shape="${esc(shape)}" fit="${esc(fit)}"
                     placeholder="${esc(caption)}"></image-slot>
       </div>`;
   };
@@ -130,7 +131,11 @@
         <div class="wordmark">${esc(C.brand.wordmarkTop)}</div>
         <div class="wordmark-main">${esc(C.brand.wordmarkMain)}</div>
         ${a ? slot('logo-mark', 'figürsüz logo — kabartma',
-                   { shape: 'circle', style: 'width:36mm;height:36mm;margin-top:10mm' }) : ''}
+                   /* Marka dosyasındaki kilit logo yatay (3,4:1). Tasarımın 36 mm
+                    * dairesi bunu kırpardı; kutu logonun oranına açıldı ve
+                    * fit=contain ile tam sığdırılıyor. */
+                   { shape: 'rect', fit: 'contain',
+                     style: 'width:88mm;height:26mm;margin-top:10mm' }) : ''}
         <div class="cover-title">${esc(C.cover.title)}</div>
         <div class="cover-title-en">${esc(C.cover.titleEn)}</div>
         <div class="accent-bar"></div>
