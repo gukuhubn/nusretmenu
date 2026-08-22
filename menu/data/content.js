@@ -10,8 +10,8 @@
 window.KasapContent = {
 
   brand: {
-    wordmarkTop: 'SALTBAE',
-    wordmarkMain: 'BURGER',
+    /* Kapakta marka tipografik satırla değil kilit logoyla taşınır;
+     * wordmark alanları bu revizyonda kaldırıldı. */
     docLine: 'SALTBAE BURGER · KASAP DEFTERİ',
     versionLine: 'KONSEPT v1.0'
   },
@@ -55,9 +55,9 @@ window.KasapContent = {
     starters: {
       numeral: 'I',
       titleLines: ['Ateşten Önce'],
-      titleEn: 'BEFORE THE FIRE',   /* taslak çeviri */
-      ledeTr: '',      /* ← konsept dokümanı Bölüm 3 */
-      ledeEn: '',
+      titleEn: 'BEFORE THE FIRE',
+      ledeTr: 'Usta ateşi yakmadan önce elini alıştırır. Bu sayfa o hazırlığın sayfasıdır.',
+      ledeEn: 'Before lighting the fire, the master warms up his hands. This page belongs to that preparation.',
       expect: 6
     },
 
@@ -75,9 +75,9 @@ window.KasapContent = {
     ritual: {
       numeral: 'IV',
       titleLines: ['Ritüel'],
-      titleEn: 'THE RITUAL',        /* taslak çeviri */
-      ledeTr: '',      /* ← konsept dokümanı Bölüm 3 */
-      ledeEn: '',
+      titleEn: 'THE RITUAL',
+      ledeTr: 'Bazı sayfalar okunmaz, izlenir.',
+      ledeEn: 'Some pages are not read. They are watched.',
       expect: 1
     },
 
@@ -85,16 +85,16 @@ window.KasapContent = {
     sides: {
       numeral: 'V',
       titleLines: ['Yanında'],
-      titleEn: 'ALONGSIDE',         /* taslak çeviri */
-      ledeTr: '',
+      titleEn: 'ON THE SIDE',
+      ledeTr: '',      /* Bölüm 3.5'te bölüm girişi yok — bilinçli boş */
       ledeEn: '',
       expect: 3
     },
     dessert: {
       titleLines: ['Tatlı Son'],
-      titleEn: 'A SWEET ENDING',    /* taslak çeviri */
-      ledeTr: '',
-      ledeEn: '',
+      titleEn: 'AFTER THE SALT',
+      ledeTr: 'Tuzdan sonra bal gelir. Defter böyle kapanır.',
+      ledeEn: 'After the salt comes the honey. This is how the ledger closes.',
       expect: 1
     }
   },
@@ -111,13 +111,48 @@ window.KasapContent = {
   seal: { line1: 'KASABIN', line2: 'İŞARETİ' },
 
   items: {
-    /* BOŞ DİZİLER = içerik bekleniyor. Konsept dokümanı Bölüm 3'teki
-     * metinler geldiğinde buraya yazılır; layout'a dokunulmaz.
-     * Her ürün: { id, name, seal, tr, en } — id fiyat modülünün anahtarıdır. */
-    starters: [],     /* Ateşten Önce — 6 ürün beklenir */
-    ritual: [],       /* Ritüel — Nusret Special 24K Gold, 1 ürün */
-    sides: [],        /* Yanında — 3 ürün */
-    desserts: [],     /* Tatlı Son — Baklava, 1 ürün */
+    /* Her ürün: { id, name, seal, tr, en } — id fiyat modülünün anahtarıdır. */
+    starters: [
+      { id: 'meat-sushi', name: 'MEAT SUSHI', seal: true,
+        tr: 'Kasabın şakası değil, imzası. Dana bonfile, avokado ve parmesan; çiğ etin en zarif hali.',
+        en: "Not the butcher's joke, his signature. Beef sirloin, avocado, parmesan; raw meat at its most elegant." },
+      { id: 'beef-tacos', name: 'BEEF TACOS', seal: false,
+        tr: 'On iki saat yavaş pişen kaburga, üç lokmalık sabırsızlık için.',
+        en: 'Twelve hours of slow cooked ribs, folded into three impatient bites.' },
+      { id: 'steak-tartar', name: 'STEAK TARTAR', seal: false,
+        tr: 'Defterin en eski tarifi. Bıçakla çekilir, makineye emanet edilmez.',
+        en: 'The oldest recipe in the ledger. Cut by knife, never trusted to a machine.' },
+      { id: 'crispy-baby-squid', name: 'CRISPY BABY SQUID', seal: false,
+        tr: 'Ateşin denize uzandığı tek an. Tartar sos ve közlenmiş limonla.',
+        en: 'The one moment the fire reaches for the sea. With tartare sauce and grilled lemon.' },
+      { id: 'burrata', name: 'BURRATA', seal: false,
+        tr: 'Etin gölgesinde dinlenen süt. Fesleğen pesto ve çeri domates.',
+        en: 'Milk resting in the shadow of the meat. Basil pesto and cherry tomatoes.' },
+      { id: 'mediterranean-greens', name: 'AKDENİZ SALATASI', seal: false,
+        tr: 'Nar, ceviz, keçi peyniri ve yeşil elma; bıçağın dokunmadığı sayfa.',
+        en: 'Pomegranate, walnut, goat cheese, green apple; the one page the knife never touched.' }
+    ],
+    ritual: [
+      { id: 'nusret-special-24k', name: 'NUSRET SPECIAL BURGER · 24K GOLD', seal: false,
+        tr: 'Yenilebilir 24 ayar altına sarılı premium köfte, dana füme, çıtır soğan ve cheddar. Masada tamamlanan gösteriyle servis edilir. Defterin mührü.',
+        en: 'A premium patty wrapped in edible 24 karat gold, with smoked beef, crispy onions and cheddar. Finished tableside, as a ceremony. The seal of the ledger.' }
+    ],
+    sides: [
+      { id: 'fries', name: 'PATATES KIZARTMASI', seal: false,
+        tr: 'Çelik kovada, kızgın ve bol. Endüstriyel lüksün en dürüst hali.',
+        en: 'In a steel bucket, hot and generous. Industrial luxury at its most honest.' },
+      { id: 'spiced-fries', name: 'BAHARATLI PATATES', seal: false,
+        tr: 'Aynı kova, daha cesur.',
+        en: 'Same bucket, more courage.' },
+      { id: 'onion-crisps', name: 'ÇITIR SOĞAN', seal: false,
+        tr: 'İnce, altın rengi, sesli.',
+        en: 'Thin, golden, loud.' }
+    ],
+    desserts: [
+      { id: 'baklava', name: 'BAKLAVA', seal: false,
+        tr: 'Kırk kat sabır, bir kat şerbet.',
+        en: 'Forty layers of patience, one layer of syrup.' }
+    ],
 
     steaks: [
       { id: 'lokum', name: 'LOKUM', seal: true,

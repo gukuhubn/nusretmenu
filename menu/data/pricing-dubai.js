@@ -15,6 +15,13 @@ window.KasapPricing.dubai = {
   label: 'Dubai',
   source: 'BEKLEMEDE — Dubai fiyat listesi',
   prices: {
+    /* Ateşten Önce */
+    'meat-sushi': '---',
+    'beef-tacos': '---',
+    'steak-tartar': '---',
+    'crispy-baby-squid': '---',
+    'burrata': '---',
+    'mediterranean-greens': '---',
     /* Kasabın Seçimi */
     'lokum': '---',
     'fillet-mignon': '---',
@@ -27,6 +34,14 @@ window.KasapPricing.dubai = {
     'saltbae-special': '---',
     'mushroom-burger': '---',
     'smoked-bbq-burger': '---',
-    'avocado-burger': '---'
+    'avocado-burger': '---',
+    /* Ritüel */
+    'nusret-special-24k': '---',
+    /* Yanında */
+    'fries': '---',
+    'spiced-fries': '---',
+    'onion-crisps': '---',
+    /* Tatlı Son */
+    'baklava': '---'
   }
 };

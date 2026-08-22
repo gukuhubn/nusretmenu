@@ -16,6 +16,13 @@ window.KasapPricing.istanbul = {
   label: 'İstanbul',
   source: 'BEKLEMEDE — SaltBae Burger Erenköy QR menüsü',
   prices: {
+    /* Ateşten Önce */
+    'meat-sushi': '---',
+    'beef-tacos': '---',
+    'steak-tartar': '---',
+    'crispy-baby-squid': '---',
+    'burrata': '---',
+    'mediterranean-greens': '---',
     /* Kasabın Seçimi */
     'lokum': '---',
     'fillet-mignon': '---',
@@ -28,6 +35,14 @@ window.KasapPricing.istanbul = {
     'saltbae-special': '---',
     'mushroom-burger': '---',
     'smoked-bbq-burger': '---',
-    'avocado-burger': '---'
+    'avocado-burger': '---',
+    /* Ritüel */
+    'nusret-special-24k': '---',
+    /* Yanında */
+    'fries': '---',
+    'spiced-fries': '---',
+    'onion-crisps': '---',
+    /* Tatlı Son */
+    'baklava': '---'
   }
 };
