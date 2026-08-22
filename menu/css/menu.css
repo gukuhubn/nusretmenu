@@ -1,0 +1,313 @@
+/* Kasap Defteri — DÜZEN
+ * ==================================================================
+ * project/Kasap Defteri Menu.dc.html tasarımının birebir karşılığı.
+ * Ölçüler tasarımdaki gibi mm/pt cinsindendir: her ikisi de mutlak CSS
+ * birimi olduğundan ekranda ve baskıda aynı fiziksel boyuta oturur.
+ * İçerik burada değildir — data/content.js.
+ */
+
+/* ---------- Değişmezler ---------- */
+:root {
+  --paper-a: #22201c;      /* Mod A — illüstrasyon */
+  --paper-b: #131110;      /* Mod B — karanlık portre */
+  --ink: #e9e1d1;          /* krem */
+  --brass: #b5824c;        /* pirinç */
+  --oxblood: #7c3030;      /* bağa kırmızısı */
+  --page-w: 210mm;         /* A4 dikey */
+  --page-h: 297mm;
+  --serif: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
+  --sans: Archivo, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ---------- Tezgâh (yalnız ekran) ---------- */
+html { background: #100f0d; }
+body {
+  margin: 0;
+  background: #100f0d;
+  padding: 48px 24px;
+  min-width: max-content;
+  box-sizing: border-box;
+  font-family: var(--sans);
+}
+.deck { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+
+/* ---------- Sayfa kutusu ---------- */
+.page {
+  position: relative;
+  width: var(--page-w);
+  height: var(--page-h);
+  box-sizing: border-box;
+  overflow: hidden;                 /* kutuya sığmayan içerik kırpılır */
+  padding: 14mm 16mm 20mm;
+  background: var(--paper-a);
+  color: var(--ink);
+  font-family: var(--serif);
+  border-radius: 7px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .45);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.page--b { background: var(--paper-b); }
+.page--cover-b { padding-bottom: 18mm; }
+
+/* Tarama dokusu — yalnız Mod A */
+.page__scan {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(0deg,
+    rgba(233, 225, 209, .022) 0, rgba(233, 225, 209, .022) 1px,
+    transparent 1px, transparent 3px);
+}
+/* İç cetvel çerçevesi */
+.page__frame {
+  position: absolute; inset: 7mm; pointer-events: none;
+  border: 1px solid rgba(181, 130, 76, .3);
+}
+.page--b .page__frame { border-color: rgba(181, 130, 76, .25); }
+
+.sheet {
+  position: relative; height: 100%; box-sizing: border-box;
+  display: flex; flex-direction: column;
+}
+.sheet--cover { align-items: center; text-align: center; }
+.spacer { flex: 1; }
+.spacer--wide { flex: 1.2; }
+
+/* ---------- Cari başlık ---------- */
+.runhead {
+  display: flex; justify-content: space-between;
+  font-family: var(--sans); font-size: 6.5pt; letter-spacing: .26em;
+  color: rgba(233, 225, 209, .45);
+}
+.page--b .runhead { color: rgba(233, 225, 209, .4); }
+.sheet--cover .runhead { align-self: stretch; }
+.sheet--body .runhead { margin-bottom: 9mm; }
+
+/* ---------- Kapak ---------- */
+.wordmark {
+  font-family: var(--sans); font-size: 9pt; letter-spacing: .52em;
+  color: rgba(233, 225, 209, .75);
+}
+.wordmark-main {
+  font-family: var(--sans); font-weight: 600; font-size: 15pt;
+  letter-spacing: .6em; color: var(--ink); margin-top: 2mm;
+}
+.cover-title { font-size: 34pt; font-weight: 600; line-height: 1.05; margin-top: 10mm; }
+.page--cover-b .cover-title { font-size: 30pt; margin-top: 8mm; }
+.cover-title-en {
+  font-family: var(--sans); font-size: 8pt; letter-spacing: .4em;
+  color: var(--brass); margin-top: 3mm;
+}
+.accent-bar { width: 14mm; border-top: 2px solid var(--oxblood); margin-top: 6mm; }
+.ledger-tr {
+  font-style: italic; font-size: 12pt; line-height: 1.55;
+  color: rgba(233, 225, 209, .85); max-width: 120mm;
+}
+.ledger-en {
+  font-style: italic; font-size: 9.5pt; line-height: 1.5;
+  color: rgba(233, 225, 209, .45); max-width: 120mm; margin-top: 4mm;
+}
+.cover-tail { height: 12mm; }
+.moto-tr { font-style: italic; font-size: 12.5pt; color: rgba(233, 225, 209, .85); margin-top: 8mm; }
+.moto-en { font-style: italic; font-size: 9.5pt; color: rgba(233, 225, 209, .45); margin-top: 1.5mm; }
+
+/* Mod B kapağındaki tam genişlik portre yuvası */
+.cover-portrait { align-self: stretch; flex: 1; min-height: 60mm; margin-top: 9mm; }
+
+/* ---------- Bölüm başlığı ---------- */
+.sec { display: flex; align-items: baseline; gap: 6mm; }
+.sec__num { font-size: 26pt; font-weight: 600; color: var(--brass); }
+.sec__title { font-size: 27pt; font-weight: 600; line-height: 1.05; }
+.sec--burgers .sec__title { font-size: 23pt; line-height: 1.1; }
+.sec__title-en {
+  font-family: var(--sans); font-size: 8pt; letter-spacing: .36em;
+  color: var(--brass); margin-top: 2.5mm;
+}
+.sec--burgers .sec__title-en { letter-spacing: .3em; }
+
+.lede {
+  font-style: italic; font-size: 11.5pt; line-height: 1.45;
+  color: rgba(233, 225, 209, .82); max-width: 150mm; margin-top: 5mm;
+}
+.lede--en {
+  font-size: 9.5pt; line-height: 1.4;
+  color: rgba(233, 225, 209, .45); margin-top: 1mm;
+}
+.lede--wide { max-width: 155mm; }
+.lede--free { max-width: none; }   /* ızgara sütunu zaten daraltıyor */
+
+/* Görsel yuvasının altındaki gravür kayıt satırı */
+.caption {
+  display: flex; justify-content: space-between;
+  font-family: var(--sans); font-size: 6.5pt; letter-spacing: .22em;
+  color: rgba(181, 130, 76, .8);
+}
+.page--b .caption { color: rgba(181, 130, 76, .75); }
+/* Kapak sütunu ortalıdır; kayıt satırı yine de kenardan kenara gerilir. */
+.sheet--cover .caption { align-self: stretch; margin-top: 2.5mm; }
+
+/* ---------- Ürün listeleri ---------- */
+.items { display: flex; flex-direction: column; gap: 7mm; margin-top: 9mm; }
+.page--b .items { gap: 6.5mm; margin-top: 8mm; }
+
+.items--grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  column-gap: 12mm; row-gap: 8mm; margin-top: 10mm;
+}
+.page--b .items--grid { row-gap: 6.5mm; margin-top: 7mm; }
+
+.item { display: flex; gap: 6mm; align-items: flex-start; }
+.items--grid .item { gap: 4mm; }
+.item__body { flex: 1; display: flex; flex-direction: column; gap: 1.4mm; }
+.items--grid .item__body { gap: 1.3mm; }
+.page--b .items--grid .item__body { gap: 1.2mm; }
+.item__head { display: flex; align-items: baseline; gap: 5mm; }
+.items--grid .item__head { gap: 4mm; }
+.item__name {
+  font-family: var(--sans); font-weight: 500; font-size: 10pt; letter-spacing: .22em;
+}
+.items--grid .item__name { font-size: 9pt; letter-spacing: .2em; }
+.item__gap { flex: 1; }
+.item__price {
+  font-family: var(--sans); font-size: 8.5pt; letter-spacing: .1em;
+  color: rgba(181, 130, 76, .95);
+}
+.items--grid .item__price { font-size: 8pt; }
+.item__tr { font-style: italic; font-size: 11.5pt; line-height: 1.4; color: rgba(233, 225, 209, .85); }
+.items--grid .item__tr { font-size: 10.5pt; }
+.page--b .items--grid .item__tr { line-height: 1.38; }
+.item__en { font-style: italic; font-size: 9.5pt; line-height: 1.4; color: rgba(233, 225, 209, .46); }
+.items--grid .item__en { font-size: 9pt; }
+.page--b .items--grid .item__en { line-height: 1.38; }
+
+/* ---------- Kasabın işareti mührü ---------- */
+.seal {
+  position: relative; flex: none;
+  width: 18mm; height: 18mm; box-sizing: border-box;
+  border: 1px solid rgba(181, 130, 76, .65); border-radius: 50%;
+  padding: 1.3mm; transform: rotate(-8deg);
+}
+.items--grid .seal { width: 16mm; height: 16mm; padding: 1.2mm; }
+.seal__inner {
+  width: 100%; height: 100%; box-sizing: border-box;
+  border: 1px solid rgba(181, 130, 76, .4); border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: var(--brass); gap: .6mm;
+}
+.items--grid .seal__inner { gap: .5mm; }
+.seal__line { font-family: var(--sans); font-size: 4.5pt; letter-spacing: .15em; }
+.items--grid .seal__line { font-size: 4.2pt; letter-spacing: .13em; }
+/* Mühür varlığı (assets/seal.*) düştüğünde çizili mührün yerini alır */
+.seal .slot { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; }
+.seal:has(image-slot[data-filled]) { border-color: transparent; padding: 0; }
+.seal:has(image-slot[data-filled]) .seal__inner { display: none; }
+
+/* ---------- Alt nişan ---------- */
+.footmark {
+  position: absolute; left: 50%; bottom: 11.5mm; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 3mm;
+}
+.footmark__rule { width: 22mm; border-top: 1px solid rgba(181, 130, 76, .4); }
+.footmark__dot {
+  width: 1.6mm; height: 1.6mm; background: var(--brass);
+  transform: rotate(45deg); opacity: .7;
+}
+.page--b .footmark__rule { border-top-color: rgba(181, 130, 76, .35); }
+.page--b .footmark__dot { opacity: .6; }
+
+/* ==================================================================
+ * GÖRSEL YUVALARI
+ * Her yuva bir <image-slot> (sürükle-bırak + kalıcılık) ve onun altında
+ * gravür tonunda bir placeholder taşır. Yuva boşken placeholder görünür;
+ * assets/<data-asset-id>.<uzantı> bulunduğu an fotoğraf üstünü kapatır.
+ * Kırık görsel hiçbir zaman görünmez: src yalnızca dosya gerçekten
+ * yüklendiğinde atanır (js/menu.js · resolveAssets).
+ * ================================================================== */
+.slot { position: relative; }
+.slot image-slot { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* image-slot'un kendi boş-durum arayüzü kapatılır — yerine bizim
+ * gravür placeholder'ımız geçer (İngilizce "browse files" metni ve gri
+ * dolgu baskıya girmesin diye). */
+image-slot::part(empty) { display: none !important; }
+image-slot::part(ring) { display: none !important; }
+image-slot::part(frame) { background: transparent !important; }
+
+.slot__ph {
+  position: absolute; inset: 0; pointer-events: none;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2mm; padding: 6mm; box-sizing: border-box; text-align: center;
+  border: 1px dashed rgba(181, 130, 76, .38);
+  background:
+    repeating-linear-gradient(-45deg,
+      rgba(181, 130, 76, .05) 0, rgba(181, 130, 76, .05) 1px,
+      transparent 1px, transparent 5px);
+  color: rgba(181, 130, 76, .75);
+}
+.slot--circle .slot__ph { border-radius: 50%; }
+/* Varlık düştüğünde placeholder tamamen çekilir */
+.slot:has(image-slot[data-filled]) .slot__ph { display: none; }
+
+.slot__ph-mark { width: 6mm; height: 6mm; opacity: .8; }
+.slot__ph-cap {
+  font-family: var(--serif); font-style: italic; font-size: 9.5pt;
+  line-height: 1.35; max-width: 80%;
+}
+.slot__ph-id {
+  font-family: var(--sans); font-size: 5.5pt; letter-spacing: .22em;
+  color: rgba(181, 130, 76, .55);
+}
+.slot--tight .slot__ph { gap: 1mm; padding: 3mm; }
+.slot--tight .slot__ph-cap { font-size: 7.5pt; }
+.slot--tight .slot__ph-mark { display: none; }
+/* Mühür yuvası: çizili mühür zaten placeholder'dır, ikinci bir çerçeve olmaz */
+.seal .slot__ph { display: none; }
+
+/* ==================================================================
+ * EKRAN ARAÇ ÇUBUĞU — baskıya girmez
+ * ================================================================== */
+.toolbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
+  max-width: var(--page-w); margin: 0 auto 18px;
+  padding: 10px 14px; box-sizing: border-box;
+  background: rgba(34, 32, 28, .92);
+  border: 1px solid rgba(181, 130, 76, .3);
+  border-radius: 6px;
+  font-family: var(--sans); font-size: 11px; letter-spacing: .12em;
+  color: rgba(233, 225, 209, .8);
+  backdrop-filter: blur(6px);
+}
+.toolbar__group { display: flex; align-items: center; gap: 8px; }
+.toolbar__label { color: rgba(233, 225, 209, .45); font-size: 9px; letter-spacing: .24em; }
+.toolbar a, .toolbar button {
+  font: inherit; letter-spacing: inherit;
+  color: rgba(233, 225, 209, .8); text-decoration: none;
+  background: transparent; border: 1px solid rgba(181, 130, 76, .35);
+  border-radius: 3px; padding: 4px 10px; cursor: pointer;
+}
+.toolbar a:hover, .toolbar button:hover { color: #d4a26b; border-color: rgba(181, 130, 76, .7); }
+.toolbar a[aria-current="true"] { color: #100f0d; background: var(--brass); border-color: var(--brass); }
+.toolbar__note { color: rgba(233, 225, 209, .38); letter-spacing: .04em; font-size: 10px; }
+
+/* ==================================================================
+ * BASKI — A4 dikey, tam taşma, sayfa başına tek yaprak
+ * ================================================================== */
+@page { size: 210mm 297mm; margin: 0; }
+
+@media print {
+  html, body {
+    margin: 0 !important; padding: 0 !important;
+    background: none !important; min-width: 0 !important;
+  }
+  .toolbar { display: none !important; }
+  .deck { display: block; gap: 0; }
+  .page {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    break-inside: avoid;
+  }
+  .page + .page { break-before: page; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact;
+      backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+}

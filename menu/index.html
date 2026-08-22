@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kasap Defteri — SaltBae Burger</title>
+
+<!-- Tasarımın tipografisi: Cormorant Garamond (serif gövde) + Archivo (etiketler) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/menu.css">
+</head>
+<body>
+
+<!--
+  TEK ŞABLON, İKİ ÇIKTI
+  ---------------------------------------------------------------
+  index.html?mode=A   → Mod A · illüstrasyon   (kapak + kasabın seçimi + burger)
+  index.html?mode=B   → Mod B · karanlık portre (kapak + kasabın seçimi + burger)
+  index.html?mode=AB  → altı sayfa arka arkaya
+  Varsayılan mod, fiyat bölgesi ve fiyat görünürlüğü: data/config.js
+-->
+<div class="deck" id="deck"></div>
+
+<!-- Veri katmanı: layout'tan tamamen ayrık, sırayla yüklenir -->
+<script src="data/config.js"></script>
+<script src="data/content.js"></script>
+<script src="data/pricing-istanbul.js"></script>
+<script src="data/pricing-dubai.js"></script>
+
+<!-- Sürükle-bırak görsel yuvası (tasarım bundle'ından, değiştirilmedi) -->
+<script src="js/image-slot.js"></script>
+
+<!-- Şablon -->
+<script src="js/menu.js"></script>
+</body>
+</html>
