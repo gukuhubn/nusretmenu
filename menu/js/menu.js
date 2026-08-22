@@ -67,6 +67,17 @@
       ${slot('seal', `${C.seal.line1} ${C.seal.line2}`, { shape: 'circle', tight: true })}
     </div>`;
 
+  /* Metni henüz gelmemiş bölümler için görünür bekleme durumu.
+   * Konsept dokümanı Bölüm 3 geldiğinde data/content.js dolar ve bu blok
+   * kendiliğinden kaybolur — layout değişmez. */
+  const pending = (label, n) => `
+    <div class="pending">
+      <div class="pending__rule"></div>
+      <div class="pending__text">${esc(label)} · ${n} ÜRÜN METNİ BEKLENİYOR</div>
+      <div class="pending__hint">data/content.js → items</div>
+      <div class="pending__rule"></div>
+    </div>`;
+
   const itemRow = (item) => `
     <div class="item">
       <div class="item__body">
@@ -201,7 +212,142 @@
     </section>`;
   };
 
-  const pagesFor = (mode) => pageCover(mode) + pageSteaks(mode) + pageBurgers(mode);
+  /* Manifesto — yalnızca content.sections.manifesto.body doldurulmuşsa
+   * ayrı sayfa olarak basılır; boşsa manifesto Mod A kapağında akar. */
+  const pageManifesto = (mode) => {
+    const sec = C.sections.manifesto;
+    if (!sec.body) return '';
+    return `
+    <section class="page page--${mode.toLowerCase()}" data-screen-label="Manifesto · Mod ${mode}">
+      ${chrome(mode)}
+      <div class="sheet sheet--cover">
+        ${runhead(mode, C.brand.docLine)}
+        <div class="spacer"></div>
+        <div class="cover-title">${esc(sec.titleLines[0])}</div>
+        <div class="cover-title-en">${esc(sec.titleEn)}</div>
+        <div class="accent-bar"></div>
+        <div class="ledger-tr" style="margin-top:10mm">${esc(sec.body)}</div>
+        ${sec.bodyEn ? `<div class="ledger-en">${esc(sec.bodyEn)}</div>` : ''}
+        <div class="spacer spacer--wide"></div>
+      </div>
+      ${footmark()}
+    </section>`;
+  };
+
+  /* I — Ateşten Önce (6 ürün) */
+  const pageStarters = (mode) => {
+    const a = mode === 'A';
+    const sec = C.sections.starters;
+    const items = C.items.starters || [];
+    return `
+    <section class="page page--${mode.toLowerCase()}"
+             data-screen-label="Ateşten Önce · Mod ${mode}">
+      ${chrome(mode)}
+      <div class="sheet sheet--body">
+        ${runhead(mode, C.brand.docLine)}
+        ${sectionHead(sec, 'starters', mode)}
+        ${sec.ledeTr ? `<div class="lede">${esc(sec.ledeTr)}</div>` : ''}
+        ${sec.ledeEn ? `<div class="lede lede--en">${esc(sec.ledeEn)}</div>` : ''}
+        <div style="margin:8mm 0 2.5mm">
+          ${a
+            ? slot('motif-ember', 'kor gravürü — ateşten önce', { style: 'width:100%;height:52mm' })
+            : slot('hero-starter', 'başlangıç tabağı portresi', { style: 'width:100%;height:56mm' })}
+        </div>
+        <div class="items">
+          ${items.length ? items.map(itemRow).join('') : pending('ATEŞTEN ÖNCE', sec.expect)}
+        </div>
+      </div>
+      ${footmark()}
+    </section>`;
+  };
+
+  /* IV — Ritüel: tek ürünlük sahne sayfası. Altın vurgu yalnız burada. */
+  const pageRitual = (mode) => {
+    const a = mode === 'A';
+    const sec = C.sections.ritual;
+    const item = (C.items.ritual || [])[0];
+    return `
+    <section class="page page--${mode.toLowerCase()} page--ritual"
+             data-screen-label="Ritüel · Mod ${mode}">
+      ${chrome(mode)}
+      <div class="sheet sheet--cover">
+        ${runhead(mode, C.brand.docLine)}
+        <div class="spacer"></div>
+        <div class="sec sec--ritual">
+          <div class="sec__num">${esc(sec.numeral)}</div>
+          <div>
+            <div class="sec__title">${sec.titleLines.map(esc).join(' ')}</div>
+            <div class="sec__title-en">${esc(sec.titleEn)}</div>
+          </div>
+        </div>
+        ${a
+          ? slot('ritual-gold-leaf', 'altın varak ritüeli — gravür',
+                 { shape: 'circle', style: 'width:64mm;height:64mm;margin-top:9mm' })
+          : slot('hero-ritual', '24K altın kaplama sahne portresi',
+                 { style: 'width:100%;height:86mm;margin-top:9mm' })}
+        ${item ? `
+        <div class="ritual-item">
+          <div class="ritual-item__name">${esc(item.name)}</div>
+          <div class="ritual-item__price">${esc(priceOf(item))}</div>
+          <div class="ritual-item__tr">${esc(item.tr)}</div>
+          <div class="ritual-item__en">${esc(item.en)}</div>
+        </div>` : pending('RİTÜEL · NUSRET SPECIAL 24K GOLD', sec.expect)}
+        <div class="spacer spacer--wide"></div>
+      </div>
+      ${footmark()}
+    </section>`;
+  };
+
+  /* V — Yanında (3 ürün) + Tatlı Son (Baklava) aynı sayfada */
+  const pageSides = (mode) => {
+    const a = mode === 'A';
+    const sec = C.sections.sides;
+    const des = C.sections.dessert;
+    const sides = C.items.sides || [];
+    const desserts = C.items.desserts || [];
+    return `
+    <section class="page page--${mode.toLowerCase()}"
+             data-screen-label="Yanında + Tatlı Son · Mod ${mode}">
+      ${chrome(mode)}
+      <div class="sheet sheet--body">
+        ${runhead(mode, C.brand.docLine)}
+        ${sectionHead(sec, 'sides', mode)}
+        ${sec.ledeTr ? `<div class="lede">${esc(sec.ledeTr)}</div>` : ''}
+        <div style="margin:7mm 0 2.5mm">
+          ${a
+            ? slot('motif-side', 'garnitür gravürü', { style: 'width:100%;height:44mm' })
+            : slot('hero-side', 'garnitür portresi', { style: 'width:100%;height:48mm' })}
+        </div>
+        <div class="items">
+          ${sides.length ? sides.map(itemRow).join('') : pending('YANINDA', sec.expect)}
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="sec sec--dessert">
+          <div class="sec__num"></div>
+          <div>
+            <div class="sec__title">${des.titleLines.map(esc).join(' ')}</div>
+            <div class="sec__title-en">${esc(des.titleEn)}</div>
+          </div>
+        </div>
+        <div class="items items--dessert">
+          ${desserts.length ? desserts.map(itemRow).join('') : pending('TATLI SON · BAKLAVA', des.expect)}
+        </div>
+      </div>
+      ${footmark()}
+    </section>`;
+  };
+
+  /* Menünün tam yapısı — her mod için aynı sıra. */
+  const pagesFor = (mode) =>
+    pageCover(mode) +
+    pageManifesto(mode) +
+    pageStarters(mode) +
+    pageSteaks(mode) +
+    pageBurgers(mode) +
+    pageRitual(mode) +
+    pageSides(mode);
 
   /* ================= ARAÇ ÇUBUĞU (yalnız ekran) ================= */
   const link = (params, label, active) => {

@@ -55,9 +55,13 @@ Fiyat geldiğinde tek dokunulacak yer: `menu/data/pricing-istanbul.js`.
 
 **Karar gerekiyor:** izin kuralı eklenmesi veya anahtarın doğrudan verilmesi.
 
-## 5. Gemini ile varlık üretimi  `[ ]` BAŞLANMADI
+## 5. Gemini ile varlık üretimi  `[!]` ENGELLENDİ
 
-Görev 4'e bağlı. Tasarımın istediği varlıklar:
+Görev 4'e bağlı — `GEMINI_API_KEY` ortamda tanımlı değil (kontrol edildi:
+`GEMINI_API_KEY`, `GOOGLE_API_KEY`, `GOOGLE_GENAI_API_KEY`, `GEMINI_KEY`,
+`GENAI_API_KEY`, `VERTEX_API_KEY`, `GOOGLE_APPLICATION_CREDENTIALS` — hepsi boş).
+Ayrıca varlık brief'leri konsept dokümanı Bölüm 5'te ve o doküman elimde yok.
+Aşağıdaki asset-id'ler tasarımdan türetildi; doküman gelince isimler eşlenebilir.
 
 - [ ] `logo-mark` — figürsüz logo, kabartma
 - [ ] `cut-diagram` — dana kesim diyagramı, gravür (Gemini 5.2.1)
@@ -66,3 +70,28 @@ Görev 4'e bağlı. Tasarımın istediği varlıklar:
 - [ ] `hero-steak` — steak portresi (Gemini 5.3.3)
 - [ ] `hero-burger` — hero burger, eriyen cheddar + buhar (Gemini 5.3.1)
 - [ ] `seal` — kasabın işareti mührü (şu an CSS ile çiziliyor, varlık opsiyonel)
+- [ ] `motif-ember` / `hero-starter` — Ateşten Önce
+- [ ] `ritual-gold-leaf` / `hero-ritual` — Ritüel (24K altın)
+- [ ] `motif-side` / `hero-side` — Yanında
+
+## 6. Eksik sayfalar (revizyon turu 1)  `[~]` ŞABLONLAR HAZIR, METİN BEKLENİYOR
+
+- [x] Ateşten Önce (I) sayfa şablonu — 6 ürünlük liste
+- [x] Ritüel (IV) tek ürünlük sahne sayfası — altın vurgu yalnız bu sayfada
+- [x] Yanında (V) + Tatlı Son aynı sayfada
+- [x] Manifesto: kapakta akıyor; `sections.manifesto.body` dolarsa ayrı sayfa
+- [x] Numaralandırma I–V'e taşındı
+- [ ] Metinler — konsept dokümanı Bölüm 3 elimde yok
+
+## 7. Fontların gömülmesi  `[x]` TAMAM
+
+- [x] `menu/assets/fonts/` — 13 woff2, 34 `@font-face`, latin-ext dahil
+- [x] `index.html` Google Fonts linki yerel kopyayla değiştirildi
+- [x] Doğrulandı: tüm dış istekler kesilmiş tarayıcıda gerçek fontlar çiziliyor
+
+## 8. Çıktılar  `[x]` TAMAM
+
+- [x] `output/kasap-defteri-mod-a.pdf` (6 sayfa)
+- [x] `output/kasap-defteri-mod-b.pdf` (6 sayfa)
+- [x] `tools/build-pdf.js` — yeniden üretim betiği
+- [x] `TESLIM.md`

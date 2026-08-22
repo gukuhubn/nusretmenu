@@ -41,6 +41,26 @@ window.KasapContent = {
       ledeTr: 'Bir kasabı ustalaştıran, sattığı et değil, kendine ayırdığı ettir. Bu sayfadakiler o etlerdir.',
       ledeEn: 'What makes a butcher a master is not the meat he sells, but the cuts he keeps for himself. These are those cuts.'
     },
+    /* Manifesto: varsayılan olarak Mod A kapağında akar (cover.ledgerTr).
+     * `body` doldurulursa AYRI bir manifesto sayfası olarak da basılır. */
+    manifesto: {
+      numeral: '',
+      titleLines: ['Manifesto'],
+      titleEn: 'MANIFESTO',
+      body: null,      /* ← konsept dokümanı Bölüm 3 */
+      bodyEn: null
+    },
+
+    /* I — Ateşten Önce (6 ürün) */
+    starters: {
+      numeral: 'I',
+      titleLines: ['Ateşten Önce'],
+      titleEn: 'BEFORE THE FIRE',   /* taslak çeviri */
+      ledeTr: '',      /* ← konsept dokümanı Bölüm 3 */
+      ledeEn: '',
+      expect: 6
+    },
+
     burgers: {
       numeral: 'III',
       /* Mod A'da iki satır, Mod B'de tek satır dizilir. */
@@ -48,6 +68,34 @@ window.KasapContent = {
       titleEn: 'STEAKHOUSE SOUL, BURGER FORM',
       ledeTr: "Her sabah çekilen 180 gram dana, her sabah pişen ekmek. Burger burada bir kısayol değil, steakhouse'un el sıkışmasıdır.",
       ledeEn: "180 grams of beef ground every morning, buns baked every morning. Here the burger is no shortcut. It is the steakhouse's handshake."
+    },
+
+    /* IV — Ritüel: tek ürünlük sahne sayfası (Nusret Special 24K Gold).
+     * Altın vurgu SADECE bu sayfada kullanılır. */
+    ritual: {
+      numeral: 'IV',
+      titleLines: ['Ritüel'],
+      titleEn: 'THE RITUAL',        /* taslak çeviri */
+      ledeTr: '',      /* ← konsept dokümanı Bölüm 3 */
+      ledeEn: '',
+      expect: 1
+    },
+
+    /* V — Yanında (3 ürün) + Tatlı Son (Baklava) aynı sayfada */
+    sides: {
+      numeral: 'V',
+      titleLines: ['Yanında'],
+      titleEn: 'ALONGSIDE',         /* taslak çeviri */
+      ledeTr: '',
+      ledeEn: '',
+      expect: 3
+    },
+    dessert: {
+      titleLines: ['Tatlı Son'],
+      titleEn: 'A SWEET ENDING',    /* taslak çeviri */
+      ledeTr: '',
+      ledeEn: '',
+      expect: 1
     }
   },
 
@@ -63,6 +111,14 @@ window.KasapContent = {
   seal: { line1: 'KASABIN', line2: 'İŞARETİ' },
 
   items: {
+    /* BOŞ DİZİLER = içerik bekleniyor. Konsept dokümanı Bölüm 3'teki
+     * metinler geldiğinde buraya yazılır; layout'a dokunulmaz.
+     * Her ürün: { id, name, seal, tr, en } — id fiyat modülünün anahtarıdır. */
+    starters: [],     /* Ateşten Önce — 6 ürün beklenir */
+    ritual: [],       /* Ritüel — Nusret Special 24K Gold, 1 ürün */
+    sides: [],        /* Yanında — 3 ürün */
+    desserts: [],     /* Tatlı Son — Baklava, 1 ürün */
+
     steaks: [
       { id: 'lokum', name: 'LOKUM', seal: true,
         tr: 'Adını yumuşaklığından alır. Bonfilenin kalbi, ateşte mühürlenir, tereyağıyla dinlendirilir.',

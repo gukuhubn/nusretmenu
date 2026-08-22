@@ -311,3 +311,55 @@ image-slot::part(frame) { background: transparent !important; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact;
       backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 }
+
+/* ==================================================================
+ * IV · RİTÜEL — tek ürünlük sahne sayfası
+ * Altın vurgu SADECE bu sayfada kullanılır; defterin geri kalanı pirinçtir.
+ * ================================================================== */
+.page--ritual { --brass: #d4af37; }          /* pirinç → altın, yalnız bu sayfada */
+.page--ritual .page__frame { border-color: rgba(212, 175, 55, .38); }
+.page--ritual .accent-bar { border-top-color: #d4af37; }
+.sec--ritual { justify-content: center; }
+.ritual-item { margin-top: 9mm; text-align: center; }
+.ritual-item__name {
+  font-family: var(--sans); font-weight: 600; font-size: 12pt; letter-spacing: .34em;
+  color: #d4af37;
+}
+.ritual-item__price {
+  font-family: var(--sans); font-size: 9pt; letter-spacing: .12em;
+  color: rgba(212, 175, 55, .9); margin-top: 3mm;
+}
+.ritual-item__tr {
+  font-style: italic; font-size: 13pt; line-height: 1.45;
+  color: rgba(233, 225, 209, .9); max-width: 130mm; margin: 5mm auto 0;
+}
+.ritual-item__en {
+  font-style: italic; font-size: 9.5pt; line-height: 1.4;
+  color: rgba(233, 225, 209, .45); max-width: 130mm; margin: 2mm auto 0;
+}
+
+/* ---------- V · Yanında + Tatlı Son: aynı sayfada iki bölüm ---------- */
+.section-divider {
+  margin: 9mm 0 8mm;
+  border-top: 1px solid rgba(181, 130, 76, .28);
+}
+.sec--dessert .sec__title { font-size: 21pt; }
+.items--dessert { margin-top: 6mm; }
+
+/* ==================================================================
+ * İÇERİK BEKLENİYOR — metni gelmemiş bölümlerin görünür durumu.
+ * Baskıda da görünür: taslak olduğu belli olsun, sessizce boş kalmasın.
+ * ================================================================== */
+.pending {
+  display: flex; flex-direction: column; align-items: center; gap: 3mm;
+  padding: 10mm 0; text-align: center;
+}
+.pending__rule { width: 28mm; border-top: 1px solid rgba(181, 130, 76, .35); }
+.pending__text {
+  font-family: var(--sans); font-size: 7pt; letter-spacing: .3em;
+  color: rgba(181, 130, 76, .8);
+}
+.pending__hint {
+  font-family: var(--sans); font-size: 5.5pt; letter-spacing: .2em;
+  color: rgba(233, 225, 209, .3);
+}
