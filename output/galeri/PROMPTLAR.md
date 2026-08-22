@@ -1,12 +1,10 @@
 # Galeri konsept görselleri — prompt kaydı
 
-Üretim **beklemede**: `GEMINI_API_KEY` ortamda tanımlı değil.
-Ağ tarafı hazır — `generativelanguage.googleapis.com` erişilebilir durumda
-(anahtarsız çağrı Google'ın kendi `403 "unregistered caller"` yanıtını
-döndürüyor, proxy engeli değil). Anahtar tanımlanır tanımlanmaz:
+Üretim **tamamlandı** (2026-08-22): `gemini-3-pro-image` modeliyle
+iki artwork × 3 varyant üretildi. Yeniden üretim:
 
 ```bash
-GEMINI_API_KEY=... node tools/gen-galeri.js
+GEMINI_API_KEY=... node tools/gen-galeri.js --model gemini-3-pro-image
 ```
 
 Betik model adını tahmin etmez: anahtarın erişebildiği görsel üretim
@@ -42,3 +40,14 @@ Seçilmeyenler silinmez.
 
 Seçim üretimden sonra yapılır: kareler görülmeden hangisinin daha resimsel
 olduğuna karar verilemez.
+
+## Seçim kaydı (2026-08-22)
+
+- `galeri-kapak.png` ← **v2**. Gerekçe: v1'in sağ alt köşesinde model
+  uydurması bir ressam imzası var (elenme sebebi); v3'te tuz yığını
+  fotoğrafik duruyor. v2 imzasız, tek ışık huzmesi ve zemin fırça dokusuyla
+  en yağlıboya duran kare.
+- `galeri-salon2.png` ← **v2**. Gerekçe: perde draperisi ve ışık huzmesiyle
+  eski usta kompozisyonuna en yakın kare; fırça dokusu fon ve masada
+  belirgin. v1 daha yakın plan ama fon düz; v3'te ışık aşırı altın sarısı.
+- Elenen varyantlar silinmedi: `varyantlar/<id>-v1..v3.png`.
