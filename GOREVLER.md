@@ -114,3 +114,16 @@ Kaynak GitHub değil Drive oldu: `gh` CLI bu ortamda kurulu değil, GitHub
 - [ ] **Nusret logosu** — `SALTBAE LOGOLAR` klasöründe yok. Drive'da yalnız
       `NUSR-ET_PRESENTATION.pdf` / `Florentia Village Proposal` gibi sunumların
       içinde geçiyor; ayrı bir logo varlığı olarak bulunamadı.
+
+
+## 10. Galeri konsept görselleri  `[!]` ANAHTAR BEKLİYOR
+
+- [x] `tools/gen-galeri.js` — iki artwork × 3 varyant, ortak stil kilidi gömülü
+- [x] `output/galeri/PROMPTLAR.md` — promptların ve seçim akışının kaydı
+- [x] Ağ doğrulandı: `generativelanguage.googleapis.com` erişilebilir
+      (anahtarsız çağrıya Google'ın kendi 403'ü dönüyor, proxy engeli yok)
+- [ ] `galeri-kapak.png` — 3 varyant üretimi
+- [ ] `galeri-salon2.png` — 3 varyant üretimi
+- [ ] En resimsel karelerin seçimi (kareler görülmeden yapılamaz)
+
+`GEMINI_API_KEY` tanımlandığı an: `GEMINI_API_KEY=... node tools/gen-galeri.js`

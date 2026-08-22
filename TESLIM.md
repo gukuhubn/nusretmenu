@@ -68,6 +68,12 @@ Bölüm başlıklarının İngilizce karşılıkları (BEFORE THE FIRE, THE RITU
 ALONGSIDE, A SWEET ENDING) **taslak çeviridir**; konsept dokümanındaki
 karşılıklarıyla değiştirilmelidir.
 
+## Galeri konsept görselleri
+
+Üretim betiği hazır (`tools/gen-galeri.js`), promptlar ve stil kilidi
+`output/galeri/PROMPTLAR.md` içinde kayıtlı. Üretim `GEMINI_API_KEY`
+bekliyor; ağ tarafı doğrulandı ve açık.
+
 ## Tamamlanamayanlar
 
 Üçü de bende değil, girdi bekliyor — ayrıntı `GOREVLER.md`'de:
@@ -76,5 +82,7 @@ karşılıklarıyla değiştirilmelidir.
    bu workspace'te, GitHub reposunda ve Drive'da bulunamadı.
 2. **FineDine hâlâ engelli.** `finedinemenu.com`, `www.`, `api.`, `qr.` —
    dördü de proxy'de `403`. Fiyatlar bu yüzden `---`.
-3. **`GEMINI_API_KEY` tanımlı değil.** Ortamda yok; alternatif isimler de yok.
-   Varlık üretimi bu yüzden başlamadı, yuvalar placeholder'da.
+3. **`GEMINI_API_KEY` tanımlı değil.** Ortamda yok; alternatif isimler de yok
+   (revizyon turu 1'de ve galeri görevinde iki kez kontrol edildi). Hem menü
+   varlıkları hem galeri görselleri bu yüzden üretilemedi. Ağ engeli yok —
+   yalnız anahtar eksik.
