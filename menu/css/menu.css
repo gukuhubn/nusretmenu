@@ -83,14 +83,6 @@ body {
 .sheet--body .runhead { margin-bottom: 9mm; }
 
 /* ---------- Kapak ---------- */
-.wordmark {
-  font-family: var(--sans); font-size: 9pt; letter-spacing: .52em;
-  color: rgba(233, 225, 209, .75);
-}
-.wordmark-main {
-  font-family: var(--sans); font-weight: 600; font-size: 15pt;
-  letter-spacing: .6em; color: var(--ink); margin-top: 2mm;
-}
 .cover-title { font-size: 34pt; font-weight: 600; line-height: 1.05; margin-top: 10mm; }
 .page--cover-b .cover-title { font-size: 30pt; margin-top: 8mm; }
 .cover-title-en {

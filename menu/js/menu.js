@@ -128,14 +128,13 @@
       <div class="sheet sheet--cover">
         ${runhead(mode, C.brand.versionLine)}
         ${a ? '<div class="spacer"></div>' : '<div style="height:11mm"></div>'}
-        <div class="wordmark">${esc(C.brand.wordmarkTop)}</div>
-        <div class="wordmark-main">${esc(C.brand.wordmarkMain)}</div>
-        ${a ? slot('logo-mark', 'figürsüz logo — kabartma',
-                   /* Marka dosyasındaki kilit logo yatay (3,4:1). Tasarımın 36 mm
-                    * dairesi bunu kırpardı; kutu logonun oranına açıldı ve
-                    * fit=contain ile tam sığdırılıyor. */
-                   { shape: 'rect', fit: 'contain',
-                     style: 'width:88mm;height:26mm;margin-top:10mm' }) : ''}
+        ${slot('logo-mark', 'figürsüz kilit logo — kabartma',
+               /* Kilit logo markayı kapakta tek başına taşır — tipografik
+                * SALTBAE/BURGER satırları kaldırıldı. Kutu logonun oranında
+                * (3,4:1), fit=contain ile tam sığar. */
+               { shape: 'rect', fit: 'contain',
+                 style: a ? 'width:66mm;height:19.5mm;margin-top:10mm'
+                          : 'width:66mm;height:19.5mm' })}
         <div class="cover-title">${esc(C.cover.title)}</div>
         <div class="cover-title-en">${esc(C.cover.titleEn)}</div>
         <div class="accent-bar"></div>
@@ -336,6 +335,8 @@
             <div class="sec__title-en">${esc(des.titleEn)}</div>
           </div>
         </div>
+        ${des.ledeTr ? `<div class="lede">${esc(des.ledeTr)}</div>` : ''}
+        ${des.ledeEn ? `<div class="lede lede--en">${esc(des.ledeEn)}</div>` : ''}
         <div class="items items--dessert">
           ${desserts.length ? desserts.map(itemRow).join('') : pending('TATLI SON · BAKLAVA', des.expect)}
         </div>
