@@ -127,6 +127,12 @@ window.KasapContent = {
       ]
     },
 
+    /* Vitrin — kapak sonrası tam sayfa duotone foto altındaki satır */
+    vitrine: {
+      lineTr: 'Vitrin, ustanın ilk sayfasıdır.',
+      lineEn: "The counter is the master's first page."
+    },
+
     /* Arka kapak — tam sayfa duotone portre altındaki tek satır */
     backcover: {
       lineTr: 'Defteri tutan el.',

@@ -51,7 +51,7 @@ const MODES = [
 const maxWidthFor = (id) => {
   if (id.startsWith('mini-') || id.startsWith('branch-')) return 300;
   if (id.startsWith('corner-') || ['page-medallion', 'seal', 'founder-standing',
-      'founder-glasses', 'ritual-motif', 'nusret-logo'].includes(id)) return 480;
+      'founder-glasses', 'ritual-motif'].includes(id)) return 480;
   return 1400;
 };
 
@@ -160,7 +160,12 @@ function buildPrintPack() {
   for (const m of modes) {
     await page.goto(`${PAGE}?mode=${m.mode}&prices=${m.prices}`, { waitUntil: 'domcontentloaded' });
     await page.evaluate(() => document.fonts.ready);
-    await page.waitForTimeout(600);
+    /* tüm görsel yuvaları dolana kadar bekle — büyük foto geç çözülebilir */
+    await page.waitForFunction(() =>
+      ![...document.querySelectorAll('image-slot[data-asset-id]')]
+        .some((s) => !s.hasAttribute('data-filled')), { timeout: 10000 })
+      .catch(() => console.warn(`${m.mode}: bazı yuvalar dolmadı (varlık eksik olabilir)`));
+    await page.waitForTimeout(400);
     const n = await page.evaluate(() => document.querySelectorAll('.page').length);
     const dest = path.join(OUT, m.file);
     await page.pdf({ path: dest, width: '210mm', height: '297mm',

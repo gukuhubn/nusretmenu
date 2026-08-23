@@ -196,13 +196,8 @@
         <div class="cover-title">${esc(C.cover.title)}</div>
         <div class="cover-title-en">${esc(C.cover.titleEn)}</div>
         <div class="accent-bar"></div>
-        ${mode === 'C'
-          /* Manifesto yanı: et vitrini duotone bandı (kurucu fotoğraf
-           * katmanı). Kapak foto-ağırlıklı sayıldığından ayrıca gravür
-           * vinyeti basılmaz. */
-          ? `<div class="cover-photo-band">${slot('founder-vitrine-duo',
-               'et vitrini — bakır duotone', { fit: 'cover', tight: true, plate: true })}</div>`
-          : ''}
+        ${''/* Kapak sade: logo + başlık + manifesto. Vitrin fotoğrafı
+             * ayrı tam sayfa olarak manifesto sonrasında basılır. */}
         ${a ? `
         <div class="spacer spacer--wide"></div>
         <div class="ledger-tr">${esc(C.cover.ledgerTr)}</div>
@@ -240,8 +235,8 @@
           ${C.items.steaks.map((it) => itemRow(it, mode)).join('')}
         </div>
         ${mode === 'C'
-          /* Kurucu katmanı: alt bantta et keserken (bıçak seti bandının yerine) */
-          ? fillBand('founder-cutting', 22, 'usta et keserken — gravür bandı')
+          /* founder-cutting zayıf kaldı — bıçak seti bandına dönüldü */
+          ? fillBand('band-knives', 17, 'bıçak seti bandı')
           : ''}
       </div>
       ${footmark(mode, true)}
@@ -327,12 +322,12 @@
         ${sec.ledeTr ? `<div class="lede">${esc(sec.ledeTr)}</div>` : ''}
         ${sec.ledeEn ? `<div class="lede lede--en">${esc(sec.ledeEn)}</div>` : ''}
         <div style="margin:${mode === 'C' ? '5mm' : '8mm'} 0 2.5mm">
-          ${mode === 'C'
-            /* Kurucu katmanı: vitrin önü duruş gravürü açılışı taşır */
-            ? slot('founder-counter', 'usta vitrin önünde — gravür',
-                   { style: 'width:100%;height:34mm', fit: 'cover', plate: true })
-            : a
-            ? slot('motif-ember', 'kor gravürü — ateşten önce', { style: 'width:100%;height:52mm' })
+          ${a
+            /* founder-counter gravürü zayıf kaldı (yüz okunmuyor) —
+             * şiş/köz gravürüne dönüldü; C'de kısa kesim. */
+            ? slot('motif-ember', 'kor gravürü — ateşten önce',
+                   { style: 'width:100%;height:' + (mode === 'C' ? '30mm' : '52mm'),
+                     plate: true })
             : slot('hero-starter', 'başlangıç tabağı portresi', { style: 'width:100%;height:56mm' })}
         </div>
         <div class="items">
@@ -373,8 +368,8 @@
         ${sec.ledeEn ? `<div class="lede lede--en lede--center">${esc(sec.ledeEn)}</div>` : ''}
         ${mode === 'C' ? `
         ${slot('founder-salt', 'ustanın tuz jesti — gravür hero',
-               /* Kurucu katmanı: tuz jesti sahnesi hero'nun yerine geçti */
-               { style: 'width:100%;height:62mm;margin-top:7mm', plate: true })}
+               /* Setin en güçlü varlığı — %15 büyütüldü (62 → 71 mm) */
+               { style: 'width:100%;height:71mm;margin-top:6mm', plate: true })}
         <div class="ritual-band">${slot('ritual-band', 'tezhip ayraç bandı',
                { fit: 'contain', tight: true })}</div>`
         : a
@@ -474,18 +469,16 @@
         <div class="cover-title">${esc(sec.titleLines[0])}</div>
         <div class="cover-title-en">${esc(sec.titleEn)}</div>
         <div class="accent-bar"></div>
-        <div class="journey-figure">${slot('founder-standing',
-             'usta ayakta — gravür', { fit: 'contain', tight: true })}</div>
-        <div class="ledger-tr">${esc(sec.bodyTr)}</div>
+        ${''/* founder-standing zayıf kaldı — figür kaldırıldı, sayfayı
+             * yol/harita bandı kapatıyor */}
+        <div class="ledger-tr" style="margin-top:8mm">${esc(sec.bodyTr)}</div>
         <div class="ledger-en">${esc(sec.bodyEn)}</div>
         <div class="spacer"></div>
         <div class="branches">${C.branches.map(branchRow).join('')}</div>
         <div class="spacer"></div>
         <div class="brandline">
+          ${''/* Nusr-Et logosu arka kapağa taşındı; burada yalnız kilit kalır */}
           <div class="brandline__lock">${slot('logo-mark', 'saltbae kilit logo',
-               { fit: 'contain', tight: true })}</div>
-          <div class="brandline__text">${esc(sec.brandTr)} <em>/ ${esc(sec.brandEn)}</em></div>
-          <div class="brandline__nusret">${slot('nusret-logo', 'Nusret logosu',
                { fit: 'contain', tight: true })}</div>
         </div>
         ${fillBand('band-route', 16, 'Erzurum’dan yola çıkan yol motifi')}
@@ -522,16 +515,36 @@
     </section>`;
   };
 
-  /* Arka kapak — tam sayfa bakır duotone portre + tek satır.
+  /* Vitrin — tam sayfa duotone foto (manifesto sonrası ikinci sayfa).
    * Foto-ağırlıklı sayfa: köşe süslemeleri ve tarama basılmaz. */
+  const pageVitrine = (mode) => {
+    const sec = C.sections.vitrine;
+    return `
+    <section class="page ${pcls(mode)} page--photo"
+             data-screen-label="Vitrin · Mod ${mode}">
+      ${chrome(mode)}
+      <div class="backcover-photo">${slot('founder-vitrine-duo',
+           'et vitrini — bakır duotone', { fit: 'cover', tight: true, plate: true })}</div>
+      <div class="backcover-line">${esc(sec.lineTr)} <em>/ ${esc(sec.lineEn)}</em></div>
+    </section>`;
+  };
+
+  /* Arka kapak — tam sayfa bakır duotone portre + Nusr-Et marka bloğu
+   * + tek satır. Foto-ağırlıklı sayfa: gravür süsleme basılmaz. */
   const pageBackCover = (mode) => {
     const sec = C.sections.backcover;
+    const j = C.sections.journey;
     return `
     <section class="page ${pcls(mode)} page--photo"
              data-screen-label="Arka Kapak · Mod ${mode}">
       ${chrome(mode)}
       <div class="backcover-photo">${slot('founder-portrait-duo',
            'defteri tutan el — bakır duotone portre', { fit: 'cover', tight: true, plate: true })}</div>
+      <div class="backcover-brand">
+        <div class="backcover-brand__line">${esc(j.brandTr)} <em>/ ${esc(j.brandEn)}</em></div>
+        <div class="backcover-brand__logo">${slot('nusret-logo', 'Nusr-Et logosu',
+             { fit: 'contain', tight: true })}</div>
+      </div>
       <div class="backcover-line">${esc(sec.lineTr)} <em>/ ${esc(sec.lineEn)}</em></div>
     </section>`;
   };
@@ -542,6 +555,8 @@
     cPageNo = 0;
     return pageCover(mode) +
       pageManifesto(mode) +
+      /* Vitrin foto sayfası: manifesto sonrası, Ateşten Önce'den önce */
+      (mode === 'C' ? pageVitrine(mode) : '') +
       pageStarters(mode) +
       pageSteaks(mode) +
       pageBurgers(mode) +

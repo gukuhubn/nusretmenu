@@ -504,17 +504,38 @@ image-slot::part(frame) { background: transparent !important; }
   color: rgba(244, 238, 221, .5); margin-top: .8mm;
 }
 
-/* Arka kapak · tam sayfa duotone portre */
+/* Foto sayfaları (vitrin + arka kapak) · tam sayfa duotone.
+ * DİKKAT: altyazıda text-shadow KULLANMAYIN — Chromium PDF çıktısında
+ * gölge katmanı metni ikinci kez basıyor (harfler üst üste görünüyordu).
+ * Okunurluk foto üstü degrade ile sağlanır. */
 .backcover-photo { position: absolute; inset: 9mm; overflow: hidden; }
 .backcover-photo .slot { position: absolute; inset: 0; }
 .backcover-photo .slot__ph { display: none; }
+.backcover-photo::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 64mm; pointer-events: none;
+  background: linear-gradient(180deg, rgba(16, 13, 10, 0) 0%, rgba(16, 13, 10, .78) 100%);
+}
 .backcover-line {
   position: absolute; left: 0; right: 0; bottom: 14mm;
   text-align: center; font-family: var(--serif); font-style: italic;
   font-size: 10.5pt; color: rgba(244, 238, 221, .92);
-  text-shadow: 0 0 6px rgba(0, 0, 0, .8);
 }
 .backcover-line em { color: rgba(244, 238, 221, .6); }
+
+/* Arka kapak · Nusr-Et marka bloğu (altyazının hemen üstünde) */
+.backcover-brand {
+  position: absolute; left: 0; right: 0; bottom: 23mm;
+  display: flex; flex-direction: column; align-items: center; gap: 2mm;
+}
+.backcover-brand__line {
+  font-family: var(--sans); font-size: 6.5pt; letter-spacing: .3em;
+  color: rgba(244, 238, 221, .72);
+}
+.backcover-brand__line em { font-style: normal; color: rgba(244, 238, 221, .48); }
+.backcover-brand__logo { position: relative; width: 80mm; height: 26mm; }
+.backcover-brand__logo .slot { position: absolute; inset: 0; }
+.backcover-brand__logo .slot__ph { display: none; }
 
 /* Ustanın Yolu — şube listesi (kapanış sayfası alt yarısı) */
 .branches {
