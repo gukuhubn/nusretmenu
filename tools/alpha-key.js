@@ -41,6 +41,14 @@ const FILES = [
   /* Kaynakta yumuşak gri ışıma var; standart eşik onu sızdırır —
    * daha sert eşikle yalnız bakır çizgi kalır. */
   { id: 'ritual-motif', t0: 95, t1: 150 },
+  /* Kurucu katmanı: bant/figür gravürleri (founder-salt ve founder-counter
+   * opak sahne panelleridir, key'lenmez) */
+  { id: 'founder-cutting' }, { id: 'founder-standing' },
+  { id: 'founder-glasses' },
+  /* Ustanın Yolu şube niş simgeleri */
+  ...['nisantasi', 'caddebostan', 'galataport', 'airport', 'aqua-florya',
+      'emaar', 'kanyon', 'galata', 'mykonos', 'difc']
+    .map((s2) => ({ id: 'branch-' + s2 })),
 ];
 const CANDIDATES = [
   process.env.CHROMIUM_PATH,

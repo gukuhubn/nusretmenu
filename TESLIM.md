@@ -1,7 +1,7 @@
 # TESLİM — Ustanın Defteri / SaltBae Burger
 
 Branch: `claude/konsept-dokumantasyon-gemini-kgko2u` · Repo: `gukuhubn/nusretmenu`
-Son güncelleme: Revizyon turu 5 — fiyatlar geri, Ustanın Yolu, baskı optimizasyonu (yalnız Mod C)
+Son güncelleme: Revizyon turu 6 — kurucu katmanı, fiziksel defter kimliği, palet (yalnız Mod C)
 
 ---
 
@@ -20,6 +20,73 @@ Son güncelleme: Revizyon turu 5 — fiyatlar geri, Ustanın Yolu, baskı optimi
 | Erenköy ham verisi | `menu/data/source-erenkoy.json` | 10 bölüm · 55 ürün |
 | Eksik ürün analizi | `EKSIK_URUNLER.md` | iki yönlü liste |
 | Üretim betikleri | `tools/build-pdf.js`, `tools/gen-assets.js`, `tools/alpha-key.js`, `tools/gen-galeri.js` | çalışıyor |
+
+## Revizyon turu 6 — kurucu katmanı + defter kimliği (yalnız Mod C)
+
+Teslim: `output/kasap-defteri-mod-c.pdf` — **9 sayfa, 4,4 MB** (hedef <10).
+Sayfa düzeni: Kapak · Ateşten Önce · Ustanın Ayırdığı · Burger · Ritüel ·
+Yanında/Tatlı Son · Ustanın Yolu · Künye · Arka Kapak.
+(Not: künye + arka kapak eklenince sayfa sayısı brief'teki "7-8"i bir aştı.)
+
+**0 · Referanslar.** Drive klasöründeki 12 fotoğraf indirildi, Instagram
+arayüz öğeleri kırpıldı, içeriğe göre adlandırılıp
+`menu/assets/reference/founder/` altına kondu (salt-gesture, cutting-gold,
+counter-pose, suit-portrait, standing-street, knife-steel …).
+⚠️ **Bu kareler konsept referansıdır** (sosyal medya çıktısı, ekran
+çözünürlüğü); baskı finali için orijinal kareler marka arşivinden
+alınmalıdır. Ham indirilenler repoya girmez (founder-raw gitignore'da).
+
+**1 · Model stratejisi.** Keşif/varyant `gemini-3.1-flash-image` (tuz jesti
+ve ayakta figür kompozisyonları önce flash ile denendi, kurgu seçildi);
+tüm finaller `gemini-3-pro-image` + ilgili referans fotoğraflar API'ye
+görsel olarak verilerek üretildi (`tools/gen-founder.js`).
+
+**2 · Kurucu illüstrasyon seti** (gravür, bakır çizgi, referanslı):
+- `founder-salt` → Ritüel hero'sunun yerine (figür sağda, tuz kolundan
+  süzülüyor, solda altın vurgulu burger, ışık huzmesi)
+- `founder-counter` → Ateşten Önce açılış bandı
+- `founder-cutting` → Ustanın Ayırdığı alt bandı (bıçak seti bandı yerine;
+  boğa diyagramı yerinde kaldı)
+- `founder-standing` → Ustanın Yolu üst yarı figürü
+- `founder-glasses` → imza ikonu; **mühür konsepti değişti**: USTANIN
+  İŞARETİ çemberinde bıçağın yerini yuvarlak gözlük aldı (`seal` yeniden
+  üretildi), sayfa madalyonunun tepesine de gözlük işlendi.
+
+**3 · Fotoğraf katmanı** (bakır duotone, `tools/duotone.js`):
+- Arka kapak: takım elbiseli spot ışıklı portre, tam sayfa + "Defteri
+  tutan el. / The hand that keeps the ledger."
+- Kapakta manifesto yanı: et vitrini karesi yarım bant (gravür vinyeti
+  kapaktan kalktı — sayfa foto-ağırlıklı). Foto sayfalarında köşe
+  süslemeleri basılmaz (`page--photo`).
+
+**4 · Palet.** Mod C zemini sıcak kahve-antrasit karışıma alındı
+(#26211c yönü) + merkezi ~%7 aydınlık radyal ışık vinyeti; bakır korundu.
+
+**5 · Fiziksel defter kimliği.** Yeni "Künye / Colophon" sayfası:
+`colophon-book` teknik gravürü (deri cilt, kabartma gözlük amblemi, bakır
+yaldız kenar, bordo kurdele + kılavuz çizgileri) ve 3 satır TR/EN
+şartname. Ayrıca fotogerçekçi sunum mockup'ı: `output/mockup/menu-mockup.png`
+(baskı malzemesi değildir).
+
+**6 · Şube listesi.** 10 şube (Nişantaşı, Caddebostan, Galataport,
+Istanbul Airport, Aqua Florya, Emaar Square, Kanyon, Galata, Mykonos,
+DIFC), her biri 10 mm niş simge gravürüyle (Galata Kulesi, İGA kulesi,
+yel değirmeni, The Gate, dalga cephe, rıhtım vinci+gemi, kule silueti,
+dalga, art nouveau kemer, fener). Emaar vurgusu ve "Bu defter burada
+açık" satırı korundu.
+
+**7 · Nusret logosu.** Drive'daki "Nusr-Et Steakhouse Technical
+Requirements" PDF'inden çıkarıldı (596×331), tek renk kemik + şeffaf
+sürüm üretildi (`nusret-logo.png`); Ustanın Yolu altında saltbae kilit +
+"bir Nusr-Et markasıdır / a Nusr-Et brand" + Nusr-Et logosu bloğu.
+
+**8 · Boyut.** Kritik bulgu: Mod C'nin genel `image-slot` parlaklık
+filtresi Chromium PDF'inde JPEG geçişini bozup panelleri tam çözünürlük
+kayıpsız PNG'ye çeviriyordu (PDF 10,8 MB). Filtre küçük süsleme
+yuvalarına daraltıldı (`.slot--plate` muaf), şeffaf PNG'lere 1100 px sınır
++ renk/alfa kuantizasyonu eklendi → **4,4 MB**. Ayrıca büyük dosya notu:
+Drive MCP ~5 MB üstü dosyalarda takılıyor; NUSR-ET_PRESENTATION.pdf
+(8,2 MB) bu yüzden okunamadı, logo küçük PDF'ten alındı.
 
 ## Revizyon turu 5 — yalnız Mod C (A ve B'ye dokunulmadı)
 

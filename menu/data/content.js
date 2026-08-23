@@ -107,21 +107,47 @@ window.KasapContent = {
       bodyEn: "This ledger was opened in a butcher's shop in Erzurum. Today it is kept, with the same care, on three continents. Every house writes in the same ledger: the meat is taken seriously, everything else is celebration.",
       /* Aktif şubenin altında basılan satır */
       hereTr: 'Bu defter burada açık.',
-      hereEn: 'This ledger is open here.'
+      hereEn: 'This ledger is open here.',
+      /* Sayfa altındaki marka bloğu */
+      brandTr: 'bir Nusr-Et markasıdır',
+      brandEn: 'a Nusr-Et brand'
+    },
+
+    /* Künye — fiziksel defter şartnamesi (yalnız Mod C basıyor) */
+    colophon: {
+      titleLines: ['Künye'],
+      titleEn: 'COLOPHON',
+      specs: [
+        { tr: 'Cilt: kök boya deri, kabartma gözlük amblemi',
+          en: 'Binding: vegetable-tanned leather, embossed spectacles emblem' },
+        { tr: 'Sayfa: 170 g mat kuşe, bakır yaldız kenar',
+          en: 'Pages: 170 gsm matte art paper, copper gilt edges' },
+        { tr: 'Ayraç: bordo kurdele',
+          en: 'Marker: oxblood ribbon' }
+      ]
+    },
+
+    /* Arka kapak — tam sayfa duotone portre altındaki tek satır */
+    backcover: {
+      lineTr: 'Defteri tutan el.',
+      lineEn: 'The hand that keeps the ledger.'
     }
   },
 
   /* Şube listesi — kapanış sayfasının alt yarısı. Şube bazlı baskıda
-   * yalnız `aktif` bayrağı taşınır; sıra ve içerik ortaktır. */
+   * yalnız `aktif` bayrağı taşınır; sıra ve içerik ortaktır.
+   * `ikon` = assets/branch-<ikon>.png niş simge gravürü. */
   branches: [
-    { sehir: 'İstanbul', mekan: 'Emaar Square', aktif: true },
-    { sehir: 'İstanbul', mekan: 'Galataport', aktif: false },
-    { sehir: 'İstanbul', mekan: 'Erenköy', aktif: false },
-    { sehir: 'Dubai', mekan: 'Mall of the Emirates', aktif: false },
-    { sehir: 'Riyad', mekan: '', aktif: false },
-    { sehir: 'Doha', mekan: '', aktif: false },
-    { sehir: 'New York', mekan: '', aktif: false },
-    { sehir: 'Londra', mekan: '', aktif: false }
+    { sehir: 'İstanbul', mekan: 'Nişantaşı', ikon: 'nisantasi', aktif: false },
+    { sehir: 'İstanbul', mekan: 'Caddebostan', ikon: 'caddebostan', aktif: false },
+    { sehir: 'İstanbul', mekan: 'Galataport', ikon: 'galataport', aktif: false },
+    { sehir: 'İstanbul', mekan: 'Istanbul Airport', ikon: 'airport', aktif: false },
+    { sehir: 'İstanbul', mekan: 'Aqua Florya', ikon: 'aqua-florya', aktif: false },
+    { sehir: 'İstanbul', mekan: 'Emaar Square', ikon: 'emaar', aktif: true },
+    { sehir: 'İstanbul', mekan: 'Kanyon', ikon: 'kanyon', aktif: false },
+    { sehir: 'İstanbul', mekan: 'Galata', ikon: 'galata', aktif: false },
+    { sehir: 'Mykonos', mekan: '', ikon: 'mykonos', aktif: false },
+    { sehir: 'Dubai', mekan: 'DIFC', ikon: 'difc', aktif: false }
   ],
 
   /* Görsel yuvasının altındaki gravür kayıt satırı (yalnız Mod A/C kesim

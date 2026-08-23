@@ -51,6 +51,10 @@
     if (shape === 'circle') cls.push('slot--circle');
     if (opts.tight) cls.push('slot--tight');
     if (opts.vignette) cls.push('slot--vignette');
+    /* plate: büyük opak panel (foto/plaka). Mod C parlaklık filtresi
+     * bunlara UYGULANMAZ — filtre Chromium'da JPEG geçişini bozup paneli
+     * kayıpsız PNG olarak rasterize ettiriyor ve PDF'i şişiriyordu. */
+    if (opts.plate) cls.push('slot--plate');
     const style = opts.style ? ` style="${esc(opts.style)}"` : '';
     const id = `slot-${assetId}-${++slotSeq}`;
     return `
@@ -192,7 +196,13 @@
         <div class="cover-title">${esc(C.cover.title)}</div>
         <div class="cover-title-en">${esc(C.cover.titleEn)}</div>
         <div class="accent-bar"></div>
-        ${mode === 'C' ? vignette('divider-vignette-1', 'divider-vignette--cover') : ''}
+        ${mode === 'C'
+          /* Manifesto yanı: et vitrini duotone bandı (kurucu fotoğraf
+           * katmanı). Kapak foto-ağırlıklı sayıldığından ayrıca gravür
+           * vinyeti basılmaz. */
+          ? `<div class="cover-photo-band">${slot('founder-vitrine-duo',
+               'et vitrini — bakır duotone', { fit: 'cover', tight: true, plate: true })}</div>`
+          : ''}
         ${a ? `
         <div class="spacer spacer--wide"></div>
         <div class="ledger-tr">${esc(C.cover.ledgerTr)}</div>
@@ -222,14 +232,17 @@
         <div class="lede lede--en">${esc(sec.ledeEn)}</div>
         <div style="margin:8mm 0 2.5mm">
           ${a
-            ? slot('cut-diagram', 'dana kesim diyagramı — gravür', { style: 'width:100%;height:58mm' })
+            ? slot('cut-diagram', 'dana kesim diyagramı — gravür', { style: 'width:100%;height:58mm', plate: true })
             : slot('hero-steak', 'steak portresi — hero', { style: 'width:100%;height:62mm' })}
         </div>
         ${a ? caption(C.captions.cutDiagram) : ''}
         <div class="items">
           ${C.items.steaks.map((it) => itemRow(it, mode)).join('')}
         </div>
-        ${mode === 'C' ? fillBand('band-knives', 17, 'bıçak seti bandı') : ''}
+        ${mode === 'C'
+          /* Kurucu katmanı: alt bantta et keserken (bıçak seti bandının yerine) */
+          ? fillBand('founder-cutting', 22, 'usta et keserken — gravür bandı')
+          : ''}
       </div>
       ${footmark(mode, true)}
     </section>`;
@@ -253,7 +266,7 @@
             <div class="lede lede--free">${esc(sec.ledeTr)}</div>
             <div class="lede lede--en lede--free">${esc(sec.ledeEn)}</div>
           </div>
-          ${slot('burger-cut', 'burger kesiti — gravür', { shape: 'circle', style: 'width:42mm;height:42mm' })}
+          ${slot('burger-cut', 'burger kesiti — gravür', { shape: 'circle', style: 'width:42mm;height:42mm', plate: true })}
         </div>` : `
         ${sectionHead(sec, 'burgers', mode)}
         <div class="lede lede--wide">${esc(sec.ledeTr)}</div>
@@ -314,10 +327,12 @@
         ${sec.ledeTr ? `<div class="lede">${esc(sec.ledeTr)}</div>` : ''}
         ${sec.ledeEn ? `<div class="lede lede--en">${esc(sec.ledeEn)}</div>` : ''}
         <div style="margin:${mode === 'C' ? '5mm' : '8mm'} 0 2.5mm">
-          ${a
-            /* C'de üst motif kısalır: 21 mm mini gravürler + mezze bandına yer açar */
-            ? slot('motif-ember', 'kor gravürü — ateşten önce',
-                   { style: 'width:100%;height:' + (mode === 'C' ? '28mm' : '52mm') })
+          ${mode === 'C'
+            /* Kurucu katmanı: vitrin önü duruş gravürü açılışı taşır */
+            ? slot('founder-counter', 'usta vitrin önünde — gravür',
+                   { style: 'width:100%;height:34mm', fit: 'cover', plate: true })
+            : a
+            ? slot('motif-ember', 'kor gravürü — ateşten önce', { style: 'width:100%;height:52mm' })
             : slot('hero-starter', 'başlangıç tabağı portresi', { style: 'width:100%;height:56mm' })}
         </div>
         <div class="items">
@@ -357,8 +372,9 @@
         ${sec.ledeTr ? `<div class="lede lede--center">${esc(sec.ledeTr)}</div>` : ''}
         ${sec.ledeEn ? `<div class="lede lede--en lede--center">${esc(sec.ledeEn)}</div>` : ''}
         ${mode === 'C' ? `
-        ${slot('ritual-hero', 'altın varaklı burger — gravür hero',
-               { style: 'width:100%;height:62mm;margin-top:7mm' })}
+        ${slot('founder-salt', 'ustanın tuz jesti — gravür hero',
+               /* Kurucu katmanı: tuz jesti sahnesi hero'nun yerine geçti */
+               { style: 'width:100%;height:62mm;margin-top:7mm', plate: true })}
         <div class="ritual-band">${slot('ritual-band', 'tezhip ayraç bandı',
                { fit: 'contain', tight: true })}</div>`
         : a
@@ -399,7 +415,7 @@
         ${sec.ledeTr ? `<div class="lede">${esc(sec.ledeTr)}</div>` : ''}
         <div style="margin:7mm 0 2.5mm">
           ${a
-            ? slot('motif-side', 'garnitür gravürü', { style: 'width:100%;height:44mm' })
+            ? slot('motif-side', 'garnitür gravürü', { style: 'width:100%;height:44mm', plate: true })
             : slot('hero-side', 'garnitür portresi', { style: 'width:100%;height:48mm' })}
         </div>
         <div class="items">
@@ -435,11 +451,13 @@
    * "bu defter burada açık" satırıyla basılır. */
   const pageJourney = (mode) => {
     const sec = C.sections.journey;
+    /* Her şubenin 10 mm niş simge gravürü vardır (branch-<ikon>);
+     * aktif şube parlak bakır + "bu defter burada açık" satırı. */
     const branchRow = (b) => `
       <div class="branch${b.aktif ? ' branch--active' : ''}">
         <div class="branch__row">
-          ${b.aktif ? `<div class="branch__seal">${slot('seal', 'mühür',
-                        { shape: 'circle', fit: 'cover', tight: true })}</div>` : ''}
+          <div class="branch__icon">${slot('branch-' + b.ikon,
+               b.mekan || b.sehir, { fit: 'contain', tight: true })}</div>
           <span class="branch__city">${esc(b.sehir)}</span>
           ${b.mekan ? `<span class="branch__sep">·</span>
           <span class="branch__venue">${esc(b.mekan)}</span>` : ''}
@@ -452,23 +470,74 @@
       ${chrome(mode)}
       <div class="sheet sheet--cover">
         ${runhead(mode, C.brand.docLine)}
-        <div class="spacer"></div>
+        <div style="height:6mm"></div>
         <div class="cover-title">${esc(sec.titleLines[0])}</div>
         <div class="cover-title-en">${esc(sec.titleEn)}</div>
         <div class="accent-bar"></div>
-        <div class="ledger-tr" style="margin-top:9mm">${esc(sec.bodyTr)}</div>
+        <div class="journey-figure">${slot('founder-standing',
+             'usta ayakta — gravür', { fit: 'contain', tight: true })}</div>
+        <div class="ledger-tr">${esc(sec.bodyTr)}</div>
         <div class="ledger-en">${esc(sec.bodyEn)}</div>
         <div class="spacer"></div>
         <div class="branches">${C.branches.map(branchRow).join('')}</div>
         <div class="spacer"></div>
-        ${fillBand('band-route', 20, 'Erzurum’dan yola çıkan yol motifi')}
+        <div class="brandline">
+          <div class="brandline__lock">${slot('logo-mark', 'saltbae kilit logo',
+               { fit: 'contain', tight: true })}</div>
+          <div class="brandline__text">${esc(sec.brandTr)} <em>/ ${esc(sec.brandEn)}</em></div>
+          <div class="brandline__nusret">${slot('nusret-logo', 'Nusret logosu',
+               { fit: 'contain', tight: true })}</div>
+        </div>
+        ${fillBand('band-route', 16, 'Erzurum’dan yola çıkan yol motifi')}
       </div>
       ${footmark(mode, true)}
     </section>`;
   };
 
+  /* Künye — fiziksel defter kimliği: teknik gravür + 3 satır şartname */
+  const pageColophon = (mode) => {
+    const sec = C.sections.colophon;
+    return `
+    <section class="page ${pcls(mode)}"
+             data-screen-label="Künye · Mod ${mode}">
+      ${chrome(mode)}
+      <div class="sheet sheet--cover">
+        ${runhead(mode, C.brand.docLine)}
+        <div class="spacer"></div>
+        <div class="cover-title">${esc(sec.titleLines[0])}</div>
+        <div class="cover-title-en">${esc(sec.titleEn)}</div>
+        <div class="accent-bar"></div>
+        <div class="colophon-figure">${slot('colophon-book',
+             'defterin fiziksel hali — teknik gravür', { fit: 'contain', tight: true, plate: true })}</div>
+        <div class="specs">
+          ${sec.specs.map((s) => `
+          <div class="spec">
+            <div class="spec__tr">${esc(s.tr)}</div>
+            <div class="spec__en">${esc(s.en)}</div>
+          </div>`).join('')}
+        </div>
+        <div class="spacer"></div>
+      </div>
+      ${footmark(mode, true)}
+    </section>`;
+  };
+
+  /* Arka kapak — tam sayfa bakır duotone portre + tek satır.
+   * Foto-ağırlıklı sayfa: köşe süslemeleri ve tarama basılmaz. */
+  const pageBackCover = (mode) => {
+    const sec = C.sections.backcover;
+    return `
+    <section class="page ${pcls(mode)} page--photo"
+             data-screen-label="Arka Kapak · Mod ${mode}">
+      ${chrome(mode)}
+      <div class="backcover-photo">${slot('founder-portrait-duo',
+           'defteri tutan el — bakır duotone portre', { fit: 'cover', tight: true, plate: true })}</div>
+      <div class="backcover-line">${esc(sec.lineTr)} <em>/ ${esc(sec.lineEn)}</em></div>
+    </section>`;
+  };
+
   /* Menünün tam yapısı — her mod için aynı sıra.
-   * Kapanış sayfası (Ustanın Yolu) şimdilik yalnız Mod C'de basılır. */
+   * Ustanın Yolu, Künye ve Arka Kapak şimdilik yalnız Mod C'de basılır. */
   const pagesFor = (mode) => {
     cPageNo = 0;
     return pageCover(mode) +
@@ -478,7 +547,9 @@
       pageBurgers(mode) +
       pageRitual(mode) +
       pageSides(mode) +
-      (mode === 'C' ? pageJourney(mode) : '');
+      (mode === 'C'
+        ? pageJourney(mode) + pageColophon(mode) + pageBackCover(mode)
+        : '');
   };
 
   /* ================= ARAÇ ÇUBUĞU (yalnız ekran) ================= */

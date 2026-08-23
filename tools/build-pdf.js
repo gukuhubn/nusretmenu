@@ -18,7 +18,8 @@
  *   - corner-*, page-medallion, seal → en fazla 480 px
  *   - diğer tüm görseller → en fazla 1400 px (tam genişlik ≈ 703 css px'in 2x'i)
  *   - opak görseller → JPEG q85 (<id>.jpg; çözümleyici png yoksa jpg dener)
- *   - şeffaflar → yeniden sıkıştırılmış PNG
+ *   - şeffaflar → en fazla 1100 px + renk/alfa kuantizasyonlu PNG
+ *     (çizgi gravürde görünmez fark, flate boyutunu ciddi düşürür)
  *   - optimize sürüm orijinalden büyükse orijinal korunur
  * Önbellek anahtarı kaynak dosyanın boyut+mtime'ıdır; değişmeyen varlık
  * yeniden işlenmez.
@@ -48,8 +49,9 @@ const MODES = [
 ];
 
 const maxWidthFor = (id) => {
-  if (id.startsWith('mini-')) return 300;
-  if (id.startsWith('corner-') || id === 'page-medallion' || id === 'seal') return 480;
+  if (id.startsWith('mini-') || id.startsWith('branch-')) return 300;
+  if (id.startsWith('corner-') || ['page-medallion', 'seal', 'founder-standing',
+      'founder-glasses', 'ritual-motif', 'nusret-logo'].includes(id)) return 480;
   return 1400;
 };
 
@@ -73,17 +75,34 @@ async function optimizeAssets(page) {
       const img = new Image();
       img.src = 'data:image/png;base64,' + b64;   /* içerik koklanır (jpeg de olabilir) */
       await img.decode();
-      const scale = Math.min(1, maxW / img.width);
+      /* önce alfa tespiti (orijinal boyutta örnekleme) */
+      const probe = document.createElement('canvas');
+      probe.width = Math.min(img.width, 256);
+      probe.height = Math.min(img.height, 256);
+      const pctx = probe.getContext('2d');
+      pctx.drawImage(img, 0, 0, probe.width, probe.height);
+      const pd = pctx.getImageData(0, 0, probe.width, probe.height).data;
+      let alpha = false;
+      for (let i = 3; i < pd.length; i += 16) { if (pd[i] < 250) { alpha = true; break; } }
+      /* şeffaflar PDF'e ham flate girer: piksel sınırı daha sıkı */
+      const cap = alpha ? Math.min(maxW, 1100) : maxW;
+      const scale = Math.min(1, cap / img.width);
       const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
       const c = document.createElement('canvas');
       c.width = w; c.height = h;
       const ctx = c.getContext('2d');
       ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(img, 0, 0, w, h);
-      /* alfa var mı? — örnekleyerek bak */
-      const d = ctx.getImageData(0, 0, w, h).data;
-      let alpha = false;
-      for (let i = 3; i < d.length; i += 64) { if (d[i] < 250) { alpha = true; break; } }
+      if (alpha) {
+        /* kuantizasyon: rgb 5 bit, alfa 4 bit — flate çok daha iyi sıkışır */
+        const d2 = ctx.getImageData(0, 0, w, h);
+        const px = d2.data;
+        for (let i = 0; i < px.length; i += 4) {
+          px[i] = px[i] & 0xF8; px[i + 1] = px[i + 1] & 0xF8; px[i + 2] = px[i + 2] & 0xF8;
+          px[i + 3] = px[i + 3] < 12 ? 0 : (px[i + 3] & 0xF0) | 0x0F;
+        }
+        ctx.putImageData(d2, 0, 0);
+      }
       const url = alpha ? c.toDataURL('image/png') : c.toDataURL('image/jpeg', 0.85);
       return { b64: url.split(',')[1], alpha, scaled: scale < 1 };
     }, { b64, maxW: maxWidthFor(id) });

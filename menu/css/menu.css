@@ -351,6 +351,14 @@ image-slot::part(frame) { background: transparent !important; }
  * daha yüksek opaklıkta basılır. Yalnız Mod C — A/B paleti değişmez.
  * ================================================================== */
 .page--c { --brass: #c88a4a; --ink: #f4eedd; }
+/* Palet aydınlatma: siyaha yakın antrasit → sıcak kahve-antrasit karışım
+ * (#26211c yönü) + merkezi ~%7 daha aydınlık yumuşak ışık vinyeti.
+ * Mum ışığında deri defter hissi; bakır vurgular korunur. */
+.page--c {
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 42%,
+      #2d2721 0%, #28221d 42%, #26211c 68%, #211c17 100%);
+}
 .page--c.page--ritual { --brass: #e3bd45; }   /* altın da bir tık parlak */
 .page--c .runhead { color: rgba(244, 238, 221, .62); }
 .page--c .lede { color: rgba(244, 238, 221, .92); }
@@ -361,8 +369,14 @@ image-slot::part(frame) { background: transparent !important; }
 .page--c .caption { color: rgba(200, 138, 74, .95); }
 .page--c .ledger-tr { color: rgba(244, 238, 221, .92); }
 .page--c .ledger-en { color: rgba(244, 238, 221, .55); }
-/* Gravür varlıklarının çizgi parlaklığı/doygunluğu yükselir */
-.page--c image-slot { filter: brightness(1.16) saturate(1.18) contrast(1.05); }
+/* Gravür varlıklarının çizgi parlaklığı/doygunluğu yükselir.
+ * DİKKAT: filtre yalnız küçük süsleme yuvalarına uygulanır — büyük opak
+ * paneller (.slot--plate) muaftır, çünkü CSS filtresi Chromium PDF
+ * çıktısında JPEG geçişini bozup paneli tam çözünürlük kayıpsız PNG
+ * olarak gömdürüyor (sayfa başına ~1 MB şişme). */
+.page--c .slot:not(.slot--plate) image-slot {
+  filter: brightness(1.16) saturate(1.18) contrast(1.05);
+}
 
 /* 21 mm mini gravürlere yer: dikey boşluklar sayfa içinden kırpılır,
  * metin ölçüleri değişmez. */
@@ -443,6 +457,65 @@ image-slot::part(frame) { background: transparent !important; }
 }
 .page--c.page--ritual .medal__num { color: #d4af37; }
 
+/* Foto-ağırlıklı sayfalar: gravür süsleme katmanı basılmaz */
+.page--photo .corner, .page--photo .page__scan { display: none; }
+
+/* Kapak · et vitrini duotone bandı (manifesto yanı) */
+.cover-photo-band {
+  position: relative; align-self: stretch;
+  height: 52mm; margin-top: 7mm;
+}
+.cover-photo-band .slot { position: absolute; inset: 0; }
+.cover-photo-band .slot__ph { display: none; }
+
+/* Ustanın Yolu · ayakta figür + marka bloğu */
+.journey-figure {
+  position: relative; width: 42mm; height: 46mm; margin: 4mm auto 3mm;
+}
+.journey-figure .slot { position: absolute; inset: 0; }
+.journey-figure .slot__ph { display: none; }
+.brandline {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1.6mm; margin-bottom: 3mm;
+}
+.brandline__lock { position: relative; width: 30mm; height: 9mm; }
+.brandline__nusret { position: relative; width: 26mm; height: 9mm; }
+.brandline__lock .slot, .brandline__nusret .slot { position: absolute; inset: 0; }
+.brandline__lock .slot__ph, .brandline__nusret .slot__ph { display: none; }
+.brandline__text {
+  font-family: var(--sans); font-size: 6.5pt; letter-spacing: .3em;
+  color: rgba(244, 238, 221, .55);
+}
+.brandline__text em { font-style: normal; color: rgba(244, 238, 221, .38); }
+
+/* Künye · teknik gravür + şartname satırları */
+.colophon-figure {
+  position: relative; width: 118mm; height: 74mm; margin: 7mm auto 5mm;
+}
+.colophon-figure .slot { position: absolute; inset: 0; }
+.colophon-figure .slot__ph { display: none; }
+.specs { display: flex; flex-direction: column; gap: 3.4mm; }
+.spec__tr {
+  font-family: var(--sans); font-size: 8.5pt; letter-spacing: .16em;
+  color: rgba(244, 238, 221, .88);
+}
+.spec__en {
+  font-family: var(--serif); font-style: italic; font-size: 8.5pt;
+  color: rgba(244, 238, 221, .5); margin-top: .8mm;
+}
+
+/* Arka kapak · tam sayfa duotone portre */
+.backcover-photo { position: absolute; inset: 9mm; overflow: hidden; }
+.backcover-photo .slot { position: absolute; inset: 0; }
+.backcover-photo .slot__ph { display: none; }
+.backcover-line {
+  position: absolute; left: 0; right: 0; bottom: 14mm;
+  text-align: center; font-family: var(--serif); font-style: italic;
+  font-size: 10.5pt; color: rgba(244, 238, 221, .92);
+  text-shadow: 0 0 6px rgba(0, 0, 0, .8);
+}
+.backcover-line em { color: rgba(244, 238, 221, .6); }
+
 /* Ustanın Yolu — şube listesi (kapanış sayfası alt yarısı) */
 .branches {
   width: 152mm; column-count: 2; column-gap: 14mm; text-align: left;
@@ -461,12 +534,10 @@ image-slot::part(frame) { background: transparent !important; }
 .branch__venue { color: rgba(244, 238, 221, .68); }
 .branch--active .branch__row,
 .branch--active .branch__venue { font-weight: 700; color: #e8ac5f; }
-.branch__seal {
-  position: relative; flex: none; width: 5.5mm; height: 5.5mm;
-  border-radius: 50%; overflow: hidden;
-}
-.branch__seal .slot { position: absolute; inset: 0; }
-.branch__seal .slot__ph { display: none; }
+/* Şube niş simgesi — 10 mm spot gravür (bol marjlı üretim, taşırılır) */
+.branch__icon { position: relative; flex: none; width: 10mm; height: 10mm; }
+.branch__icon .slot { position: absolute; inset: -1.8mm; }
+.branch__icon .slot__ph { display: none; }
 .branch__here {
   font-family: var(--serif); font-style: italic; font-size: 8.5pt;
   color: rgba(232, 172, 95, .9); margin-top: 1.2mm;

@@ -120,6 +120,25 @@ const ASSETS = [
     prompt: 'Horizontal band: a butcher knife set laid side by side — cleaver, breaking knife, boning knife, sharpening steel — evenly spaced, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, consistent stroke weight, no shading blocks, no text' },
   { id: 'band-mezze', ar: '21:9',
     prompt: 'Horizontal vignette of three small bowls in a row: olives in the first, lemon wedges in the second, coarse salt in the third, thin scrollwork flourish between them, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, consistent stroke weight, no text' },
+  /* ---- Ustanın Yolu · şube niş simgeleri (10 mm spot gravür) ---- */
+  ...[
+    ['nisantasi', 'ornate art nouveau arched doorway with curved ironwork details'],
+    ['caddebostan', 'small coastal lighthouse on a seaside promenade wall'],
+    ['galataport', 'bow of a cruise ship beside a quay crane'],
+    ['airport', 'modern airport air traffic control tower with a curved tulip-form top'],
+    ['aqua-florya', 'stylized sea waves, three overlapping curls'],
+    ['emaar', 'slender modern skyscraper tower silhouette'],
+    ['kanyon', 'modern building facade curved like a breaking wave, terraced floors'],
+    ['galata', 'the Galata Tower of Istanbul, cylindrical stone tower with conical roof'],
+    ['mykonos', 'cycladic windmill with thatched cap and twelve thin sail spokes'],
+    ['difc', 'the Gate building of Dubai DIFC, monumental rectangular arch'],
+  ].map(([k, subject]) => ({ id: 'branch-' + k, ar: '1:1',
+    prompt: subject + '. Tiny engraved spot illustration, single copper line art on dark charcoal background, consistent stroke weight, 19th century trade catalog vignette, flat 2D, no shading blocks, no photo look, centered with generous empty margin, clean edges, no text, no frame, no watermark' })),
+
+  /* ---- Künye · fiziksel defter teknik çizimi ---- */
+  { id: 'colophon-book', ar: '4:3',
+    prompt: 'Technical illustration in engraved style of a closed leather-bound menu book seen in three-quarter view: leather cover with a small embossed round-sunglasses emblem at its center, copper gilt page edges visible on the fore edge, an oxblood ribbon marker emerging from the pages, a few thin straight leader lines pointing at the cover, the gilt edge and the ribbon (plain lines only, no labels), fine copperplate engraving, single copper line art on dark charcoal background, flat 2D, no text, no letters, no watermark' },
+
   { id: 'band-route', ar: '21:9',
     /* Ustanın Yolu kapanış sayfası: Erzurum'dan dünyaya yol motifi */
     prompt: 'Thin horizontal engraved map band: a dotted journey route starting at a small butcher shop with mountains on the right, traveling left across stylized hills and a sea with a tiny ship, ending at a distant city skyline, small compass rose accent, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, consistent stroke weight, no shading blocks, no text, no letters, no watermark' },
