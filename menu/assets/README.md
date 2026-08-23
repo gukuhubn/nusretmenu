@@ -9,11 +9,21 @@ yenilendiğinde yuva kendiliğinden dolar. Kod değişikliği gerekmez.
 | `logo-mark`      | Mod A kapak                | 88 × 26 mm, `contain` | **HAZIR** — figürsüz `#saltbae BURGER` kilit logosu, tek renk kemik |
 | `logo-burger`    | (yedek / genel kullanım)   | serbest        | **HAZIR** — aynı kilit logo, ayrı asset-id ile |
 | `cut-diagram`    | Mod A · Kasabın Seçimi     | tam genişlik × 58 mm | dana kesim diyagramı, gravür (Gemini 5.2.1) |
-| `motif-flame`    | Mod A · Burger             | 42 × 42 mm daire | alev gravürü (Gemini 5.2.4) |
 | `cover-portrait` | Mod B kapak                | tam genişlik, ≥60 mm | kapak portresi — duman, havada tuz taneleri (Gemini 5.3.5) |
 | `hero-steak`     | Mod B · Kasabın Seçimi     | tam genişlik × 62 mm | steak portresi, hero (Gemini 5.3.3) |
 | `hero-burger`    | Mod B · Burger             | tam genişlik × 52 mm | hero burger — eriyen cheddar, buhar (Gemini 5.3.1) |
-| `seal`           | Mühürlü ürünler (Lokum, Nusret Burger) | 18 mm / 16 mm daire | kasabın işareti mührü — **opsiyonel**, boşken CSS ile çizili mühür kullanılır |
+| `seal`           | Mühürlü ürünler (Lokum, Nusret Burger, Meat Sushi) | 18 mm / 16 mm daire | ustanın işareti mührü — **opsiyonel**, boşken CSS ile çizili mühür kullanılır |
+| `burger-cut`     | Mod A/C · Burger           | 42 mm daire    | burger kesiti gravürü (alev motifinin yerini aldı) |
+| `motif-side`     | Mod A/C · Yanında          | tam genişlik × 44 mm | çelik kovada patates gravürü (5.2.6 ekmek kesiti okunmadı, değiştirildi) |
+| `corner-knife/-hook/-salt/-laurel` | Mod C · her sayfa, 4 köşe | 22 mm | köşe flourish seti — sol-üst yönelimli, diğer köşeler CSS aynalama; **şeffaf zemin** |
+| `divider-vignette-1` | Mod C · kapak           | 64 × 8 mm      | ayraç vinyeti: çapraz bıçak + masat; **şeffaf zemin** |
+| `divider-vignette-2` | Mod C · Yanında/Tatlı Son ayracı | 82 × 11 mm | ayraç vinyeti: tuz kabı + defne; **şeffaf zemin** |
+| `page-medallion` | Mod C · sayfa altı         | 11 mm daire    | sayfa numarası madalyonu, ortası boş; **şeffaf zemin** |
+| `motif-flame`    | Mod C · Burger kolofonu    | 24 mm daire    | alev gravürü; **şeffaf zemin** (kendi çerçevesi kırpıldı) |
+
+**Şeffaf zeminli** işaretli varlıklar `tools/alpha-key.js` ile işlenmiştir
+(luminance key). `gen-assets.js` bunları yeniden üretirse alpha-key
+tekrar çalıştırılmalıdır; aksi halde sayfada opak kutu görünür.
 
 ## Logo varlıklarının kaynağı
 

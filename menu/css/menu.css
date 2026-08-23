@@ -126,6 +126,7 @@ body {
 }
 .lede--wide { max-width: 155mm; }
 .lede--free { max-width: none; }   /* ızgara sütunu zaten daraltıyor */
+.lede--center { margin-left: auto; margin-right: auto; text-align: center; }
 
 /* Görsel yuvasının altındaki gravür kayıt satırı */
 .caption {
@@ -251,6 +252,12 @@ image-slot::part(frame) { background: transparent !important; }
 .slot--tight .slot__ph { gap: 1mm; padding: 3mm; }
 .slot--tight .slot__ph-cap { font-size: 7.5pt; }
 .slot--tight .slot__ph-mark { display: none; }
+/* Görselin koyu zemini sayfa zemininden ayrışmasın: kenarlar yumuşak
+ * vinyetle eritilir (Mod A/C Ritüel tuz jesti çizimi). */
+.slot--vignette image-slot {
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 50%, transparent 72%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 50%, transparent 72%);
+}
 /* Mühür yuvası: çizili mühür zaten placeholder'dır, ikinci bir çerçeve olmaz */
 .seal .slot__ph { display: none; }
 
@@ -337,6 +344,85 @@ image-slot::part(frame) { background: transparent !important; }
 }
 .sec--dessert .sec__title { font-size: 21pt; }
 .items--dessert { margin-top: 6mm; }
+
+/* ==================================================================
+ * MOD C — ZENGİN DEFTER
+ * Mod A iskeleti + 19. yy ticaret katalogu süsleme katmanı: çift çizgili
+ * çerçeve, dört köşede kasap temalı flourish, ürün adlarında satır ikonu,
+ * bölüm açılışlarında drop cap, ayraç vinyetleri, sayfa numarası madalyonu.
+ * Süslemeler mutlak konumludur; metin akışına ve okunurluğa dokunmaz.
+ * ================================================================== */
+/* Çift çizgili çerçeve */
+.page--c .page__frame { border-color: rgba(181, 130, 76, .45); }
+.page--c .page__frame::before {
+  content: ''; position: absolute; inset: 1.4mm;
+  border: .4pt solid rgba(181, 130, 76, .3);
+}
+.page--c.page--ritual .page__frame::before { border-color: rgba(212, 175, 55, .3); }
+
+/* Süsleme gravürlerinin (corner-*, divider-*, page-medallion, motif-flame)
+ * koyu zeminleri üretim sonrası gerçek şeffaflığa çevrildi (luminance
+ * key) — CSS blend hilesine gerek kalmaz. */
+
+/* Köşe süslemeleri — varlıklar sol-üst yönelimli; kalan köşeler aynalanır */
+/* DİKKAT: .corner/.colophon-flame üzerinde opacity KULLANMAYIN —
+ * opacity < 1 karışımı (mix-blend-mode) kutu içinde izole eder ve
+ * varlık zemini yeniden görünür olur. */
+.corner {
+  position: absolute; width: 22mm; height: 22mm;
+  pointer-events: none;
+}
+.corner .slot { position: absolute; inset: 0; }
+.corner .slot__ph { display: none; }
+.corner--tl { top: 8.4mm; left: 8.4mm; }
+.corner--tr { top: 8.4mm; right: 8.4mm; transform: scaleX(-1); }
+.corner--bl { bottom: 8.4mm; left: 8.4mm; transform: scaleY(-1); }
+.corner--br { bottom: 8.4mm; right: 8.4mm; transform: scale(-1, -1); }
+
+/* Ürün adı önünde minik satır ikonu — küçük satır (cleaver) çizimi */
+.page--c .item__name::before {
+  content: ''; display: inline-block;
+  width: 2.6mm; height: 2.6mm; margin-right: 1.6mm;
+  vertical-align: -.35mm;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23b5824c' d='M3 4h12v9H5a2 2 0 0 1-2-2V4z'/%3E%3Ccircle cx='6' cy='6.5' r='1' fill='%2322201c'/%3E%3Crect x='15' y='7.2' width='7' height='2.6' rx='1.3' fill='%23b5824c'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  opacity: .85;
+}
+
+/* Bölüm açılışı drop cap — yalnız TR lede'nin ilk harfi */
+.page--c .sheet--body .lede:not(.lede--en)::first-letter {
+  float: left; font-style: normal; font-weight: 600;
+  font-size: 25pt; line-height: .82;
+  padding: .8mm 1.8mm 0 0; color: var(--brass);
+}
+
+/* Ayraç vinyetleri */
+.divider-vignette { position: relative; margin: 0 auto; }
+.divider-vignette .slot { position: absolute; inset: 0; }
+.divider-vignette .slot__ph { display: none; }
+.divider-vignette--cover { width: 64mm; height: 8mm; margin-top: 5mm; }
+.divider-vignette--between { width: 82mm; height: 11mm; margin: 6.5mm auto 5mm; }
+
+/* Sayfa numarası madalyonu */
+.footmark--medal { bottom: 9mm; }
+.medal { position: relative; width: 11mm; height: 11mm; }
+.medal .slot { position: absolute; inset: 0; }
+.medal .slot__ph { display: none; }
+.medal__num {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 8.5pt; font-weight: 600;
+  color: var(--brass);
+}
+.page--c.page--ritual .medal__num { color: #d4af37; }
+
+/* Alev kolofonu — Mod C burger sayfası, sağ alt */
+.colophon-flame {
+  position: absolute; right: 12mm; bottom: 15mm;
+  width: 24mm; height: 24mm;
+}
+.colophon-flame .slot { position: absolute; inset: 0; }
+.colophon-flame .slot__ph { display: none; }
 
 /* ==================================================================
  * İÇERİK BEKLENİYOR — metni gelmemiş bölümlerin görünür durumu.

@@ -51,14 +51,35 @@ const ASSETS = [
     prompt: 'Stylized open flame over charcoal grill grates, engraving crosshatch shading. ' + ENG },
   { id: 'motif-ember', ar: '21:9',
     prompt: 'Horizontal skewer with meat cubes over embers, engraving style. ' + ENG },
+  /* 5.2.6 ekmek kesiti koyu lekeye dönüşüp okunmadı; final rötuş turunda
+   * garnitür bandına daha okunur "çelik kovada patates" gravürü seçildi. */
   { id: 'motif-side', ar: '21:9',
-    prompt: 'Brioche burger bun with sesame seeds, cross section view, engraving style. ' + ENG },
+    prompt: 'Golden french fries overflowing from a small steel bucket, scattered coarse salt grains, side view, engraving style. ' + ENG },
   { id: 'seal', ar: '1:1',
     prompt: 'Circular butcher stamp seal, rope border, small cleaver icon in center, letterpress texture, single copper color' },
   { id: 'texture-kraft', ar: '1:1',
     prompt: 'Seamless kraft paper texture, subtle grain' },
   { id: 'texture-leather', ar: '1:1',
     prompt: 'Seamless dark leather texture, embossed feel' },
+  /* ---- Mod C · Zengin Defter ek gravürleri ----
+   * Köşe süslemeleri sol-üst yönelimli üretilir; diğer üç köşe CSS
+   * aynalamasıyla (scaleX/scaleY) elde edilir. */
+  { id: 'burger-cut', ar: '1:1',
+    prompt: 'Cross section view of a gourmet burger with every layer distinctly visible — sesame brioche crown, melting cheddar draping over a thick beef patty, caramelized onions, crisp lettuce, bun heel — engraving style. ' + ENG },
+  { id: 'corner-knife', ar: '1:1',
+    prompt: 'Ornamental corner flourish for a 19th century butcher trade catalogue page, elegant thin filigree scrollwork forming an L shape hugging the top and left page edges, a small butcher knife woven into the scrollwork, fine copperplate line engraving, single copper color on dark charcoal background, no text, isolated composition' },
+  { id: 'corner-hook', ar: '1:1',
+    prompt: 'Ornamental corner flourish for a 19th century butcher trade catalogue page, elegant thin filigree scrollwork forming an L shape hugging the top and left page edges, a small butcher meat hook woven into the scrollwork, fine copperplate line engraving, single copper color on dark charcoal background, no text, isolated composition' },
+  { id: 'corner-salt', ar: '1:1',
+    prompt: 'Ornamental corner flourish for a 19th century butcher trade catalogue page, elegant thin filigree scrollwork forming an L shape hugging the top and left page edges, a few coarse salt crystals scattered along the scrollwork, fine copperplate line engraving, single copper color on dark charcoal background, no text, isolated composition' },
+  { id: 'corner-laurel', ar: '1:1',
+    prompt: 'Ornamental corner flourish for a 19th century butcher trade catalogue page, elegant thin filigree scrollwork forming an L shape hugging the top and left page edges, a delicate laurel branch woven into the scrollwork, fine copperplate line engraving, single copper color on dark charcoal background, no text, isolated composition' },
+  { id: 'divider-vignette-1', ar: '21:9',
+    prompt: 'Horizontal ornamental divider vignette for a 19th century trade catalogue, a crossed butcher knife and sharpening steel at the center with symmetric thin scrollwork flourishes extending left and right, tapering to fine points, copperplate engraving, single copper color on dark charcoal background, no text, isolated composition' },
+  { id: 'divider-vignette-2', ar: '21:9',
+    prompt: 'Horizontal ornamental divider vignette for a 19th century trade catalogue, a small salt cellar spilling coarse grains at the center, flanked by symmetric delicate laurel sprigs tapering to fine points, copperplate engraving, single copper color on dark charcoal background, no text, isolated composition' },
+  { id: 'page-medallion', ar: '1:1',
+    prompt: 'Small circular ornamental medallion frame for a page number, rope and laurel wreath border with fine scrollwork, completely empty dark center, letterpress engraving texture, single copper color on dark charcoal background, no text, no letters, no numbers' },
   /* ---- Mod B · karanlık portre (5.3) ---- */
   { id: 'hero-burger', ar: '21:9',
     prompt: 'Premium beef burger, 180 gram thick patty, melting cheddar dripping, smoked beef slices, caramelized onion, glossy brioche bun, steam rising. ' + PHOTO },

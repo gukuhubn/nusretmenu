@@ -15,11 +15,14 @@
   /* ---------- Yapılandırma: URL parametreleri config'i geçici ezer ---------- */
   const qs = new URLSearchParams(location.search);
   const modeParam = (qs.get('mode') || CFG.mode || 'A').toUpperCase();
-  const MODE = ['A', 'B', 'AB'].includes(modeParam) ? modeParam : 'A';
+  const MODE = ['A', 'B', 'C', 'AB', 'ABC'].includes(modeParam) ? modeParam : 'A';
   const REGION = qs.get('region') || CFG.region || 'istanbul';
   const SHOW_PRICES = qs.get('prices')
     ? !['off', '0', 'false', 'no'].includes(qs.get('prices').toLowerCase())
     : CFG.showPrices !== false;
+  /* prices=mask: fiyat sütunu durur ama her değer '---' basılır.
+   * PDF çıktısı bununla üretilir; pricing dosyaları repoda kalır. */
+  const PRICE_MASK = (qs.get('prices') || '').toLowerCase() === 'mask';
 
   const priceTable = (PRICING[REGION] || {}).prices || {};
 
@@ -28,7 +31,15 @@
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 
-  const priceOf = (item) => (SHOW_PRICES ? (priceTable[item.id] || '---') : '');
+  const priceOf = (item) => {
+    if (!SHOW_PRICES) return '';
+    if (PRICE_MASK) return '---';
+    return priceTable[item.id] || '---';
+  };
+
+  /* Mod C, Mod A sayfa iskeletini page--c işaretiyle devralır. */
+  const pcls = (mode) =>
+    mode === 'B' ? 'page--b' : 'page--a' + (mode === 'C' ? ' page--c' : '');
 
   /* Görsel yuvası. `assetId` hem kalıcılık anahtarı hem de assets/
    * klasöründeki dosya adıdır: assets/cut-diagram.png düştüğü an dolar. */
@@ -39,6 +50,7 @@
     const cls = ['slot'];
     if (shape === 'circle') cls.push('slot--circle');
     if (opts.tight) cls.push('slot--tight');
+    if (opts.vignette) cls.push('slot--vignette');
     const style = opts.style ? ` style="${esc(opts.style)}"` : '';
     const id = `slot-${assetId}-${++slotSeq}`;
     return `
@@ -96,15 +108,44 @@
   const runhead = (mode, right) =>
     `<div class="runhead"><span>${esc(C.modes[mode].label)}</span><span>${esc(right)}</span></div>`;
 
-  const footmark = () =>
-    `<div class="footmark"><div class="footmark__rule"></div>` +
-    `<div class="footmark__dot"></div><div class="footmark__rule"></div></div>`;
+  /* Mod C gövde sayfaları numaralanır: madalyon gravürü + rakam.
+   * Kapak numarasız kalır (footmark 'numbered' almadan çağrılır). */
+  let cPageNo = 0;
+  const footmark = (mode, numbered) => {
+    if (mode === 'C' && numbered) {
+      return `<div class="footmark footmark--medal"><div class="footmark__rule"></div>
+        <div class="medal">${slot('page-medallion', 'sayfa madalyonu',
+          { shape: 'circle', fit: 'contain', tight: true })}
+          <span class="medal__num">${++cPageNo}</span></div>
+        <div class="footmark__rule"></div></div>`;
+    }
+    return `<div class="footmark"><div class="footmark__rule"></div>` +
+      `<div class="footmark__dot"></div><div class="footmark__rule"></div></div>`;
+  };
 
   const caption = (c) =>
     `<div class="caption"><span>${esc(c.left)}</span><span>${esc(c.right)}</span></div>`;
 
-  const chrome = (mode) =>
-    (mode === 'A' ? '<div class="page__scan"></div>' : '') + '<div class="page__frame"></div>';
+  /* Mod C bölüm ayracı vinyeti (gravür varlığı, ortalı ince bant) */
+  const vignette = (assetId, extra) =>
+    `<div class="divider-vignette${extra ? ' ' + extra : ''}">${
+      slot(assetId, 'bölüm ayracı vinyeti', { fit: 'contain', tight: true })}</div>`;
+
+  const chrome = (mode) => {
+    let h = (mode !== 'B' ? '<div class="page__scan"></div>' : '') +
+            '<div class="page__frame"></div>';
+    if (mode === 'C') {
+      /* Köşe süslemeleri sol-üst yönelimli üretildi; kalan üç köşe CSS
+       * aynalamasıyla döner. Her köşenin motifi farklı: bıçak, çengel,
+       * tuz, defne. */
+      h += `
+        <div class="corner corner--tl">${slot('corner-knife', 'köşe — bıçak', { fit: 'contain', tight: true })}</div>
+        <div class="corner corner--tr">${slot('corner-hook', 'köşe — çengel', { fit: 'contain', tight: true })}</div>
+        <div class="corner corner--bl">${slot('corner-salt', 'köşe — tuz', { fit: 'contain', tight: true })}</div>
+        <div class="corner corner--br">${slot('corner-laurel', 'köşe — defne', { fit: 'contain', tight: true })}</div>`;
+    }
+    return h;
+  };
 
   const sectionHead = (sec, kind, mode) => `
     <div class="sec sec--${kind}">
@@ -120,10 +161,10 @@
   /* 01 / 04 — Kapak. Mod A uzun defter girişi + logo yuvası;
    * Mod B kısa vecize + tam genişlik portre yuvası. */
   const pageCover = (mode) => {
-    const a = mode === 'A';
+    const a = mode !== 'B';
     return `
-    <section class="page page--${mode.toLowerCase()} ${a ? '' : 'page--cover-b'}"
-             data-screen-label="${a ? '01 · Mod A — Kapak' : '04 · Mod B — Kapak'}">
+    <section class="page ${pcls(mode)} ${a ? '' : 'page--cover-b'}"
+             data-screen-label="Kapak · Mod ${mode}">
       ${chrome(mode)}
       <div class="sheet sheet--cover">
         ${runhead(mode, C.brand.versionLine)}
@@ -138,6 +179,7 @@
         <div class="cover-title">${esc(C.cover.title)}</div>
         <div class="cover-title-en">${esc(C.cover.titleEn)}</div>
         <div class="accent-bar"></div>
+        ${mode === 'C' ? vignette('divider-vignette-1', 'divider-vignette--cover') : ''}
         ${a ? `
         <div class="spacer spacer--wide"></div>
         <div class="ledger-tr">${esc(C.cover.ledgerTr)}</div>
@@ -146,20 +188,19 @@
         <div class="moto-tr">${esc(C.cover.motoTr)}</div>
         <div class="moto-en">${esc(C.cover.motoEn)}</div>
         ${slot('cover-portrait', 'kapak portresi — duman, havada tuz taneleri',
-               { shape: 'rect', style: '' }).replace('class="slot"', 'class="slot cover-portrait"')}
-        ${caption(C.captions.coverB)}`}
+               { shape: 'rect', style: '' }).replace('class="slot"', 'class="slot cover-portrait"')}`}
       </div>
-      ${a ? footmark() : ''}
+      ${a ? footmark(mode) : ''}
     </section>`;
   };
 
-  /* 02 / 05 — Kasabın Seçimi. Mod A kesim diyagramı, Mod B steak portresi. */
+  /* Ustanın Ayırdığı. Mod A/C kesim diyagramı, Mod B steak portresi. */
   const pageSteaks = (mode) => {
-    const a = mode === 'A';
+    const a = mode !== 'B';
     const sec = C.sections.steaks;
     return `
-    <section class="page page--${mode.toLowerCase()}"
-             data-screen-label="${a ? '02 · Mod A — Kasabın Seçimi' : '05 · Mod B — Kasabın Seçimi'}">
+    <section class="page ${pcls(mode)}"
+             data-screen-label="Ustanın Ayırdığı · Mod ${mode}">
       ${chrome(mode)}
       <div class="sheet sheet--body">
         ${runhead(mode, C.brand.docLine)}
@@ -171,23 +212,23 @@
             ? slot('cut-diagram', 'dana kesim diyagramı — gravür', { style: 'width:100%;height:58mm' })
             : slot('hero-steak', 'steak portresi — hero', { style: 'width:100%;height:62mm' })}
         </div>
-        ${caption(a ? C.captions.cutDiagram : C.captions.heroSteak)}
+        ${a ? caption(C.captions.cutDiagram) : ''}
         <div class="items">
           ${C.items.steaks.map(itemRow).join('')}
         </div>
       </div>
-      ${footmark()}
+      ${footmark(mode, true)}
     </section>`;
   };
 
-  /* 03 / 06 — Steakhouse Ruhu, Burger Formu. Mod A alev motifi yanında
-   * iki satırlık başlık; Mod B tam genişlik hero burger. */
+  /* Steakhouse Ruhu, Burger Formu. Mod A/C burger kesiti gravürü yanında
+   * iki satırlık başlık (C'de ayrıca alev kolofonu); Mod B hero burger. */
   const pageBurgers = (mode) => {
-    const a = mode === 'A';
+    const a = mode !== 'B';
     const sec = C.sections.burgers;
     return `
-    <section class="page page--${mode.toLowerCase()}"
-             data-screen-label="${a ? '03 · Mod A — Burger' : '06 · Mod B — Burger'}">
+    <section class="page ${pcls(mode)}"
+             data-screen-label="Burger · Mod ${mode}">
       ${chrome(mode)}
       <div class="sheet sheet--body">
         ${runhead(mode, C.brand.docLine)}
@@ -198,7 +239,7 @@
             <div class="lede lede--free">${esc(sec.ledeTr)}</div>
             <div class="lede lede--en lede--free">${esc(sec.ledeEn)}</div>
           </div>
-          ${slot('motif-flame', 'alev gravürü', { shape: 'circle', style: 'width:42mm;height:42mm' })}
+          ${slot('burger-cut', 'burger kesiti — gravür', { shape: 'circle', style: 'width:42mm;height:42mm' })}
         </div>` : `
         ${sectionHead(sec, 'burgers', mode)}
         <div class="lede lede--wide">${esc(sec.ledeTr)}</div>
@@ -206,13 +247,16 @@
         <div style="margin:7mm 0 2.5mm">
           ${slot('hero-burger', 'hero burger portresi — eriyen cheddar, buhar',
                  { style: 'width:100%;height:52mm' })}
-        </div>
-        ${caption(C.captions.heroBurger)}`}
+        </div>`}
         <div class="items items--grid">
           ${C.items.burgers.map(itemRow).join('')}
         </div>
       </div>
-      ${footmark()}
+      ${mode === 'C'
+        ? `<div class="colophon-flame">${slot('motif-flame', 'alev gravürü',
+             { shape: 'circle', tight: true })}</div>`
+        : ''}
+      ${footmark(mode, true)}
     </section>`;
   };
 
@@ -222,7 +266,7 @@
     const sec = C.sections.manifesto;
     if (!sec.body) return '';
     return `
-    <section class="page page--${mode.toLowerCase()}" data-screen-label="Manifesto · Mod ${mode}">
+    <section class="page ${pcls(mode)}" data-screen-label="Manifesto · Mod ${mode}">
       ${chrome(mode)}
       <div class="sheet sheet--cover">
         ${runhead(mode, C.brand.docLine)}
@@ -234,17 +278,17 @@
         ${sec.bodyEn ? `<div class="ledger-en">${esc(sec.bodyEn)}</div>` : ''}
         <div class="spacer spacer--wide"></div>
       </div>
-      ${footmark()}
+      ${footmark(mode, true)}
     </section>`;
   };
 
   /* I — Ateşten Önce (6 ürün) */
   const pageStarters = (mode) => {
-    const a = mode === 'A';
+    const a = mode !== 'B';
     const sec = C.sections.starters;
     const items = C.items.starters || [];
     return `
-    <section class="page page--${mode.toLowerCase()}"
+    <section class="page ${pcls(mode)}"
              data-screen-label="Ateşten Önce · Mod ${mode}">
       ${chrome(mode)}
       <div class="sheet sheet--body">
@@ -261,17 +305,17 @@
           ${items.length ? items.map(itemRow).join('') : pending('ATEŞTEN ÖNCE', sec.expect)}
         </div>
       </div>
-      ${footmark()}
+      ${footmark(mode, true)}
     </section>`;
   };
 
   /* IV — Ritüel: tek ürünlük sahne sayfası. Altın vurgu yalnız burada. */
   const pageRitual = (mode) => {
-    const a = mode === 'A';
+    const a = mode !== 'B';
     const sec = C.sections.ritual;
     const item = (C.items.ritual || [])[0];
     return `
-    <section class="page page--${mode.toLowerCase()} page--ritual"
+    <section class="page ${pcls(mode)} page--ritual"
              data-screen-label="Ritüel · Mod ${mode}">
       ${chrome(mode)}
       <div class="sheet sheet--cover">
@@ -284,9 +328,14 @@
             <div class="sec__title-en">${esc(sec.titleEn)}</div>
           </div>
         </div>
+        ${sec.ledeTr ? `<div class="lede lede--center">${esc(sec.ledeTr)}</div>` : ''}
+        ${sec.ledeEn ? `<div class="lede lede--en lede--center">${esc(sec.ledeEn)}</div>` : ''}
         ${a
-          ? slot('ritual-gold-leaf', 'altın varak ritüeli — gravür',
-                 { shape: 'circle', style: 'width:64mm;height:64mm;margin-top:9mm' })
+          ? slot('ritual-gold-leaf', 'tuz jesti — çizgi gravür',
+                 /* Çizimin koyu zemini sayfa zemininden ayrışmasın diye
+                  * kenarları yumuşak vinyetle eritilir (slot--vignette). */
+                 { shape: 'circle', vignette: true,
+                   style: 'width:64mm;height:64mm;margin-top:7mm' })
           : slot('hero-ritual', '24K altın kaplama sahne portresi',
                  { style: 'width:100%;height:86mm;margin-top:9mm' })}
         ${item ? `
@@ -298,19 +347,19 @@
         </div>` : pending('RİTÜEL · NUSRET SPECIAL 24K GOLD', sec.expect)}
         <div class="spacer spacer--wide"></div>
       </div>
-      ${footmark()}
+      ${footmark(mode, true)}
     </section>`;
   };
 
   /* V — Yanında (3 ürün) + Tatlı Son (Baklava) aynı sayfada */
   const pageSides = (mode) => {
-    const a = mode === 'A';
+    const a = mode !== 'B';
     const sec = C.sections.sides;
     const des = C.sections.dessert;
     const sides = C.items.sides || [];
     const desserts = C.items.desserts || [];
     return `
-    <section class="page page--${mode.toLowerCase()}"
+    <section class="page ${pcls(mode)}"
              data-screen-label="Yanında + Tatlı Son · Mod ${mode}">
       ${chrome(mode)}
       <div class="sheet sheet--body">
@@ -326,7 +375,9 @@
           ${sides.length ? sides.map(itemRow).join('') : pending('YANINDA', sec.expect)}
         </div>
 
-        <div class="section-divider"></div>
+        ${mode === 'C'
+          ? vignette('divider-vignette-2', 'divider-vignette--between')
+          : '<div class="section-divider"></div>'}
 
         <div class="sec sec--dessert">
           <div class="sec__num"></div>
@@ -341,19 +392,21 @@
           ${desserts.length ? desserts.map(itemRow).join('') : pending('TATLI SON · BAKLAVA', des.expect)}
         </div>
       </div>
-      ${footmark()}
+      ${footmark(mode, true)}
     </section>`;
   };
 
   /* Menünün tam yapısı — her mod için aynı sıra. */
-  const pagesFor = (mode) =>
-    pageCover(mode) +
-    pageManifesto(mode) +
-    pageStarters(mode) +
-    pageSteaks(mode) +
-    pageBurgers(mode) +
-    pageRitual(mode) +
-    pageSides(mode);
+  const pagesFor = (mode) => {
+    cPageNo = 0;
+    return pageCover(mode) +
+      pageManifesto(mode) +
+      pageStarters(mode) +
+      pageSteaks(mode) +
+      pageBurgers(mode) +
+      pageRitual(mode) +
+      pageSides(mode);
+  };
 
   /* ================= ARAÇ ÇUBUĞU (yalnız ekran) ================= */
   const link = (params, label, active) => {
@@ -368,7 +421,8 @@
         <span class="toolbar__label">MOD</span>
         ${link({ mode: 'A' }, 'A · İllüstrasyon', MODE === 'A')}
         ${link({ mode: 'B' }, 'B · Karanlık Portre', MODE === 'B')}
-        ${link({ mode: 'AB' }, 'Altı sayfa', MODE === 'AB')}
+        ${link({ mode: 'C' }, 'C · Zengin Defter', MODE === 'C')}
+        ${link({ mode: 'ABC' }, 'Üç mod', MODE === 'ABC')}
       </div>
       <div class="toolbar__group">
         <span class="toolbar__label">FİYAT</span>
@@ -410,12 +464,15 @@
 
   /* ================= KURULUM ================= */
   const mount = document.getElementById('deck');
-  mount.innerHTML = (MODE === 'AB' ? pagesFor('A') + pagesFor('B') : pagesFor(MODE));
+  mount.innerHTML = MODE === 'AB' ? pagesFor('A') + pagesFor('B')
+    : MODE === 'ABC' ? pagesFor('A') + pagesFor('B') + pagesFor('C')
+    : pagesFor(MODE);
   document.body.insertAdjacentHTML('afterbegin', toolbar());
   document.querySelector('[data-act="print"]')
     .addEventListener('click', () => window.print());
   resolveAssets(mount);
 
-  const modeName = MODE === 'AB' ? 'Mod A + Mod B' : C.modes[MODE].name;
+  const modeName = C.modes[MODE] ? C.modes[MODE].name
+    : MODE === 'AB' ? 'Mod A + Mod B' : 'Mod A + B + C';
   document.title = `${C.cover.title} — ${modeName}`;
 })();

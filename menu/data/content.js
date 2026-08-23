@@ -12,19 +12,20 @@ window.KasapContent = {
   brand: {
     /* Kapakta marka tipografik satırla değil kilit logoyla taşınır;
      * wordmark alanları bu revizyonda kaldırıldı. */
-    docLine: 'SALTBAE BURGER · KASAP DEFTERİ',
+    docLine: 'SALTBAE BURGER · USTANIN DEFTERİ',
     versionLine: 'KONSEPT v1.0'
   },
 
-  /* İki sunum modu. Aynı içerik, iki görsel dil. */
+  /* Üç sunum modu. Aynı içerik; C, A'nın süslemeli türevidir. */
   modes: {
     A: { id: 'A', label: 'MOD A · İLLÜSTRASYON', name: 'Mod A — İllüstrasyon' },
-    B: { id: 'B', label: 'MOD B · KARANLIK PORTRE', name: 'Mod B — Karanlık Portre' }
+    B: { id: 'B', label: 'MOD B · KARANLIK PORTRE', name: 'Mod B — Karanlık Portre' },
+    C: { id: 'C', label: 'MOD C · ZENGİN DEFTER', name: 'Mod C — Zengin Defter' }
   },
 
   cover: {
-    title: 'Kasap Defteri',
-    titleEn: "THE BUTCHER'S LEDGER",
+    title: 'Ustanın Defteri',
+    titleEn: "THE MASTER'S LEDGER",
     /* Mod A kapağı: uzun defter girişi */
     ledgerTr: 'Bu defter bir kasap çırağının elinde başladı. Bıçağı tanımayı, eti dinlemeyi, ateşe saygı duymayı öğrendiği yıllarda tutuldu. Bugün aynı defter dünyanın sofralarında açılıyor. Her sayfada aynı söz geçerli: Et ciddiye alınır, gerisi şölendir.',
     ledgerEn: "This ledger began in the hands of a butcher's apprentice. It was kept through the years of learning the knife, listening to the meat, respecting the fire. Today the same ledger opens at tables around the world. One rule holds on every page: The meat is taken seriously. Everything else is celebration.",
@@ -36,10 +37,10 @@ window.KasapContent = {
   sections: {
     steaks: {
       numeral: 'II',
-      titleLines: ['Kasabın Seçimi'],
-      titleEn: "THE BUTCHER'S CUT",
-      ledeTr: 'Bir kasabı ustalaştıran, sattığı et değil, kendine ayırdığı ettir. Bu sayfadakiler o etlerdir.',
-      ledeEn: 'What makes a butcher a master is not the meat he sells, but the cuts he keeps for himself. These are those cuts.'
+      titleLines: ['Ustanın Ayırdığı'],
+      titleEn: "THE MASTER'S CUT",
+      ledeTr: 'Bir ustayı usta yapan, sattığı et değil, kendine ayırdığı ettir. Bu sayfadakiler o etlerdir.',
+      ledeEn: 'What makes a master is not the meat he sells, but the cuts he keeps for himself. These are those cuts.'
     },
     /* Manifesto: varsayılan olarak Mod A kapağında akar (cover.ledgerTr).
      * `body` doldurulursa AYRI bir manifesto sayfası olarak da basılır. */
@@ -99,23 +100,21 @@ window.KasapContent = {
     }
   },
 
-  /* Görsel yuvalarının altındaki gravür kayıt satırları. */
+  /* Görsel yuvasının altındaki gravür kayıt satırı (yalnız Mod A/C kesim
+   * diyagramında; Mod B'nin teknik etiket şeritleri final rötuşta kalktı). */
   captions: {
-    cutDiagram: { left: 'DANA KESİM DİYAGRAMI', right: 'LOKUM VE BONFİLE BÖLGELERİ PİRİNÇ İLE İŞARETLİ' },
-    heroSteak:  { left: 'SAYFANIN TABLOSU', right: 'SAYFA BAŞINA TEK HERO FOTOĞRAF' },
-    heroBurger: { left: 'JUICY BURGER · SAYFANIN TABLOSU', right: '35° · TEK YÖNLÜ IŞIK · DUMAN' },
-    coverB:     { left: 'TEK YÖNLÜ IŞIK · 35°', right: 'ÇELİK TEPSİ · KASAP KAĞIDI · KOYU AHŞAP' }
+    cutDiagram: { left: 'DANA KESİM DİYAGRAMI', right: 'LOKUM VE BONFİLE BÖLGELERİ PİRİNÇ İLE İŞARETLİ' }
   },
 
-  /* Kasabın işareti mührü — sayfa başına tek ürün taşır. */
-  seal: { line1: 'KASABIN', line2: 'İŞARETİ' },
+  /* Ustanın işareti mührü — sayfa başına tek ürün taşır. */
+  seal: { line1: 'USTANIN', line2: 'İŞARETİ' },
 
   items: {
     /* Her ürün: { id, name, seal, tr, en } — id fiyat modülünün anahtarıdır. */
     starters: [
       { id: 'meat-sushi', name: 'MEAT SUSHI', seal: true,
-        tr: 'Kasabın şakası değil, imzası. Dana bonfile, avokado ve parmesan; çiğ etin en zarif hali.',
-        en: "Not the butcher's joke, his signature. Beef sirloin, avocado, parmesan; raw meat at its most elegant." },
+        tr: 'Ustanın şakası değil, imzası. Dana bonfile, avokado ve parmesan; çiğ etin en zarif hali.',
+        en: "Not the master's joke, his signature. Beef sirloin, avocado, parmesan; raw meat at its most elegant." },
       { id: 'beef-tacos', name: 'BEEF TACOS', seal: false,
         tr: 'On iki saat yavaş pişen kaburga, üç lokmalık sabırsızlık için.',
         en: 'Twelve hours of slow cooked ribs, folded into three impatient bites.' },

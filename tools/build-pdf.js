@@ -27,6 +27,7 @@ const CANDIDATES = [
 const MODES = [
   { mode: 'A', file: 'kasap-defteri-mod-a.pdf', name: 'Mod A · İllüstrasyon' },
   { mode: 'B', file: 'kasap-defteri-mod-b.pdf', name: 'Mod B · Karanlık Portre' },
+  { mode: 'C', file: 'kasap-defteri-mod-c.pdf', name: 'Mod C · Zengin Defter' },
 ];
 
 (async () => {
@@ -36,7 +37,9 @@ const MODES = [
   const browser = await chromium.launch({ executablePath: exe });
   const page = await browser.newPage();
   for (const m of MODES) {
-    await page.goto(`${PAGE}?mode=${m.mode}`, { waitUntil: 'domcontentloaded' });
+    /* prices=mask: baskıda tüm fiyatlar '---' basılır; pricing dosyaları
+     * repoda durur ama PDF'e yansımaz (yönetim kararı: fiyatsız prova). */
+    await page.goto(`${PAGE}?mode=${m.mode}&prices=mask`, { waitUntil: 'domcontentloaded' });
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(400);
     const n = await page.evaluate(() => document.querySelectorAll('.page').length);
