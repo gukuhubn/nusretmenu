@@ -1,7 +1,7 @@
 # TESLİM — Kasap Defteri / SaltBae Burger
 
-Branch: `design-kasap-defteri` · Repo: `gukuhubn/nusretmenu`
-Son güncelleme: Revizyon turu 1
+Branch: `claude/konsept-dokumantasyon-gemini-kgko2u` · Repo: `gukuhubn/nusretmenu`
+Son güncelleme: Revizyon turu 2 — konsept dokümanı geldi, tüm içerik ve varlıklar tamamlandı
 
 ---
 
@@ -9,80 +9,67 @@ Son güncelleme: Revizyon turu 1
 
 | Ne | Nerede | Durum |
 |----|--------|-------|
-| Uygulanmış menü (12 sayfa: mod başına 6) | `menu/` | çalışıyor |
-| Mod A PDF | `output/kasap-defteri-mod-a.pdf` | 6 sayfa |
-| Mod B PDF | `output/kasap-defteri-mod-b.pdf` | 6 sayfa |
-| PDF üretim betiği | `tools/build-pdf.js` | `node tools/build-pdf.js` |
-| Görev listesi | `GOREVLER.md` | güncel |
+| Konsept dokümanı v1.0 | `docs/SB_MENU_KONSEPT_PAKETI.md` | repoda |
+| Uygulanmış menü (12 sayfa: mod başına 6) | `menu/` | **metinler tam** |
+| Mod A PDF | `output/kasap-defteri-mod-a.pdf` | 6 sayfa, varlıklar dolu |
+| Mod B PDF | `output/kasap-defteri-mod-b.pdf` | 6 sayfa, varlıklar dolu |
+| Gemini menü varlıkları (16 adet) | `menu/assets/*.png` | üretildi |
+| Galeri artwork'leri (2 + 6 varyant) | `output/galeri/` | üretildi, seçim yapıldı |
+| Erenköy fiyatları | `menu/data/pricing-istanbul.js` | 13 ürün gerçek TL |
+| Erenköy ham verisi | `menu/data/source-erenkoy.json` | 10 bölüm · 55 ürün |
+| Eksik ürün analizi | `EKSIK_URUNLER.md` | iki yönlü liste |
+| Üretim betikleri | `tools/build-pdf.js`, `tools/gen-assets.js`, `tools/gen-galeri.js` | çalışıyor |
 
 ## Sayfa yapısı (mod başına)
 
-| # | Bölüm | Ürün | Metin durumu |
-|---|-------|------|--------------|
-| 1 | Kapak (Manifesto Mod A'da kapakta akar) | — | **tam** |
-| 2 | I · Ateşten Önce | 6 | **bekleniyor** |
-| 3 | II · Kasabın Seçimi | 4 | **tam** |
-| 4 | III · Steakhouse Ruhu, Burger Formu | 7 | **tam** |
-| 5 | IV · Ritüel (Nusret Special 24K Gold) | 1 | **bekleniyor** |
-| 6 | V · Yanında (3) + Tatlı Son (Baklava) | 3 + 1 | **bekleniyor** |
-
-Manifesto ayrı sayfa da olabilir: `content.js → sections.manifesto.body`
-doldurulduğu an kapaktan sonra ayrı sayfa olarak basılır, kod değişmez.
-
-Ritüel sayfasında altın vurgu (`#d4af37`) yalnız o sayfada geçerlidir;
-defterin geri kalanı pirinç (`#b5824c`) kalır.
-
-## Logo varlıkları
-
-`menu/assets/logo-mark.svg` + `logo-burger.svg` — Drive'daki marka dosyasından
-(`SALTBAE LOGOLAR / saltbae_logolar_toplu.pdf`, s.3) vektör olarak çıkarıldı,
-tek renk kemik (`#e9e1d1`), harf oyukları şeffaf. Mod A kapağında otomatik doluyor.
-
-Bulunamayanlar: ayrı **BURGER etiketi** (marka dosyasında kilit logoyla tek parça)
-ve **Nusret logosu** (logo klasöründe yok, yalnız sunum PDF'lerinin içinde).
-
-**Öneri:** Kapakta artık hem tipografik `SALTBAE / BURGER` satırları hem de
-kilit logo var — ikisi aynı şeyi söylüyor. Tipografik satırların kaldırılması
-sayfayı sadeleştirir; karar sizin, tek satırlık değişiklik.
+| # | Bölüm | Ürün | Metin | Fiyat |
+|---|-------|------|-------|-------|
+| 1 | Kapak | — | tam | — |
+| 2 | I · Ateşten Önce | 6 | **tam** | kaynakta yok (`---`) |
+| 3 | II · Kasabın Seçimi | 4 | tam | 3/4 işlendi |
+| 4 | III · Steakhouse Ruhu, Burger Formu | 7 | tam | 6/7 işlendi |
+| 5 | IV · Ritüel (Nusret Special 24K Gold) | 1 | **tam** | 2.900 (çıpa ✓) |
+| 6 | V · Yanında (3) + Tatlı Son (1) | 3+1 | **tam** | 3/4 işlendi |
 
 ## Bu turda tamamlananlar
 
-- **Eksik sayfa şablonları kuruldu** — Ateşten Önce, Ritüel, Yanında + Tatlı Son,
-  opsiyonel Manifesto. Numaralandırma I–V'e taşındı.
-- **Fontlar gömüldü** — `menu/assets/fonts/` (13 woff2, 34 `@font-face`).
-  Sayfa artık **sıfır dış istekle** açılıyor; matbaa teslimi internete bağlı değil.
-  Doğrulandı: tüm dış istekler kesilmiş tarayıcıda gerçek Cormorant/Archivo çiziliyor.
-- **Logo bulundu ve gömüldü** — Drive'dan vektör çıkarımı, tek renk kemik SVG.
-- **PDF çifti** üretildi, `output/` altına kondu.
-- Doğrulama: 12 sayfanın tamamı tam 210 × 297 mm, hiçbirinde taşma yok.
+- **Konsept dokümanı** `docs/` altına kondu; Bölüm 3 metinleriyle Ateşten
+  Önce, Ritüel, Yanında ve Tatlı Son dolduruldu. Taslak EN başlıklar
+  dokümandaki karşılıklarıyla değiştirildi (ON THE SIDE, AFTER THE SALT).
+- **Kapak revizyonu:** tipografik SALTBAE/BURGER satırları kaldırıldı;
+  markayı kapakta yalnız kilit logo taşıyor, %25 küçültüldü
+  (88×26 → 66×19,5 mm). Mod B kapağına da aynı logo yuvası eklendi.
+  İç sayfalarda logo yok (cari başlık metin olarak kalıyor).
+- **Gemini varlıkları (Bölüm 5):** 16 varlık `gemini-3-pro-image` ile
+  üretildi, tüm slotlar doldu. Notlar: `seal` metinsiz olarak, `ritual-
+  gold-leaf` düz çizgi illüstrasyon olarak ikinci turda yeniden üretildi;
+  `cover-portrait` 5.3.5'ten **altınsız** türetildi (Bölüm 4.1: altın
+  yalnız Ritüel sayfasında). Slot'suz yedekler: motif-knife,
+  hero-burger-black, texture-kraft, texture-leather.
+- **Galeri:** 2 natürmort × 3 varyant; seçimler ve gerekçeleri
+  `output/galeri/PROMPTLAR.md` içinde.
+- **FineDine Erenköy:** ağ izni açıldı; menü API üzerinden çekildi
+  (auth: `POST /v2/mobile-menu/auth {slug}` → `GET /v1/entities/<id>/
+  flat-list`). 13 ürünün gerçek fiyatı işlendi; eşleşme gerekçeleri hem
+  `pricing-istanbul.js` satır içinde hem `EKSIK_URUNLER.md`'de.
+- **Doğrulama:** 12 sayfanın tamamı 210 × 297 mm, taşma yok, bekleyen
+  metin rozeti kalmadı; PDF çifti yeniden üretildi.
 
-## Metin gelince ne yapılacak
+## Açık kalanlar
 
-Sadece `menu/data/content.js` → `items.starters` / `items.ritual` /
-`items.sides` / `items.desserts` dizileri doldurulur ve ilgili
-`sections.*.ledeTr/ledeEn` yazılır. Layout'a, CSS'e, şablona dokunulmaz.
-Boş kalan bölümler baskıda "ÜRÜN METNİ BEKLENİYOR" rozetiyle görünür —
-sessizce boş kalmaz, taslak olduğu belli olur.
+1. **Fiyatı bulunamayan 9 konsept ürünü** (`---` duruyor): Ateşten Önce'nin
+   6 ürünü, Fillet Mignon, Nusret Burger, Baharatlı Patates — Erenköy
+   menüsünde karşılıkları yok; ayrıntı `EKSIK_URUNLER.md` bölüm 1.
+2. **Dubai fiyatları** hâlâ placeholder — liste verilmedi.
+3. **Ayrı BURGER etiketi / Nusret logosu** — marka dosyasında ayrıştırılabilir
+   katman yok (revizyon turu 1 notu geçerli).
+4. AI fotoğraflar **onay aşaması yer tutucusudur**; nihai baskı öncesi
+   profesyonel çekim gerekir (konsept dokümanı 4.3 uygulama notu).
 
-Bölüm başlıklarının İngilizce karşılıkları (BEFORE THE FIRE, THE RITUAL,
-ALONGSIDE, A SWEET ENDING) **taslak çeviridir**; konsept dokümanındaki
-karşılıklarıyla değiştirilmelidir.
+## Yeniden üretim
 
-## Galeri konsept görselleri
-
-Üretim betiği hazır (`tools/gen-galeri.js`), promptlar ve stil kilidi
-`output/galeri/PROMPTLAR.md` içinde kayıtlı. Üretim `GEMINI_API_KEY`
-bekliyor; ağ tarafı doğrulandı ve açık.
-
-## Tamamlanamayanlar
-
-Üçü de bende değil, girdi bekliyor — ayrıntı `GOREVLER.md`'de:
-
-1. **Konsept dokümanı yok.** Bölüm 3 (metinler) ve Bölüm 5 (varlık brief'leri)
-   bu workspace'te, GitHub reposunda ve Drive'da bulunamadı.
-2. **FineDine hâlâ engelli.** `finedinemenu.com`, `www.`, `api.`, `qr.` —
-   dördü de proxy'de `403`. Fiyatlar bu yüzden `---`.
-3. **`GEMINI_API_KEY` tanımlı değil.** Ortamda yok; alternatif isimler de yok
-   (revizyon turu 1'de ve galeri görevinde iki kez kontrol edildi). Hem menü
-   varlıkları hem galeri görselleri bu yüzden üretilemedi. Ağ engeli yok —
-   yalnız anahtar eksik.
+```bash
+node tools/build-pdf.js                      # PDF çifti
+GEMINI_API_KEY=... node tools/gen-assets.js  # menü varlıkları
+GEMINI_API_KEY=... node tools/gen-galeri.js --model gemini-3-pro-image  # galeri
+```

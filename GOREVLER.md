@@ -29,33 +29,22 @@ Kaynak: `project/Kasap Defteri Menu.dc.html` (6 sayfa, A4 dikey, Mod A + Mod B).
       210 × 297 mm, hiçbir sayfada taşma yok; baskıda araç çubuğu gizli
 - [x] `menu/assets/README.md` — varlık isimlendirme sözleşmesi
 
-## 3. FineDine Erenköy menüsünden veri çekme  `[!]` ENGELLENDİ
+## 3. FineDine Erenköy menüsünden veri çekme  `[x]` TAMAM (rev. 2)
 
-- [!] `qr.finedinemenu.com` bu oturumun ağ politikası tarafından engelli
-      (proxy `403 CONNECT tunnel failed`). Bu bir organizasyon egress politikası
-      reddi; ortam dokümanı ve senin 4. maddendeki talimat gereği zorlanmadı.
-- [ ] JS bundle'dan API endpoint tespiti
-- [ ] `data/source-erenkoy.json`
-- [ ] Fiyatların `pricing-istanbul.js`'e aktarılması (content.js metinleri ezilmeden)
-- [ ] Bizde eksik ürünlerin ayrı listesi
-- [ ] `assets/reference/` altına referans fotoğraflar
+- [x] Ağ izni açıldı; JS bundle'dan API tespit edildi:
+      `POST /v2/mobile-menu/auth {slug}` → `GET /v1/entities/<id>/flat-list`
+- [x] `menu/data/source-erenkoy.json` — 10 bölüm · 55 ürün
+- [x] Fiyatlar `pricing-istanbul.js`'e aktarıldı (13 ürün; content.js ezilmedi)
+- [x] İki yönlü eksik ürün listesi → `EKSIK_URUNLER.md`
+- [ ] `assets/reference/` altına referans fotoğraflar (menü yuvalarına
+      bağlanmadıkları için ertelendi; istenirse imgix URL'lerinden inebilir)
 
-**Karar gerekiyor:** ağ izni açılsın mı, yoksa menü JSON'unu / fiyat listesini
-sen mi vereceksin? Fiyatlar gelene kadar `---` placeholder olarak duruyor.
-Fiyat geldiğinde tek dokunulacak yer: `menu/data/pricing-istanbul.js`.
+## 4. Gemini API anahtarı  `[x]` TAMAM (rev. 2)
 
-## 4. Gemini API anahtarı  `[!]` ENGELLENDİ
+- [x] `GEMINI_API_KEY` ortama tanımlanmış geldi; doğrulama isteği 200 döndü
+      (anahtar değeri hiçbir yere yazılmadı/loglanmadı)
 
-- [!] Adım 1 (`env` taraması) Claude Code oto-mod izin sınıflandırıcısı
-      tarafından reddedildi. Bilerek etrafından dolaşılmadı.
-- [ ] GitHub repo variables (`gh variable list`)
-- [ ] GCP Secret Manager (`gcloud secrets versions access`)
-- [ ] `.env` yazımı + `.gitignore` (anahtar değeri asla loglanmayacak)
-- [ ] Doğrulama isteği → "çalışıyor / çalışmıyor"
-
-**Karar gerekiyor:** izin kuralı eklenmesi veya anahtarın doğrudan verilmesi.
-
-## 5. Gemini ile varlık üretimi  `[!]` ENGELLENDİ
+## 5. Gemini ile varlık üretimi  `[x]` TAMAM (rev. 2)
 
 Görev 4'e bağlı — `GEMINI_API_KEY` ortamda tanımlı değil (kontrol edildi:
 `GEMINI_API_KEY`, `GOOGLE_API_KEY`, `GOOGLE_GENAI_API_KEY`, `GEMINI_KEY`,
@@ -64,24 +53,24 @@ Ayrıca varlık brief'leri konsept dokümanı Bölüm 5'te ve o doküman elimde 
 Aşağıdaki asset-id'ler tasarımdan türetildi; doküman gelince isimler eşlenebilir.
 
 - [x] `logo-mark` — figürsüz kilit logo (Drive'dan bulundu, SVG'ye çevrildi)
-- [ ] `cut-diagram` — dana kesim diyagramı, gravür (Gemini 5.2.1)
-- [ ] `motif-flame` — alev gravürü (Gemini 5.2.4)
-- [ ] `cover-portrait` — kapak portresi, duman + havada tuz (Gemini 5.3.5)
-- [ ] `hero-steak` — steak portresi (Gemini 5.3.3)
-- [ ] `hero-burger` — hero burger, eriyen cheddar + buhar (Gemini 5.3.1)
-- [ ] `seal` — kasabın işareti mührü (şu an CSS ile çiziliyor, varlık opsiyonel)
-- [ ] `motif-ember` / `hero-starter` — Ateşten Önce
-- [ ] `ritual-gold-leaf` / `hero-ritual` — Ritüel (24K altın)
-- [ ] `motif-side` / `hero-side` — Yanında
+- [x] `cut-diagram` — dana kesim diyagramı, gravür (Gemini 5.2.1)
+- [x] `motif-flame` — alev gravürü (Gemini 5.2.4)
+- [x] `cover-portrait` — kapak portresi, duman + havada tuz (Gemini 5.3.5)
+- [x] `hero-steak` — steak portresi (Gemini 5.3.3)
+- [x] `hero-burger` — hero burger, eriyen cheddar + buhar (Gemini 5.3.1)
+- [x] `seal` — kasabın işareti mührü (şu an CSS ile çiziliyor, varlık opsiyonel)
+- [x] `motif-ember` / `hero-starter` — Ateşten Önce
+- [x] `ritual-gold-leaf` / `hero-ritual` — Ritüel (24K altın)
+- [x] `motif-side` / `hero-side` — Yanında
 
-## 6. Eksik sayfalar (revizyon turu 1)  `[~]` ŞABLONLAR HAZIR, METİN BEKLENİYOR
+## 6. Eksik sayfalar (revizyon turu 1)  `[x]` TAMAM (rev. 2)
 
 - [x] Ateşten Önce (I) sayfa şablonu — 6 ürünlük liste
 - [x] Ritüel (IV) tek ürünlük sahne sayfası — altın vurgu yalnız bu sayfada
 - [x] Yanında (V) + Tatlı Son aynı sayfada
 - [x] Manifesto: kapakta akıyor; `sections.manifesto.body` dolarsa ayrı sayfa
 - [x] Numaralandırma I–V'e taşındı
-- [ ] Metinler — konsept dokümanı Bölüm 3 elimde yok
+- [x] Metinler — konsept dokümanı geldi (`docs/SB_MENU_KONSEPT_PAKETI.md`), Bölüm 3 işlendi
 
 ## 7. Fontların gömülmesi  `[x]` TAMAM
 
@@ -116,14 +105,14 @@ Kaynak GitHub değil Drive oldu: `gh` CLI bu ortamda kurulu değil, GitHub
       içinde geçiyor; ayrı bir logo varlığı olarak bulunamadı.
 
 
-## 10. Galeri konsept görselleri  `[!]` ANAHTAR BEKLİYOR
+## 10. Galeri konsept görselleri  `[x]` TAMAM (rev. 2)
 
 - [x] `tools/gen-galeri.js` — iki artwork × 3 varyant, ortak stil kilidi gömülü
 - [x] `output/galeri/PROMPTLAR.md` — promptların ve seçim akışının kaydı
 - [x] Ağ doğrulandı: `generativelanguage.googleapis.com` erişilebilir
       (anahtarsız çağrıya Google'ın kendi 403'ü dönüyor, proxy engeli yok)
-- [ ] `galeri-kapak.png` — 3 varyant üretimi
-- [ ] `galeri-salon2.png` — 3 varyant üretimi
-- [ ] En resimsel karelerin seçimi (kareler görülmeden yapılamaz)
+- [x] `galeri-kapak.png` — 3 varyant üretildi, v2 seçildi
+- [x] `galeri-salon2.png` — 3 varyant üretildi, v2 seçildi
+- [x] Seçim yapıldı — gerekçeler `output/galeri/PROMPTLAR.md` içinde
 
 `GEMINI_API_KEY` tanımlandığı an: `GEMINI_API_KEY=... node tools/gen-galeri.js`
