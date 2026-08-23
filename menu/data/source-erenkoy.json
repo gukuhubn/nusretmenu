@@ -1,0 +1,509 @@
+{
+  "kaynak": "https://qr.finedinemenu.com/saltbae-burger-erenkoey/menu/69cb799b3eeaa3fffd8f69a9",
+  "api": "https://api.finedinemenu.com/v1/entities/69cb799b3eeaa3fffd8f69a9/flat-list",
+  "cekim_tarihi": "2026-08-22",
+  "para_birimi": "TL",
+  "not": "FineDine mobil menü API'sinden çekildi; auth: POST /v2/mobile-menu/auth {slug}. Yalnız ad/açıklama/fiyat/bölüm alanları saklandı.",
+  "bolumler": [
+    {
+      "ad": "Özel Menüler",
+      "ad_en": "Special Menus",
+      "urunler": [
+        {
+          "ad": "Woww Menü - Magnum Devils",
+          "ad_en": "Woww Menu - Magnum Devils",
+          "fiyat": 1150,
+          "aciklama": "Juicy Burger (180gr),    Patates kızartması,   Seçeceğiniz 1 İçecek,   Tatlı olarak Magnum Devils",
+          "id": "69cb799b3eeaa3fffd8f6a5c",
+          "soldout": false
+        },
+        {
+          "ad": "Woww Menü - Baklava",
+          "ad_en": "Woww Menu - Baklava",
+          "fiyat": 1375,
+          "aciklama": "Juicy Burger (180gr),    Patates kızartması,   Seçeceğiniz 1 içecek,   Tatlı olarak havuç dilim baklava",
+          "id": "69cb799b3eeaa3fffd8f6a5d",
+          "soldout": false
+        },
+        {
+          "ad": "Keko Shake Menü",
+          "ad_en": "Keko Shake Menu",
+          "fiyat": 1150,
+          "aciklama": "Juicy Burger (180gr),   Patates Kızartması,   Çilekli Keko shake",
+          "id": "69cb799b3eeaa3fffd8f6a5e",
+          "soldout": false
+        },
+        {
+          "ad": "Relax Menü",
+          "ad_en": "Relax Menu",
+          "fiyat": 750,
+          "aciklama": "Juicy Burger (120 gr),    Patates kızartması   Soft İçecek",
+          "id": "69cb799b3eeaa3fffd8f6a5f",
+          "soldout": false
+        },
+        {
+          "ad": "Bonfile Salata Menü",
+          "ad_en": "Tenderloin Salad Menu",
+          "fiyat": 1100,
+          "aciklama": "Tulum Peynirli Salata,    Dana Lokum (100 gr),     Soft İçecek",
+          "id": "69cb799b3eeaa3fffd8f6a60",
+          "soldout": false
+        },
+        {
+          "ad": "Köfteli Salata Menü",
+          "ad_en": "Meatball Salad Menu",
+          "fiyat": 925,
+          "aciklama": "Tulum Peynirli Salata,   Cevapi Köfte (150 gr),    Soft İçecek",
+          "id": "69cb799b3eeaa3fffd8f6a61",
+          "soldout": false
+        }
+      ]
+    },
+    {
+      "ad": "Başlangıçlar",
+      "ad_en": "Starters",
+      "urunler": [
+        {
+          "ad": "Dana Carpaccio",
+          "ad_en": "Beef Carpaccio",
+          "fiyat": 1250,
+          "aciklama": "Dana bonfile, roka, çıtır parmesan ve sızma zeytinyağı",
+          "id": "69cb799b3eeaa3fffd8f6a3c",
+          "soldout": false
+        },
+        {
+          "ad": "Dana Füme",
+          "ad_en": "Smoked Beef",
+          "fiyat": 775,
+          "aciklama": "Füme antrikot, roka, ceviz, parmesan ve sızma zeytinyağı",
+          "id": "69cb799b3eeaa3fffd8f6a3d",
+          "soldout": false
+        }
+      ]
+    },
+    {
+      "ad": "Salatalar",
+      "ad_en": "Salads",
+      "urunler": [
+        {
+          "ad": "Tulum Peynirli Salata",
+          "ad_en": "Goat Cheese Salad",
+          "fiyat": 500,
+          "aciklama": "Tulum peyniri, Akdeniz yeşillikleri, kuru üzüm, yaban mersini, nar taneleri, ceviz, nar ekşisi sosu, soya filizi, kiraz domatesler, kibrit elma, sızma zeytinyağı ve limon sos",
+          "id": "69cb799b3eeaa3fffd8f6ab3",
+          "soldout": false
+        },
+        {
+          "ad": "Avokado Salatası",
+          "ad_en": "Avocado Salad",
+          "fiyat": 580,
+          "aciklama": "Akdeniz yeşillikleri, parmesan, koçan mısır, nar taneleri, kiraz domatesler, sızma zeytinyağı ve limon sos",
+          "id": "69cb799b3eeaa3fffd8f6ab4",
+          "soldout": false
+        },
+        {
+          "ad": "Bahçe Salatası",
+          "ad_en": "Garden Salad",
+          "fiyat": 470,
+          "aciklama": "Akdeniz yeşillikleri, kuru üzüm, kuru yaban mersini, nar, ceviz, nar ekşisi sosu, soya filizi, kiraz domatesler, kibrit elma, sızma zeytinyağı ve limon Sosu",
+          "id": "69cb799b3eeaa3fffd8f6ab5",
+          "soldout": false
+        },
+        {
+          "ad": "Bonfile Salata",
+          "ad_en": "Tenderloin Salad",
+          "fiyat": 1050,
+          "aciklama": "Tulum Peynirli Salata & Dana Lokum (100 gr)",
+          "id": "69cb799b3eeaa3fffd8f6ab6",
+          "soldout": false
+        },
+        {
+          "ad": "Köfteli Salata",
+          "ad_en": "Meatball Salad",
+          "fiyat": 850,
+          "aciklama": "Tulıum Peynirli Salata & Cevapi Köfte (150 gr)",
+          "id": "69cb799b3eeaa3fffd8f6ab7",
+          "soldout": false
+        }
+      ]
+    },
+    {
+      "ad": "Burgerler",
+      "ad_en": "Burgers",
+      "urunler": [
+        {
+          "ad": "Juicy Burger",
+          "ad_en": "Juicy Burger",
+          "fiyat": 795,
+          "aciklama": "Dana Burger, dana füme, cheddar peyniri, karamelize soğan ve patates kızartması",
+          "id": "69cb799b3eeaa3fffd8f6a22",
+          "soldout": false
+        },
+        {
+          "ad": "Saltbae Burger",
+          "ad_en": "Saltbae Burger",
+          "fiyat": 825,
+          "aciklama": "Dana burger, dana füme, cheddar peyniri, karamelize soğan, siyah ekmek ve patates kızartması",
+          "id": "69cb799b3eeaa3fffd8f6a23",
+          "soldout": false
+        },
+        {
+          "ad": "Triple Mushroom Burger",
+          "ad_en": "Triple Mushroom Burger",
+          "fiyat": 875,
+          "aciklama": "Dana burger, kestane, kültür ve istridye mantarı, cheddar peyniri ve patates kızartması",
+          "id": "69cb799b3eeaa3fffd8f6a24",
+          "soldout": false
+        },
+        {
+          "ad": "BarbeQ Burger",
+          "ad_en": "BarbeQ Burger",
+          "fiyat": 825,
+          "aciklama": "Dana burger, dana füme, cheddar peyniri, karamelize soğan, barbekü sos, hibiskus tozu ile renklendirilmiş ekmek ve patates kızartması",
+          "id": "69cb799b3eeaa3fffd8f6a25",
+          "soldout": false
+        },
+        {
+          "ad": "Smoked Burger",
+          "ad_en": "Smoked Burger",
+          "fiyat": 850,
+          "aciklama": "Dana burger, dana füme, karamelize soğan, özel sosunda sotelenmiş kırmızı kapya biber, cheddar peyniri, siyah ekmek ve patates kızartması",
+          "id": "69cb799b3eeaa3fffd8f6a26",
+          "soldout": false
+        },
+        {
+          "ad": "Vejetaryen Burger",
+          "ad_en": "Vegetarian Burger",
+          "fiyat": 550,
+          "aciklama": "Karışık mantar, patlıcan, kırmızı biber, kapya, çıtır soğan, cheddar peyniri ve patates kızartması",
+          "id": "69cb799b3eeaa3fffd8f6a27",
+          "soldout": false
+        },
+        {
+          "ad": "Avokado Burger",
+          "ad_en": "Avocado Burger",
+          "fiyat": 795,
+          "aciklama": "Avakado arasında dana burger eti, cheddar peyniri ve patates kızartması",
+          "id": "69cb799b3eeaa3fffd8f6a28",
+          "soldout": false
+        },
+        {
+          "ad": "Lokum Burger",
+          "ad_en": "Lokum Burger",
+          "fiyat": 1050,
+          "aciklama": "Marine edilmiş bonfile, kırmızı soğan, cheddar peyniri ve patates kızartması",
+          "id": "69cb799b3eeaa3fffd8f6a29",
+          "soldout": false
+        },
+        {
+          "ad": "Steak Sandwich",
+          "ad_en": "Steak Sandwich",
+          "fiyat": 1000,
+          "aciklama": "Tereyağında soğan ve soya sos ile sotelenmiş bonfile parçaları, cheddar peyniri ve patates kızartması",
+          "id": "69cb799b3eeaa3fffd8f6a2a",
+          "soldout": false
+        },
+        {
+          "ad": "Asado Burger",
+          "ad_en": "Asado (Rib) Burger",
+          "fiyat": 1050,
+          "aciklama": "Asado, guacamole, özel sosunda sotelenmiş kırmızı kapya biber, cheddar peyniri, barbekü sos, kibrit patates ve patates kızartması",
+          "id": "69cb799b3eeaa3fffd8f6a2b",
+          "soldout": false
+        }
+      ]
+    },
+    {
+      "ad": "Et",
+      "ad_en": "Meat",
+      "urunler": [
+        {
+          "ad": "Lokum",
+          "ad_en": "Beef Fillet",
+          "fiyat": 2100,
+          "aciklama": "Dilimlenmiş dana bonfile",
+          "id": "69cb799b3eeaa3fffd8f69f0",
+          "soldout": false
+        },
+        {
+          "ad": "Şaşlık",
+          "ad_en": "Shashlik",
+          "fiyat": 1950,
+          "aciklama": "Marine edilmiş, dilimlenmiş dana eti",
+          "id": "69cb799b3eeaa3fffd8f69f1",
+          "soldout": false
+        },
+        {
+          "ad": "New York Steak",
+          "ad_en": "New York Steak",
+          "fiyat": 2300,
+          "aciklama": "",
+          "id": "69cb799b3eeaa3fffd8f69f2",
+          "soldout": false
+        },
+        {
+          "ad": "Dallas Steak",
+          "ad_en": "Dallas Steak",
+          "fiyat": 2600,
+          "aciklama": "",
+          "id": "69cb799b3eeaa3fffd8f69f3",
+          "soldout": false
+        },
+        {
+          "ad": "Dana Antrikot",
+          "ad_en": "Veal Entrecôte",
+          "fiyat": 2200,
+          "aciklama": "",
+          "id": "69cb799b3eeaa3fffd8f69f4",
+          "soldout": false
+        },
+        {
+          "ad": "Parmak Köfte / Cevapi",
+          "ad_en": "Finger Meatballs / Cevapi",
+          "fiyat": 775,
+          "aciklama": "Dana döşten soğan ve baharatlarla yoğrulmuş, geleneksel usülde hazırlanan Boşnak köftesi - 180 gr.",
+          "id": "69cb799b3eeaa3fffd8f69f5",
+          "soldout": false
+        },
+        {
+          "ad": "Boşnak Köfte",
+          "ad_en": "Bosnian Meatball",
+          "fiyat": 800,
+          "aciklama": "Kaşarlı, cheddar peynirli ve pul biberli Boşnak köftesi - 210 gr",
+          "id": "69cb799b3eeaa3fffd8f69f6",
+          "soldout": false
+        }
+      ]
+    },
+    {
+      "ad": "Altın Ziyafet",
+      "ad_en": "Golden Feast",
+      "urunler": [
+        {
+          "ad": "Gold Burger",
+          "ad_en": "Gold Burger",
+          "fiyat": 2900,
+          "aciklama": "Dana burger, dana füme, çıtır soğan, cheddar peyniri, yenilebilir altın yaprak ve patates kızartması",
+          "id": "69cb799b3eeaa3fffd8f6a48",
+          "soldout": false
+        },
+        {
+          "ad": "Gold New York Steak",
+          "ad_en": "Gold New York Steak",
+          "fiyat": 6500,
+          "aciklama": "",
+          "id": "69cb799b3eeaa3fffd8f6a49",
+          "soldout": false
+        },
+        {
+          "ad": "Gold Dallas Steak",
+          "ad_en": "Gold Dallas Steak",
+          "fiyat": 7000,
+          "aciklama": "",
+          "id": "69cb799b3eeaa3fffd8f6a4a",
+          "soldout": false
+        },
+        {
+          "ad": "Gold Baklava",
+          "ad_en": "Gold Baklava",
+          "fiyat": 1400,
+          "aciklama": "24 Ayar altın yaprakları ile kaplanan imza tatlımız, kaymaklı dondurma ile birlikte servis edilir.",
+          "id": "69cb799b3eeaa3fffd8f6a4b",
+          "soldout": false
+        }
+      ]
+    },
+    {
+      "ad": "Yan Lezzetler",
+      "ad_en": "Sides",
+      "urunler": [
+        {
+          "ad": "Mozzarella Çubukları",
+          "ad_en": "Mozzarella Sticks",
+          "fiyat": 300,
+          "aciklama": "",
+          "id": "69cb799b3eeaa3fffd8f6a79",
+          "soldout": false
+        },
+        {
+          "ad": "Çıtır Yaprak Soğan",
+          "ad_en": "Crispy Fried Onion Petals",
+          "fiyat": 240,
+          "aciklama": "",
+          "id": "69cb799b3eeaa3fffd8f6a7a",
+          "soldout": false
+        },
+        {
+          "ad": "Patates Kızartması",
+          "ad_en": "French Fries",
+          "fiyat": 175,
+          "aciklama": "",
+          "id": "69cb799b3eeaa3fffd8f6a7b",
+          "soldout": false
+        },
+        {
+          "ad": "Patates Kızartması - Trüflü & Parmesanlı",
+          "ad_en": "French Fries - Truffle & Parmesan",
+          "fiyat": 280,
+          "aciklama": "",
+          "id": "69cb799b3eeaa3fffd8f6a7c",
+          "soldout": false
+        },
+        {
+          "ad": "Patates Kızartması - Dana Füme ve Cheddarlı",
+          "ad_en": "French Fries with Smoked Beef and Cheddar",
+          "fiyat": 300,
+          "aciklama": "",
+          "id": "69cb799b3eeaa3fffd8f6a7d",
+          "soldout": false
+        }
+      ]
+    },
+    {
+      "ad": "Soslar",
+      "ad_en": "Sauces",
+      "urunler": [
+        {
+          "ad": "Cheddar",
+          "ad_en": "Cheddar",
+          "fiyat": 65,
+          "aciklama": "Cheddar peyniri, krema",
+          "id": "69cb799b3eeaa3fffd8f6a93",
+          "soldout": false
+        },
+        {
+          "ad": "Trüflü Mayonez",
+          "ad_en": "Truffle Mayonnaise",
+          "fiyat": 50,
+          "aciklama": "Karabiber, mayonez, tuz, trüf yağı",
+          "id": "69cb799b3eeaa3fffd8f6a94",
+          "soldout": false
+        },
+        {
+          "ad": "Barbekü",
+          "ad_en": "BBQ",
+          "fiyat": 45,
+          "aciklama": "Toz kırmızı biber, karabiber, sarımsak, chipotle sos, nişasta, domates salçası, esmer şeker, beyaz sirke, tuz, sıvı tütsü aroması",
+          "id": "69cb799b3eeaa3fffd8f6a95",
+          "soldout": false
+        },
+        {
+          "ad": "Acı Biber Sos",
+          "ad_en": "Chili",
+          "fiyat": 45,
+          "aciklama": "Pul biber, karabiber, kekik, kaliforniya biber, chipotle sos, sarımsak, beyaz sirke, soğan, sriracha sos, tuz, zeytinyağ, sıvı tütsü aroması",
+          "id": "69cb799b3eeaa3fffd8f6a96",
+          "soldout": false
+        },
+        {
+          "ad": "Sarımsaklı Mayonez",
+          "ad_en": "Garlic Mayonnaise",
+          "fiyat": 45,
+          "aciklama": "Karabiber, sarımsak tozu, mayonez, sarımsak, beyaz sirke, hardal, worcestershire sos, tuz, zeytinyağ",
+          "id": "69cb799b3eeaa3fffd8f6a97",
+          "soldout": false
+        },
+        {
+          "ad": "Ranch",
+          "ad_en": "Ranch",
+          "fiyat": 45,
+          "aciklama": "Toz kırmızı biber, karabiber, sarımsak tozu, maydanoz, mayonez, beyaz sirke, frenk soğanı, tuz, yoğurt, soğan tozu",
+          "id": "69cb799b3eeaa3fffd8f6a98",
+          "soldout": false
+        },
+        {
+          "ad": "Ballı Hardal",
+          "ad_en": "Honey Mustard",
+          "fiyat": 45,
+          "aciklama": "Karabiber, sarımsak tozu, bal, mayonez, beyaz sirke, hardal, tuz",
+          "id": "69cb799b3eeaa3fffd8f6a99",
+          "soldout": false
+        },
+        {
+          "ad": "Acılı Mayonez",
+          "ad_en": "Hot Sauce Mayonnaise",
+          "fiyat": 45,
+          "aciklama": "Toz kırmızı biber, karabiber, mayonez, beyaz sirke, hardal, sriracha sos, tabasko sos, tuz",
+          "id": "69cb799b3eeaa3fffd8f6a9a",
+          "soldout": false
+        },
+        {
+          "ad": "Tatlı Acı Sos",
+          "ad_en": "Sweet Chili",
+          "fiyat": 45,
+          "aciklama": "Bal, biber, ketçap, nişasta, sarımsak, esmer şeker, soya sosu, sriracha sos, beyaz pirinç sirkesi",
+          "id": "69cb799b3eeaa3fffd8f6a9b",
+          "soldout": false
+        }
+      ]
+    },
+    {
+      "ad": "Tatlı",
+      "ad_en": "Dessert",
+      "urunler": [
+        {
+          "ad": "Havuç Dilim Baklava",
+          "ad_en": "Pistachio Baklava",
+          "fiyat": 525,
+          "aciklama": "Dondurma ile servis edilmektedir.",
+          "id": "69cb799b3eeaa3fffd8f69cf",
+          "soldout": false
+        },
+        {
+          "ad": "Magnum Devils",
+          "ad_en": "Magnum Devils",
+          "fiyat": 375,
+          "aciklama": "",
+          "id": "69cb799b3eeaa3fffd8f69d0",
+          "soldout": false
+        },
+        {
+          "ad": "Sütlü Dondurma",
+          "ad_en": "Milky Ice Cream",
+          "fiyat": 300,
+          "aciklama": "3 Top",
+          "id": "69cb799b3eeaa3fffd8f69d1",
+          "soldout": false
+        }
+      ]
+    },
+    {
+      "ad": "Milkshake",
+      "ad_en": "Milkshake",
+      "urunler": [
+        {
+          "ad": "Keko Shake",
+          "ad_en": "Keko Shake",
+          "fiyat": 475,
+          "aciklama": "Vanilyalı dondurma, süt, devils kek, çilek püresi, küçük şekerlemeler, çırpılmış krema",
+          "id": "69cb799b3eeaa3fffd8f69da",
+          "soldout": false
+        },
+        {
+          "ad": "Cookie Shake",
+          "ad_en": "Cookie Shake",
+          "fiyat": 485,
+          "aciklama": "Vanilyalı dondurma, süt, Oreo® bisküvi, çikolata sos, çırpılmış krema",
+          "id": "69cb799b3eeaa3fffd8f69db",
+          "soldout": false
+        },
+        {
+          "ad": "Crazy Baklava",
+          "ad_en": "Crazy Baklava",
+          "fiyat": 700,
+          "aciklama": "Vanilyalı dondurma, süt, baklava, fıstık, çırpılmış krema",
+          "id": "69cb799b3eeaa3fffd8f69dc",
+          "soldout": false
+        },
+        {
+          "ad": "Golden Saltbae",
+          "ad_en": "Golden Saltbae",
+          "fiyat": 820,
+          "aciklama": "Vanilyalı dondurma, süt, altın tozu, file badem, çırpılmış krema",
+          "id": "69cb799b3eeaa3fffd8f69dd",
+          "soldout": false
+        }
+      ]
+    }
+  ]
+}
