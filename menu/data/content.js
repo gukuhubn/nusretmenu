@@ -113,8 +113,8 @@ window.KasapContent = {
     /* Her ürün: { id, name, seal, tr, en } — id fiyat modülünün anahtarıdır. */
     starters: [
       { id: 'meat-sushi', name: 'MEAT SUSHI', seal: true,
-        tr: 'Ustanın şakası değil, imzası. Dana bonfile, avokado ve parmesan; çiğ etin en zarif hali.',
-        en: "Not the master's joke, his signature. Beef sirloin, avocado, parmesan; raw meat at its most elegant." },
+        tr: 'Çiğ etin en zarif hali. Dana bonfile, avokado ve parmesan; ustanın en beklenmedik imzası.',
+        en: "Raw meat at its most elegant. Beef sirloin, avocado, parmesan; the master's most unexpected signature." },
       { id: 'beef-tacos', name: 'BEEF TACOS', seal: false,
         tr: 'On iki saat yavaş pişen kaburga, üç lokmalık sabırsızlık için.',
         en: 'Twelve hours of slow cooked ribs, folded into three impatient bites.' },
@@ -141,11 +141,11 @@ window.KasapContent = {
         tr: 'Çelik kovada, kızgın ve bol. Endüstriyel lüksün en dürüst hali.',
         en: 'In a steel bucket, hot and generous. Industrial luxury at its most honest.' },
       { id: 'spiced-fries', name: 'BAHARATLI PATATES', seal: false,
-        tr: 'Aynı kova, daha cesur.',
-        en: 'Same bucket, more courage.' },
+        tr: 'Aynı kova, daha cesur bir el.',
+        en: 'The same bucket, a bolder hand.' },
       { id: 'onion-crisps', name: 'ÇITIR SOĞAN', seal: false,
-        tr: 'İnce, altın rengi, sesli.',
-        en: 'Thin, golden, loud.' }
+        tr: 'Sesiyle servis edilir; incelik gerisini anlatır.',
+        en: 'Served with its own sound; the thinness tells the rest.' }
     ],
     desserts: [
       { id: 'baklava', name: 'BAKLAVA', seal: false,

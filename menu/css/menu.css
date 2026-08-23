@@ -374,26 +374,29 @@ image-slot::part(frame) { background: transparent !important; }
 }
 .corner .slot { position: absolute; inset: 0; }
 .corner .slot__ph { display: none; }
-.corner--tl { top: 8.4mm; left: 8.4mm; }
-.corner--tr { top: 8.4mm; right: 8.4mm; transform: scaleX(-1); }
+.corner--tl { top: 9.6mm; left: 9.6mm; }
+.corner--tr { top: 9.6mm; right: 9.6mm; transform: scaleX(-1); }
 .corner--bl { bottom: 8.4mm; left: 8.4mm; transform: scaleY(-1); }
 .corner--br { bottom: 8.4mm; right: 8.4mm; transform: scale(-1, -1); }
+/* Üst köşeler cari başlıkla çakışmasın: %30 küçük ve içeri alınmış */
+.corner--tl, .corner--tr { width: 15.4mm; height: 15.4mm; }
 
-/* Ürün adı önünde minik satır ikonu — küçük satır (cleaver) çizimi */
-.page--c .item__name::before {
-  content: ''; display: inline-block;
-  width: 2.6mm; height: 2.6mm; margin-right: 1.6mm;
-  vertical-align: -.35mm;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23b5824c' d='M3 4h12v9H5a2 2 0 0 1-2-2V4z'/%3E%3Ccircle cx='6' cy='6.5' r='1' fill='%2322201c'/%3E%3Crect x='15' y='7.2' width='7' height='2.6' rx='1.3' fill='%23b5824c'/%3E%3C/svg%3E")
-    center / contain no-repeat;
-  opacity: .85;
-}
+/* Ürün mini gravürü — ürün adının önündeki ~12 mm spot (mini-<id>).
+ * Satır ikonunun (cleaver ::before) yerini aldı. */
+.mini { position: relative; flex: none; width: 12mm; height: 12mm; }
+.items--grid .mini { width: 10.5mm; height: 10.5mm; }
+/* Spot gravürler bol marjlı üretildi; yuva sınırından taşırarak
+ * çizimi görsel olarak 12 mm'ye getiriyoruz (layout değişmez). */
+.mini .slot { position: absolute; inset: -2.6mm; }
+.items--grid .mini .slot { inset: -2.2mm; }
+.mini .slot__ph { display: none; }
 
-/* Bölüm açılışı drop cap — yalnız TR lede'nin ilk harfi */
+/* Bölüm açılışı — büyük ilk harf. Float drop cap tek satırlık lede'de
+ * kelimeyi koparıyordu ("U sta"); harf satır içinde büyütülür, kelime
+ * bitişik akar. */
 .page--c .sheet--body .lede:not(.lede--en)::first-letter {
-  float: left; font-style: normal; font-weight: 600;
-  font-size: 25pt; line-height: .82;
-  padding: .8mm 1.8mm 0 0; color: var(--brass);
+  font-style: normal; font-weight: 600;
+  font-size: 17pt; color: var(--brass);
 }
 
 /* Ayraç vinyetleri */
@@ -416,13 +419,25 @@ image-slot::part(frame) { background: transparent !important; }
 }
 .page--c.page--ritual .medal__num { color: #d4af37; }
 
-/* Alev kolofonu — Mod C burger sayfası, sağ alt */
-.colophon-flame {
-  position: absolute; right: 12mm; bottom: 15mm;
-  width: 24mm; height: 24mm;
+/* Alt boşluk dolgu bantları — sheet tabanına yaslanan gravür şeritleri */
+.fill-band { position: relative; margin-top: auto; }
+.fill-band .slot { position: absolute; inset: 0; }
+.fill-band .slot__ph { display: none; }
+.vfill { flex: 1; }
+
+/* Ritüel · Mod C: küçülen tuz jesti üst köşe motifi (ritual-motif =
+ * ritual-gold-leaf'in şeffaf türevi; A'nın vinyetli hali değişmez) */
+.ritual-corner-motif {
+  position: absolute; top: 17mm; right: 16mm;
+  width: 26mm; height: 26mm; pointer-events: none;
 }
-.colophon-flame .slot { position: absolute; inset: 0; }
-.colophon-flame .slot__ph { display: none; }
+.ritual-corner-motif .slot { position: absolute; inset: 0; }
+.ritual-corner-motif .slot__ph { display: none; }
+.ritual-band {
+  position: relative; width: 124mm; height: 10mm; margin: 4mm auto 0;
+}
+.ritual-band .slot { position: absolute; inset: 0; }
+.ritual-band .slot__ph { display: none; }
 
 /* ==================================================================
  * İÇERİK BEKLENİYOR — metni gelmemiş bölümlerin görünür durumu.

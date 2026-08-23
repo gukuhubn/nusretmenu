@@ -91,8 +91,15 @@
       <div class="pending__rule"></div>
     </div>`;
 
-  const itemRow = (item) => `
+  /* Mod C'de her ürün adı yanında ~12 mm spot gravür taşır (mini-<id>);
+   * baharatlı patates kova minisini sade patatesle paylaşır. */
+  const MINI_ALIAS = { 'spiced-fries': 'mini-fries' };
+  const itemRow = (item, mode) => `
     <div class="item">
+      ${mode === 'C'
+        ? `<div class="mini">${slot(MINI_ALIAS[item.id] || 'mini-' + item.id,
+             item.name + ' — spot gravür', { fit: 'contain', tight: true })}</div>`
+        : ''}
       <div class="item__body">
         <div class="item__head">
           <div class="item__name">${esc(item.name)}</div>
@@ -130,6 +137,12 @@
   const vignette = (assetId, extra) =>
     `<div class="divider-vignette${extra ? ' ' + extra : ''}">${
       slot(assetId, 'bölüm ayracı vinyeti', { fit: 'contain', tight: true })}</div>`;
+
+  /* Mod C alt boşluk dolgusu: sayfa dibine itilen geniş gravür bandı.
+   * margin-top:auto akışı bozmadan bandı sheet tabanına yaslar. */
+  const fillBand = (assetId, h, cap) =>
+    `<div class="fill-band" style="height:${h}mm">${
+      slot(assetId, cap, { fit: 'contain', tight: true })}</div>`;
 
   const chrome = (mode) => {
     let h = (mode !== 'B' ? '<div class="page__scan"></div>' : '') +
@@ -214,8 +227,9 @@
         </div>
         ${a ? caption(C.captions.cutDiagram) : ''}
         <div class="items">
-          ${C.items.steaks.map(itemRow).join('')}
+          ${C.items.steaks.map((it) => itemRow(it, mode)).join('')}
         </div>
+        ${mode === 'C' ? fillBand('band-knives', 17, 'bıçak seti bandı') : ''}
       </div>
       ${footmark(mode, true)}
     </section>`;
@@ -248,14 +262,17 @@
           ${slot('hero-burger', 'hero burger portresi — eriyen cheddar, buhar',
                  { style: 'width:100%;height:52mm' })}
         </div>`}
+        ${mode === 'C' ? '<div class="vfill"></div>' : ''}
         <div class="items items--grid">
-          ${C.items.burgers.map(itemRow).join('')}
+          ${C.items.burgers.map((it) => itemRow(it, mode)).join('')}
         </div>
+        ${mode === 'C'
+          /* Ürün bloğu vfill çiftiyle dikey ortalanır; alt bantta közde
+           * ızgara gravürü sayfayı kapatır (alev kolofonunun yerini aldı —
+           * ateş teması banda taşındı). */
+          ? '<div class="vfill"></div>' + fillBand('band-grill', 24, 'közde ızgara bandı')
+          : ''}
       </div>
-      ${mode === 'C'
-        ? `<div class="colophon-flame">${slot('motif-flame', 'alev gravürü',
-             { shape: 'circle', tight: true })}</div>`
-        : ''}
       ${footmark(mode, true)}
     </section>`;
   };
@@ -298,12 +315,15 @@
         ${sec.ledeEn ? `<div class="lede lede--en">${esc(sec.ledeEn)}</div>` : ''}
         <div style="margin:8mm 0 2.5mm">
           ${a
-            ? slot('motif-ember', 'kor gravürü — ateşten önce', { style: 'width:100%;height:52mm' })
+            /* C'de üst motif kısalır: mini gravürler + mezze bandına yer açar */
+            ? slot('motif-ember', 'kor gravürü — ateşten önce',
+                   { style: 'width:100%;height:' + (mode === 'C' ? '40mm' : '52mm') })
             : slot('hero-starter', 'başlangıç tabağı portresi', { style: 'width:100%;height:56mm' })}
         </div>
         <div class="items">
-          ${items.length ? items.map(itemRow).join('') : pending('ATEŞTEN ÖNCE', sec.expect)}
+          ${items.length ? items.map((it) => itemRow(it, mode)).join('') : pending('ATEŞTEN ÖNCE', sec.expect)}
         </div>
+        ${mode === 'C' ? fillBand('band-mezze', 14, 'zeytin · limon · tuz vinyeti') : ''}
       </div>
       ${footmark(mode, true)}
     </section>`;
@@ -318,6 +338,12 @@
     <section class="page ${pcls(mode)} page--ritual"
              data-screen-label="Ritüel · Mod ${mode}">
       ${chrome(mode)}
+      ${mode === 'C'
+        /* Tuz jesti çizimi C'de küçülüp üst köşe motifi olur;
+         * sahneyi tam genişlik altın gravür hero taşır. */
+        ? `<div class="ritual-corner-motif">${slot('ritual-motif', 'tuz jesti motifi',
+             { fit: 'contain', tight: true })}</div>`
+        : ''}
       <div class="sheet sheet--cover">
         ${runhead(mode, C.brand.docLine)}
         <div class="spacer"></div>
@@ -330,7 +356,12 @@
         </div>
         ${sec.ledeTr ? `<div class="lede lede--center">${esc(sec.ledeTr)}</div>` : ''}
         ${sec.ledeEn ? `<div class="lede lede--en lede--center">${esc(sec.ledeEn)}</div>` : ''}
-        ${a
+        ${mode === 'C' ? `
+        ${slot('ritual-hero', 'altın varaklı burger — gravür hero',
+               { style: 'width:100%;height:62mm;margin-top:7mm' })}
+        <div class="ritual-band">${slot('ritual-band', 'tezhip ayraç bandı',
+               { fit: 'contain', tight: true })}</div>`
+        : a
           ? slot('ritual-gold-leaf', 'tuz jesti — çizgi gravür',
                  /* Çizimin koyu zemini sayfa zemininden ayrışmasın diye
                   * kenarları yumuşak vinyetle eritilir (slot--vignette). */
@@ -372,11 +403,13 @@
             : slot('hero-side', 'garnitür portresi', { style: 'width:100%;height:48mm' })}
         </div>
         <div class="items">
-          ${sides.length ? sides.map(itemRow).join('') : pending('YANINDA', sec.expect)}
+          ${sides.length ? sides.map((it) => itemRow(it, mode)).join('') : pending('YANINDA', sec.expect)}
         </div>
 
         ${mode === 'C'
-          ? vignette('divider-vignette-2', 'divider-vignette--between')
+          /* Bal damlası + baklava vinyeti (divider-honey) tuz kabı
+           * vinyetinin (divider-vignette-2) yerini aldı. */
+          ? vignette('divider-honey', 'divider-vignette--between')
           : '<div class="section-divider"></div>'}
 
         <div class="sec sec--dessert">
@@ -389,7 +422,7 @@
         ${des.ledeTr ? `<div class="lede">${esc(des.ledeTr)}</div>` : ''}
         ${des.ledeEn ? `<div class="lede lede--en">${esc(des.ledeEn)}</div>` : ''}
         <div class="items items--dessert">
-          ${desserts.length ? desserts.map(itemRow).join('') : pending('TATLI SON · BAKLAVA', des.expect)}
+          ${desserts.length ? desserts.map((it) => itemRow(it, mode)).join('') : pending('TATLI SON · BAKLAVA', des.expect)}
         </div>
       </div>
       ${footmark(mode, true)}

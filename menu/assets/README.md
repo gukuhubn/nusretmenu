@@ -21,6 +21,14 @@ yenilendiğinde yuva kendiliğinden dolar. Kod değişikliği gerekmez.
 | `page-medallion` | Mod C · sayfa altı         | 11 mm daire    | sayfa numarası madalyonu, ortası boş; **şeffaf zemin** |
 | `motif-flame`    | Mod C · Burger kolofonu    | 24 mm daire    | alev gravürü; **şeffaf zemin** (kendi çerçevesi kırpıldı) |
 
+| `mini-<ürün-id>` (20 adet) | Mod C · her ürün satırı | 12 mm (ızgarada 10,5 mm) | ürün spot gravürleri; `spiced-fries` → `mini-fries` paylaşır; **şeffaf zemin** |
+| `ritual-hero`    | Mod C · Ritüel             | tam genişlik × 62 mm | altın varaklı burger gravür hero (opak panel; altın bu sayfada serbest) |
+| `ritual-band`    | Mod C · Ritüel             | 118 × 8 mm     | tezhip tarzı ayraç bandı; **şeffaf zemin** |
+| `band-grill`     | Mod C · Burger alt bandı   | tam genişlik × 24 mm | közde ızgara gravürü; **şeffaf zemin** |
+| `band-knives`    | Mod C · Ustanın Ayırdığı alt bandı | tam genişlik × 17 mm | bıçak seti bandı; **şeffaf zemin** |
+| `band-mezze`     | Mod C · Ateşten Önce alt bandı | tam genişlik × 14 mm | zeytin/limon/tuz kasesi üçlüsü; **şeffaf zemin** |
+| `divider-honey`  | Mod C · Yanında→Tatlı Son ayracı | 82 × 11 mm | bal damlası + baklava vinyeti (divider-vignette-2'nin yerine); **şeffaf zemin** |
+
 **Şeffaf zeminli** işaretli varlıklar `tools/alpha-key.js` ile işlenmiştir
 (luminance key). `gen-assets.js` bunları yeniden üretirse alpha-key
 tekrar çalıştırılmalıdır; aksi halde sayfada opak kutu görünür.

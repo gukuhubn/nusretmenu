@@ -31,12 +31,15 @@ const MODES = [
 ];
 
 (async () => {
+  /* İsteğe bağlı mod filtresi: `node tools/build-pdf.js C` yalnız Mod C basar. */
+  const only = process.argv.slice(2).map((s) => s.toUpperCase());
+  const modes = only.length ? MODES.filter((m) => only.includes(m.mode)) : MODES;
   const exe = CANDIDATES.find((p) => fs.existsSync(p));
   if (!exe) throw new Error('Chromium bulunamadı — CHROMIUM_PATH verin.');
   fs.mkdirSync(OUT, { recursive: true });
   const browser = await chromium.launch({ executablePath: exe });
   const page = await browser.newPage();
-  for (const m of MODES) {
+  for (const m of modes) {
     /* prices=mask: baskıda tüm fiyatlar '---' basılır; pricing dosyaları
      * repoda durur ama PDF'e yansımaz (yönetim kararı: fiyatsız prova). */
     await page.goto(`${PAGE}?mode=${m.mode}&prices=mask`, { waitUntil: 'domcontentloaded' });

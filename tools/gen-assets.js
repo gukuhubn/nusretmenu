@@ -80,6 +80,49 @@ const ASSETS = [
     prompt: 'Horizontal ornamental divider vignette for a 19th century trade catalogue, a small salt cellar spilling coarse grains at the center, flanked by symmetric delicate laurel sprigs tapering to fine points, copperplate engraving, single copper color on dark charcoal background, no text, isolated composition' },
   { id: 'page-medallion', ar: '1:1',
     prompt: 'Small circular ornamental medallion frame for a page number, rope and laurel wreath border with fine scrollwork, completely empty dark center, letterpress engraving texture, single copper color on dark charcoal background, no text, no letters, no numbers' },
+  /* ---- Mod C · ürün mini gravürleri (final cila) ----
+   * Ürün adının önünde ~12×12 mm spot; asset adı mini-<ürün-id>.
+   * spiced-fries mini-fries'i paylaşır (şablonda alias).
+   * ÜRETİMDEN SONRA tools/alpha-key.js ŞART (şeffaf zemin). */
+  ...[
+    ['mini-meat-sushi', 'three pieces of beef sushi in a neat row'],
+    ['mini-beef-tacos', 'one folded taco shell with rib meat filling'],
+    ['mini-steak-tartar', 'small round bowl of steak tartare topped with an egg yolk'],
+    ['mini-crispy-baby-squid', 'one small squid with curled tentacles'],
+    ['mini-burrata', 'burrata ball torn open on a tiny plate, basil leaf'],
+    ['mini-mediterranean-greens', 'small salad bowl with leaves, pomegranate seeds and an apple slice'],
+    ['mini-lokum', 'one thick round beef tenderloin medallion tied with butcher twine, top-side view'],
+    ['mini-fillet-mignon', 'one small filet mignon steak, side view'],
+    ['mini-saslik', 'one short skewer with meat cubes, diagonal'],
+    ['mini-cheese-steak-sandwich', 'one long sandwich roll cut open with thin steak slices and melting cheese'],
+    ['mini-juicy-burger', 'classic burger cross section, cheese dripping over the patty'],
+    ['mini-lokum-burger', 'burger cross section with one thick tenderloin slice instead of a patty'],
+    ['mini-nusret-burger', 'minimal plain burger, smooth bun, single patty, nothing else'],
+    ['mini-saltbae-special', 'burger whose bun is rendered nearly solid black with dense crosshatch, sesame dots'],
+    ['mini-mushroom-burger', 'burger topped with three mushroom caps, sliced mushroom visible'],
+    ['mini-smoked-bbq-burger', 'burger with thin smoke wisps curling up from under the bun'],
+    ['mini-avocado-burger', 'burger where two textured avocado halves replace the bun'],
+    ['mini-fries', 'tiny steel bucket overflowing with french fries'],
+    ['mini-onion-crisps', 'three crispy onion rings in a loose stack'],
+    ['mini-baklava', 'one diamond shaped baklava slice with thin layers visible, side view'],
+  ].map(([id, subject]) => ({ id, ar: '1:1',
+    prompt: subject + '. Tiny engraved spot illustration, single copper line art on dark charcoal background, consistent stroke weight, 19th century trade catalog vignette, flat 2D, no shading blocks, no photo look, centered with generous empty margin, clean edges, no text, no frame, no watermark' })),
+
+  /* ---- Mod C · Ritüel sahnesi ve dolgu bantları (final cila) ---- */
+  { id: 'ritual-hero', ar: '21:9',
+    /* Altın bu sayfada serbest (Bölüm 4.1 istisnası). Opak panel — key'lenmez. */
+    prompt: 'Gold leaf wrapped gourmet burger on a steel tray, coarse salt grains falling from above, a single beam of light from upper left, rich vintage copperplate engraving, fine crosshatching, copper line work with luminous gold metallic accents on the burger only, dark charcoal background, 19th century trade catalog plate, flat 2D, no photo look, no text, no watermark' },
+  { id: 'ritual-band', ar: '21:9',
+    prompt: 'Very thin horizontal ornamental band in Ottoman illumination (tezhip) style, delicate gold arabesque scrollwork with tiny palmettes, symmetric, tapering ends, fine line art, gold and copper lines on dark charcoal background, flat 2D, no text, no watermark' },
+  { id: 'band-grill', ar: '21:9',
+    prompt: 'Wide horizontal band: grill grate over glowing embers seen from a low angle, small flames between coals, fine copperplate engraving crosshatch, single copper line art on dark charcoal background, flat 2D, consistent stroke weight, no shading blocks, no photo look, no text' },
+  { id: 'band-knives', ar: '21:9',
+    prompt: 'Horizontal band: a butcher knife set laid side by side — cleaver, breaking knife, boning knife, sharpening steel — evenly spaced, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, consistent stroke weight, no shading blocks, no text' },
+  { id: 'band-mezze', ar: '21:9',
+    prompt: 'Horizontal vignette of three small bowls in a row: olives in the first, lemon wedges in the second, coarse salt in the third, thin scrollwork flourish between them, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, consistent stroke weight, no text' },
+  { id: 'divider-honey', ar: '21:9',
+    prompt: 'Small horizontal vignette: honey dripping from a wooden honey dipper onto a diamond shaped baklava slice, flanked by thin symmetric scrollwork flourishes tapering to points, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, no text' },
+
   /* ---- Mod B · karanlık portre (5.3) ---- */
   { id: 'hero-burger', ar: '21:9',
     prompt: 'Premium beef burger, 180 gram thick patty, melting cheddar dripping, smoked beef slices, caramelized onion, glossy brioche bun, steam rising. ' + PHOTO },

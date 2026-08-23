@@ -1,7 +1,7 @@
 # TESLİM — Ustanın Defteri / SaltBae Burger
 
 Branch: `claude/konsept-dokumantasyon-gemini-kgko2u` · Repo: `gukuhubn/nusretmenu`
-Son güncelleme: Revizyon turu 3 — isim revizyonu ("Ustanın Defteri"), final rötuş, Mod C "Zengin Defter"
+Son güncelleme: Revizyon turu 4 — final cila (yalnız Mod C)
 
 ---
 
@@ -21,7 +21,39 @@ Son güncelleme: Revizyon turu 3 — isim revizyonu ("Ustanın Defteri"), final 
 | Eksik ürün analizi | `EKSIK_URUNLER.md` | iki yönlü liste |
 | Üretim betikleri | `tools/build-pdf.js`, `tools/gen-assets.js`, `tools/alpha-key.js`, `tools/gen-galeri.js` | çalışıyor |
 
-## Revizyon turu 3 (bu tur)
+## Revizyon turu 4 — final cila (yalnız Mod C; A ve B'ye dokunulmadı)
+
+Teslim: `output/kasap-defteri-mod-c.pdf` (bu turda yalnız bu PDF yenilendi).
+
+1. **Ürün mini gravürleri.** 20 spot gravür (`mini-<ürün-id>`), her ürün
+   adının önünde ~12 mm; satır ikonunun (CSS cleaver) yerini aldı.
+   Baharatlı Patates kova minisini sade patatesle paylaşır. Tek bakır
+   çizgi, tutarlı kontur — seri kontak föyüyle denetlendi; standart dışı
+   kalan 3 mini (mushroom: zemin ışıması, nusret: köftesiz, baklava:
+   okunmayan blok) 1 turda yeniden üretildi. Hepsi alpha-key'li.
+2. **Ritüel sahnesi.** Tuz jesti küçülüp sağ üst köşe motifi oldu
+   (`ritual-motif` — A'nın vinyetli halini bozmamak için ayrı şeffaf
+   türev, sert eşikle key'lendi). Merkezde tam genişlik `ritual-hero`:
+   altın varaklı burger, çelik tepsi, dökülen tuz, tek ışık hüzmesi
+   (ilk çıktıda model markası metni, ikinci çıktıda bej zemin —
+   2. yeniden üretimde koyu zemin vurgusuyla oturdu). Altında tezhip
+   tarzı `ritual-band`.
+3. **Boşluk dolgusu.** Burger sayfası ürün bloğu dikey ortalandı + alt
+   banda `band-grill` (közde ızgara; alev kolofonunun yerini aldı, ateş
+   teması banda taşındı). Ustanın Ayırdığı altına `band-knives`,
+   Ateşten Önce altına `band-mezze` (üst motif C'de 52→40 mm kısaldı,
+   yer açmak için), Yanında→Tatlı Son ayracı `divider-honey` (bal +
+   baklava; tuz kabı vinyetinin yerine).
+4. **İncelik standardı.** Tüm yeni varlıklar kontak föyünde denetlendi:
+   çizgi kalınlığı, düz 2B, gravür taraması, temiz kenar. 4 varlık
+   yeniden üretildi (en fazla 2 tur kuralı içinde).
+5. **Düzeltmeler.** Üst köşe flourish'leri %30 küçültülüp içeri alındı
+   (22→15,4 mm); drop cap kopukluğu giderildi — float yerine satır içi
+   büyük ilk harf, kelime bitişik akıyor.
+6. **Metin revizyonları.** Meat Sushi, Çıtır Soğan ve Baharatlı Patates
+   metinleri TR+EN güncellendi.
+
+## Revizyon turu 3
 
 **A · İsim revizyonu.** Menü çıktısında konsept adı "Ustanın Defteri /
 The Master's Ledger" oldu (kapak, cari başlıklar, sekme başlığı). Bölüm II
