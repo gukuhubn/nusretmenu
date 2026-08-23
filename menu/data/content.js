@@ -20,7 +20,9 @@ window.KasapContent = {
   modes: {
     A: { id: 'A', label: 'MOD A · İLLÜSTRASYON', name: 'Mod A — İllüstrasyon' },
     B: { id: 'B', label: 'MOD B · KARANLIK PORTRE', name: 'Mod B — Karanlık Portre' },
-    C: { id: 'C', label: 'MOD C · ZENGİN DEFTER', name: 'Mod C — Zengin Defter' }
+    C: { id: 'C', label: 'MOD C · ZENGİN DEFTER', name: 'Mod C — Zengin Defter' },
+    D: { id: 'D', label: 'MOD D · FOTOĞRAF DEFTERİ', name: 'Mod D — Fotoğraf Defteri' },
+    E: { id: 'E', label: 'MOD E · RIVIERA', name: 'Mod E — Riviera' }
   },
 
   cover: {
@@ -123,7 +125,9 @@ window.KasapContent = {
         { tr: 'Sayfa: 170 g mat kuşe, bakır yaldız kenar',
           en: 'Pages: 170 gsm matte art paper, copper gilt edges' },
         { tr: 'Ayraç: bordo kurdele',
-          en: 'Marker: oxblood ribbon' }
+          en: 'Marker: oxblood ribbon' },
+        { tr: 'Kabartma: kapakta ve iç sayfada Nusr-Et amblemi',
+          en: 'Embossing: Nusr-Et emblem on cover and inner page' }
       ]
     },
 

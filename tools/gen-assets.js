@@ -120,20 +120,27 @@ const ASSETS = [
     prompt: 'Horizontal band: a butcher knife set laid side by side — cleaver, breaking knife, boning knife, sharpening steel — evenly spaced, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, consistent stroke weight, no shading blocks, no text' },
   { id: 'band-mezze', ar: '21:9',
     prompt: 'Horizontal vignette of three small bowls in a row: olives in the first, lemon wedges in the second, coarse salt in the third, thin scrollwork flourish between them, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, consistent stroke weight, no text' },
-  /* ---- Ustanın Yolu · şube niş simgeleri (10 mm spot gravür) ---- */
+  /* ---- Ustanın Yolu · şube amblemleri v2 (18-20 mm, çift katman:
+   * şehir simgesi + bina/AVM simgesi birlikte) ---- */
   ...[
-    ['nisantasi', 'ornate art nouveau arched doorway with curved ironwork details'],
-    ['caddebostan', 'small coastal lighthouse on a seaside promenade wall'],
-    ['galataport', 'bow of a cruise ship beside a quay crane'],
-    ['airport', 'modern airport air traffic control tower with a curved tulip-form top'],
-    ['aqua-florya', 'stylized sea waves, three overlapping curls'],
-    ['emaar', 'slender modern skyscraper tower silhouette'],
-    ['kanyon', 'modern building facade curved like a breaking wave, terraced floors'],
-    ['galata', 'the Galata Tower of Istanbul, cylindrical stone tower with conical roof'],
-    ['mykonos', 'cycladic windmill with thatched cap and twelve thin sail spokes'],
-    ['difc', 'the Gate building of Dubai DIFC, monumental rectangular arch'],
+    ['nisantasi', 'an ornate art nouveau arched doorway with a classic Istanbul street lantern beside it'],
+    ['caddebostan', 'a small coastal lighthouse with a seaside promenade railing and a seagull above'],
+    ['galataport', 'the bow of a cruise ship docked beside a quay crane, waves beneath'],
+    ['airport', 'a modern air traffic control tower with curved tulip top and a small ascending airplane beside it'],
+    ['aqua-florya', 'stylized sea waves with a leaping fish above them'],
+    ['emaar', 'a slender modern skyscraper tower rising behind a grand mall entrance portal'],
+    ['kanyon', 'a modern building facade curved like a breaking wave with a bridge walkway crossing in front'],
+    ['galata', 'the Galata Tower of Istanbul with a small arched stone gate at its base'],
+    ['mykonos', 'a cycladic windmill with thin sail spokes above rolling sea waves'],
+    ['difc', 'the monumental rectangular Gate building of Dubai DIFC with a date palm beside it'],
   ].map(([k, subject]) => ({ id: 'branch-' + k, ar: '1:1',
-    prompt: subject + '. Tiny engraved spot illustration, single copper line art on dark charcoal background, consistent stroke weight, 19th century trade catalog vignette, flat 2D, no shading blocks, no photo look, centered with generous empty margin, clean edges, no text, no frame, no watermark' })),
+    prompt: subject + '. Engraved emblem combining the two motifs into one balanced composition, fine copperplate line art, single copper line on dark charcoal background, consistent stroke weight, 19th century trade catalog vignette, flat 2D, no shading blocks, no photo look, centered with modest empty margin, clean edges, no text, no frame, no watermark' })),
+
+  /* ---- Mod E · Riviera pastel illüstrasyonları ---- */
+  { id: 'e-cover-sprig', ar: '1:1',
+    prompt: 'Minimal soft pastel chalk illustration of a single olive branch with a few leaves and two olives, sage green and terracotta on warm cream paper, generous empty space, loose elegant strokes, Mediterranean riviera menu aesthetic, no text, no frame, no watermark' },
+  { id: 'e-dessert-sprig', ar: '21:9',
+    prompt: 'Minimal soft pastel chalk illustration, horizontal: a drizzle of honey falling onto a small diamond of baklava, dusty blue plate hint, terracotta and sage accents on warm cream paper, loose elegant strokes, generous empty space, no text, no watermark' },
 
   /* ---- Künye · fiziksel defter teknik çizimi ---- */
   { id: 'colophon-book', ar: '4:3',

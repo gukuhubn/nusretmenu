@@ -44,6 +44,12 @@ const ASSETS = [
     prompt: 'Using the attached photographs only as pose and character reference, draw an engraved horizontal band: the same chef — hair in a bun, round sunglasses, white t-shirt, black gloves — bent forward carving a large tomahawk steak on a wooden board with a long knife, thin wisps of steam, side view, wide banner composition with tapering empty space left and right. ' + ENG },
   { id: 'founder-standing', ar: '1:1', refs: ['standing-street.jpg', 'suit-portrait.jpg'],
     prompt: 'Using the attached photographs only as pose and character reference, draw an engraved full-figure portrait: the same man — hair in a bun, round sunglasses, waistcoat over white shirt — standing upright facing the viewer, confident calm stance, arms relaxed, full body from head to shoes, centered, generous empty margin around the figure. ' + ENG },
+  /* Mod D için büyük ve net yarım figürler: yüz sadeleştirilmiş cesur
+   * çizgilerle (koyu camlar, güçlü kaş, bıyık) — ince yüz detayı yok. */
+  { id: 'founder-open', ar: '4:3', refs: ['counter-pose.jpg', 'suit-portrait.jpg'],
+    prompt: 'Using the attached photographs only as pose and character reference, draw a LARGE engraved half-figure portrait: the same chef from the waist up, arms crossed confidently, hair in a bun, round dark sunglasses, white t-shirt. The face is deliberately SIMPLIFIED into bold confident planes — dark lenses, strong eyebrows, mustache, no fine facial detail. Bold clear line work at large scale, generous empty margin. ' + ENG },
+  { id: 'founder-bust', ar: '1:1', refs: ['suit-portrait.jpg'],
+    prompt: 'Small engraved bust emblem of the same chef, head and shoulders, front view: hair in a bun, round dark sunglasses, bold minimal line work readable at very small size, features simplified to silhouette-like planes, centered with generous empty margin. ' + ENG },
   { id: 'founder-glasses', ar: '1:1', refs: ['suit-portrait.jpg', 'cutting-warm.jpg'],
     prompt: 'Iconic round wire-frame sunglasses with dark lenses, drawn alone as a small emblem, front view, perfectly symmetric, elegant thin line work, centered with generous empty margin. ' + ENG },
   { id: 'seal', ar: '1:1', refs: ['suit-portrait.jpg'],

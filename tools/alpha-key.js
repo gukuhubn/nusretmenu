@@ -44,7 +44,7 @@ const FILES = [
   /* Kurucu katmanı: bant/figür gravürleri (founder-salt ve founder-counter
    * opak sahne panelleridir, key'lenmez) */
   { id: 'founder-cutting' }, { id: 'founder-standing' },
-  { id: 'founder-glasses' },
+  { id: 'founder-glasses' }, { id: 'founder-bust' }, { id: 'founder-open' },
   /* Ustanın Yolu şube niş simgeleri */
   ...['nisantasi', 'caddebostan', 'galataport', 'airport', 'aqua-florya',
       'emaar', 'kanyon', 'galata', 'mykonos', 'difc']

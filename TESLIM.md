@@ -1,7 +1,7 @@
 # TESLİM — Ustanın Defteri / SaltBae Burger
 
 Branch: `claude/konsept-dokumantasyon-gemini-kgko2u` · Repo: `gukuhubn/nusretmenu`
-Son güncelleme: Revizyon turu 6 — kurucu katmanı, fiziksel defter kimliği, palet (yalnız Mod C)
+Son güncelleme: Revizyon turu 7 — Mod D "Fotoğraf Defteri", Mod E "Riviera", amblem v2, kabartma
 
 ---
 
@@ -20,6 +20,57 @@ Son güncelleme: Revizyon turu 6 — kurucu katmanı, fiziksel defter kimliği, 
 | Erenköy ham verisi | `menu/data/source-erenkoy.json` | 10 bölüm · 55 ürün |
 | Eksik ürün analizi | `EKSIK_URUNLER.md` | iki yönlü liste |
 | Üretim betikleri | `tools/build-pdf.js`, `tools/gen-assets.js`, `tools/alpha-key.js`, `tools/gen-galeri.js` | çalışıyor |
+
+## Revizyon turu 7 — üç varyant: C güncel + Mod D + Mod E
+
+Teslim: `output/` altında üç PDF —
+`kasap-defteri-mod-c.pdf` (10 sayfa, 4,8 MB) ·
+`kasap-defteri-mod-d.pdf` (10 sayfa, 4,7 MB) ·
+`kasap-defteri-mod-e.pdf` (7 sayfa, 1,4 MB). Hepsi <10 MB.
+
+**A · Fotoğraf kaynağı.** FineDine Erenköy API'sindeki 55 ürün
+fotoğrafından 48'i indirildi (`assets/photo/menu/`, eşleşenler ürün
+id'siyle, konsept dışılar `x-` önekiyle; 7 kayıt kaynakta 404).
+`tools/photo-treat.js` koyu-portre hattı: uyarlanabilir kontrast
+(parlak stüdyo karesine daha sert eğri), sıcak ton, vinyet →
+`assets/photo/menu/dark/`. Not: Saltbae Burger'ın siyah, BarbeQ'nun
+hibiskus ekmeği fotoğraflarda görünür — eşleştirme görsel olarak da
+doğrulandı.
+
+**B · Mod D "Fotoğraf Defteri"** (`?mode=D`): C'nin içerik/anlatı yapısı
+aynen; görsel ağırlık fotoğrafa döndü. Bölüm açılışlarında tam genişlik
+işlenmiş ürün fotoğrafı (carpaccio, Lokum, Juicy, patates); ürün
+satırları sade tipografi (mini gravürler yalnız C'de). Gravür yalnız
+hikaye yerlerinde: tuz jesti sahnesi (Ritüel), amblemler, yol bandı,
+köşeler. Kurucu gravürleri üç yerde: kapakta yeni `founder-open`
+(büyük, net, yüz sadeleştirilmiş cesur çizgilerle), Ritüel'de
+founder-salt, kapanışta patika uçlarındaki `founder-bust`.
+
+**C · Şube amblemleri v2 + yürüyüş** (C ve D ortak): 10 amblem çift
+katmanlı yeniden üretildi (ör. Galata: kule + kapı; DIFC: Gate + hurma;
+Mykonos: değirmen + dalga; Airport: kule + uçak) ve 18 mm basılıyor.
+Ustanın Yolu "yürüyüş" kurgusuna geçti: şubeler açılış sırasına göre iki
+sıralı serpantin patikada, ince kesikli çizgi Erzurum büstünden başlayıp
+sağdaki dönüş yayıyla ikinci sıraya iner ve son şubede (Usta büstü)
+biter; Emaar vurgusu ve "Bu defter burada açık" satırı patika üstünde.
+
+**D · Nusr-Et kör kabartması.** `nusret-emboss.png` logodan programatik
+üretildi: renk yok, yalnız kaçık kenar ışığı/gölgesi (blind emboss).
+Vitrin ve arka kapak fotoğraflarının üstünde ~%50 opaklıkla; künyeye
+"Kabartma: kapakta ve iç sayfada Nusr-Et amblemi" satırı eklendi.
+
+**E · Mod E "Riviera"** (`?mode=E`): açık varyant — krem zemin (#F6F1E7),
+isli kahve tipografi, toz mavisi/adaçayı/terrakota vurgu; altın yok,
+süsleme yok, köşe flourish yok. Geniş boşluklar, ürün başına tek satır
+(yalnız TR), noktalı fiyat kılavuzu. Sayfa başına en fazla bir öğe:
+kapakta pastel zeytin dalı, burger sayfasında açık tonlu foto, Ritüel'de
+açık tonlu altın burger fotosu, Yanında/Tatlı ayracında bal+baklava
+pasteli. Kurucu yalnız arka kapakta, açık tonlu sokak fotoğrafı.
+7 sayfa (vitrin/yolculuk/künye Riviera sadeliği gereği basılmıyor).
+İçerik ve fiyatlar aynı content/pricing katmanından.
+
+Teknik not: `element.screenshot` bazı D sayfalarını eksik kompozitledi
+(clip yöntemi ve PDF çıktısı doğru) — doğrulamalar PDF rasterinden yapıldı.
 
 ## Revizyon turu 6 — kurucu katmanı + defter kimliği (yalnız Mod C)
 

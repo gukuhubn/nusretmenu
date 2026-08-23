@@ -15,7 +15,7 @@
   /* ---------- Yapılandırma: URL parametreleri config'i geçici ezer ---------- */
   const qs = new URLSearchParams(location.search);
   const modeParam = (qs.get('mode') || CFG.mode || 'A').toUpperCase();
-  const MODE = ['A', 'B', 'C', 'AB', 'ABC'].includes(modeParam) ? modeParam : 'A';
+  const MODE = ['A', 'B', 'C', 'D', 'E', 'AB', 'ABC'].includes(modeParam) ? modeParam : 'A';
   const REGION = qs.get('region') || CFG.region || 'istanbul';
   const SHOW_PRICES = qs.get('prices')
     ? !['off', '0', 'false', 'no'].includes(qs.get('prices').toLowerCase())
@@ -37,9 +37,15 @@
     return priceTable[item.id] || '---';
   };
 
-  /* Mod C, Mod A sayfa iskeletini page--c işaretiyle devralır. */
+  /* Mod C, Mod A iskeletini page--c ile devralır; Mod D, C'nin üstüne
+   * page--d ekler (foto ağırlıklı ters çevrim); Mod E bağımsız açık
+   * "Riviera" temasıdır. rich() = zengin defter ailesi (C + D). */
+  const rich = (m) => m === 'C' || m === 'D';
   const pcls = (mode) =>
-    mode === 'B' ? 'page--b' : 'page--a' + (mode === 'C' ? ' page--c' : '');
+    mode === 'B' ? 'page--b'
+    : mode === 'E' ? 'page--e'
+    : 'page--a' + (mode === 'C' ? ' page--c'
+                 : mode === 'D' ? ' page--c page--d' : '');
 
   /* Görsel yuvası. `assetId` hem kalıcılık anahtarı hem de assets/
    * klasöründeki dosya adıdır: assets/cut-diagram.png düştüğü an dolar. */
@@ -98,7 +104,17 @@
   /* Mod C'de her ürün adı yanında ~12 mm spot gravür taşır (mini-<id>);
    * baharatlı patates kova minisini sade patatesle paylaşır. */
   const MINI_ALIAS = { 'spiced-fries': 'mini-fries' };
-  const itemRow = (item, mode) => `
+  const itemRow = (item, mode) => mode === 'E' ? `
+    <div class="item item--e">
+      <div class="item__body">
+        <div class="item__head">
+          <div class="item__name">${esc(item.name)}</div>
+          <div class="item__gap"></div>
+          <div class="item__price">${esc(priceOf(item))}</div>
+        </div>
+        <div class="item__tr">${esc(item.tr)}</div>
+      </div>
+    </div>` : `
     <div class="item">
       ${mode === 'C'
         ? `<div class="mini">${slot(MINI_ALIAS[item.id] || 'mini-' + item.id,
@@ -123,7 +139,7 @@
    * Kapak numarasız kalır (footmark 'numbered' almadan çağrılır). */
   let cPageNo = 0;
   const footmark = (mode, numbered) => {
-    if (mode === 'C' && numbered) {
+    if (rich(mode) && numbered) {
       return `<div class="footmark footmark--medal"><div class="footmark__rule"></div>
         <div class="medal">${slot('page-medallion', 'sayfa madalyonu',
           { shape: 'circle', fit: 'contain', tight: true })}
@@ -149,9 +165,10 @@
       slot(assetId, cap, { fit: 'contain', tight: true })}</div>`;
 
   const chrome = (mode) => {
+    if (mode === 'E') return '<div class="page__frame"></div>';
     let h = (mode !== 'B' ? '<div class="page__scan"></div>' : '') +
             '<div class="page__frame"></div>';
-    if (mode === 'C') {
+    if (rich(mode)) {
       /* Köşe süslemeleri sol-üst yönelimli üretildi; kalan üç köşe CSS
        * aynalamasıyla döner. Her köşenin motifi farklı: bıçak, çengel,
        * tuz, defne. */
@@ -163,6 +180,12 @@
     }
     return h;
   };
+
+  /* Nusr-Et kör kabartması: renk yok, yalnız kenar ışığı/gölgesi.
+   * Kurucu fotoğraflarının üstüne bindirilir (C/D foto sayfaları). */
+  const emboss = () =>
+    `<div class="emboss">${slot('nusret-emboss', 'kabartma Nusr-Et amblemi',
+       { fit: 'contain', tight: true })}</div>`;
 
   const sectionHead = (sec, kind, mode) => `
     <div class="sec sec--${kind}">
@@ -186,16 +209,25 @@
       <div class="sheet sheet--cover">
         ${runhead(mode, C.brand.versionLine)}
         ${a ? '<div class="spacer"></div>' : '<div style="height:11mm"></div>'}
-        ${slot('logo-mark', 'figürsüz kilit logo — kabartma',
+        ${mode === 'E' ? '' : slot('logo-mark', 'figürsüz kilit logo — kabartma',
                /* Kilit logo markayı kapakta tek başına taşır — tipografik
                 * SALTBAE/BURGER satırları kaldırıldı. Kutu logonun oranında
                 * (3,4:1), fit=contain ile tam sığar. */
                { shape: 'rect', fit: 'contain',
                  style: a ? 'width:66mm;height:19.5mm;margin-top:10mm'
                           : 'width:66mm;height:19.5mm' })}
+        ${mode === 'E'
+          ? `<div class="e-cover-art">${slot('e-cover-sprig', 'zeytin dalı — pastel',
+               { fit: 'contain', tight: true, plate: true })}</div>`
+          : ''}
         <div class="cover-title">${esc(C.cover.title)}</div>
         <div class="cover-title-en">${esc(C.cover.titleEn)}</div>
         <div class="accent-bar"></div>
+        ${mode === 'D'
+          /* Kurucu açılışı: büyük net yarım figür gravürü */
+          ? `<div class="d-cover-founder">${slot('founder-open',
+               'usta — yarım figür gravür', { fit: 'contain', tight: true, plate: true })}</div>`
+          : ''}
         ${''/* Kapak sade: logo + başlık + manifesto. Vitrin fotoğrafı
              * ayrı tam sayfa olarak manifesto sonrasında basılır. */}
         ${a ? `
@@ -226,11 +258,13 @@
         <div class="lede">${esc(sec.ledeTr)}</div>
         <div class="lede lede--en">${esc(sec.ledeEn)}</div>
         <div style="margin:8mm 0 2.5mm">
-          ${a
+          ${mode === 'D'
+            ? slot('photo-steaks', 'Lokum — koyu portre foto', { style: 'width:100%;height:58mm', plate: true })
+            : a
             ? slot('cut-diagram', 'dana kesim diyagramı — gravür', { style: 'width:100%;height:58mm', plate: true })
             : slot('hero-steak', 'steak portresi — hero', { style: 'width:100%;height:62mm' })}
         </div>
-        ${a ? caption(C.captions.cutDiagram) : ''}
+        ${a && mode !== 'D' && mode !== 'E' ? caption(C.captions.cutDiagram) : ''}
         <div class="items">
           ${C.items.steaks.map((it) => itemRow(it, mode)).join('')}
         </div>
@@ -254,7 +288,18 @@
       ${chrome(mode)}
       <div class="sheet sheet--body">
         ${runhead(mode, C.brand.docLine)}
-        ${a ? `
+        ${mode === 'D' ? `
+        ${sectionHead(sec, 'burgers', mode)}
+        <div class="lede lede--wide">${esc(sec.ledeTr)}</div>
+        <div class="lede lede--en lede--wide">${esc(sec.ledeEn)}</div>
+        <div style="margin:6mm 0 2.5mm">
+          ${slot('photo-burgers', 'burger — koyu portre foto', { style: 'width:100%;height:50mm', plate: true })}
+        </div>` : mode === 'E' ? `
+        ${sectionHead(sec, 'burgers', mode)}
+        <div class="lede lede--wide">${esc(sec.ledeTr)}</div>
+        <div style="margin:8mm 0 4mm">
+          ${slot('e-photo-burgers', 'burger — açık ton foto', { style: 'width:100%;height:52mm', plate: true })}
+        </div>` : a ? `
         <div style="display:grid;grid-template-columns:1fr 42mm;gap:10mm;align-items:start">
           <div>
             ${sectionHead(sec, 'burgers', mode)}
@@ -321,15 +366,18 @@
         ${sectionHead(sec, 'starters', mode)}
         ${sec.ledeTr ? `<div class="lede">${esc(sec.ledeTr)}</div>` : ''}
         ${sec.ledeEn ? `<div class="lede lede--en">${esc(sec.ledeEn)}</div>` : ''}
-        <div style="margin:${mode === 'C' ? '5mm' : '8mm'} 0 2.5mm">
-          ${a
+        ${mode === 'E' ? '' : `<div style="margin:${mode === 'C' ? '5mm' : '8mm'} 0 2.5mm">
+          ${mode === 'D'
+            ? slot('photo-starters', 'çiğ et başlangıcı — koyu portre foto',
+                   { style: 'width:100%;height:40mm', plate: true })
+            : a
             /* founder-counter gravürü zayıf kaldı (yüz okunmuyor) —
              * şiş/köz gravürüne dönüldü; C'de kısa kesim. */
             ? slot('motif-ember', 'kor gravürü — ateşten önce',
                    { style: 'width:100%;height:' + (mode === 'C' ? '30mm' : '52mm'),
                      plate: true })
             : slot('hero-starter', 'başlangıç tabağı portresi', { style: 'width:100%;height:56mm' })}
-        </div>
+        </div>`}
         <div class="items">
           ${items.length ? items.map((it) => itemRow(it, mode)).join('') : pending('ATEŞTEN ÖNCE', sec.expect)}
         </div>
@@ -348,9 +396,9 @@
     <section class="page ${pcls(mode)} page--ritual"
              data-screen-label="Ritüel · Mod ${mode}">
       ${chrome(mode)}
-      ${mode === 'C'
-        /* Tuz jesti çizimi C'de küçülüp üst köşe motifi olur;
-         * sahneyi tam genişlik altın gravür hero taşır. */
+      ${rich(mode)
+        /* Tuz jesti çizimi küçülüp üst köşe motifi olur;
+         * sahneyi tam genişlik tuz jesti gravürü taşır. */
         ? `<div class="ritual-corner-motif">${slot('ritual-motif', 'tuz jesti motifi',
              { fit: 'contain', tight: true })}</div>`
         : ''}
@@ -366,12 +414,15 @@
         </div>
         ${sec.ledeTr ? `<div class="lede lede--center">${esc(sec.ledeTr)}</div>` : ''}
         ${sec.ledeEn ? `<div class="lede lede--en lede--center">${esc(sec.ledeEn)}</div>` : ''}
-        ${mode === 'C' ? `
+        ${rich(mode) ? `
         ${slot('founder-salt', 'ustanın tuz jesti — gravür hero',
                /* Setin en güçlü varlığı — %15 büyütüldü (62 → 71 mm) */
                { style: 'width:100%;height:71mm;margin-top:6mm', plate: true })}
         <div class="ritual-band">${slot('ritual-band', 'tezhip ayraç bandı',
                { fit: 'contain', tight: true })}</div>`
+        : mode === 'E'
+        ? slot('e-photo-ritual', 'altın burger — açık ton foto',
+               { style: 'width:100%;height:60mm;margin-top:8mm', plate: true })
         : a
           ? slot('ritual-gold-leaf', 'tuz jesti — çizgi gravür',
                  /* Çizimin koyu zemini sayfa zemininden ayrışmasın diye
@@ -408,11 +459,13 @@
         ${runhead(mode, C.brand.docLine)}
         ${sectionHead(sec, 'sides', mode)}
         ${sec.ledeTr ? `<div class="lede">${esc(sec.ledeTr)}</div>` : ''}
-        <div style="margin:7mm 0 2.5mm">
-          ${a
+        ${mode === 'E' ? '' : `<div style="margin:7mm 0 2.5mm">
+          ${mode === 'D'
+            ? slot('photo-sides', 'patates — koyu portre foto', { style: 'width:100%;height:44mm', plate: true })
+            : a
             ? slot('motif-side', 'garnitür gravürü', { style: 'width:100%;height:44mm', plate: true })
             : slot('hero-side', 'garnitür portresi', { style: 'width:100%;height:48mm' })}
-        </div>
+        </div>`}
         <div class="items">
           ${sides.length ? sides.map((it) => itemRow(it, mode)).join('') : pending('YANINDA', sec.expect)}
         </div>
@@ -421,6 +474,9 @@
           /* Bal damlası + baklava vinyeti (divider-honey) tuz kabı
            * vinyetinin (divider-vignette-2) yerini aldı. */
           ? vignette('divider-honey', 'divider-vignette--between')
+          : mode === 'E'
+          ? `<div class="e-divider-art">${slot('e-dessert-sprig', 'bal + baklava — pastel',
+               { fit: 'contain', tight: true, plate: true })}</div>`
           : '<div class="section-divider"></div>'}
 
         <div class="sec sec--dessert">
@@ -446,42 +502,49 @@
    * "bu defter burada açık" satırıyla basılır. */
   const pageJourney = (mode) => {
     const sec = C.sections.journey;
-    /* Her şubenin 10 mm niş simge gravürü vardır (branch-<ikon>);
-     * aktif şube parlak bakır + "bu defter burada açık" satırı. */
-    const branchRow = (b) => `
-      <div class="branch${b.aktif ? ' branch--active' : ''}">
-        <div class="branch__row">
-          <div class="branch__icon">${slot('branch-' + b.ikon,
-               b.mekan || b.sehir, { fit: 'contain', tight: true })}</div>
-          <span class="branch__city">${esc(b.sehir)}</span>
-          ${b.mekan ? `<span class="branch__sep">·</span>
-          <span class="branch__venue">${esc(b.mekan)}</span>` : ''}
-        </div>
-        ${b.aktif ? `<div class="branch__here">${esc(sec.hereTr)} <em>/ ${esc(sec.hereEn)}</em></div>` : ''}
+    /* "Yürüyüş" kurgusu: şubeler açılış sırasına göre iki sıralı
+     * serpantin patikada dizilir; kesikli çizgi Erzurum'dan başlar,
+     * son şubede biter; iki uçta küçük kurucu büstü. Amblemler 18 mm. */
+    const walkNode = (b) => `
+      <div class="wnode${b.aktif ? ' wnode--active' : ''}">
+        <div class="wnode__icon">${slot('branch-' + b.ikon,
+             b.mekan || b.sehir, { fit: 'contain', tight: true })}</div>
+        <div class="wnode__city">${esc(b.sehir)}</div>
+        ${b.mekan ? `<div class="wnode__venue">${esc(b.mekan)}</div>` : ''}
+        ${b.aktif ? `<div class="wnode__here">${esc(sec.hereTr)}<br><em>${esc(sec.hereEn)}</em></div>` : ''}
       </div>`;
+    const bustNode = (label) => `
+      <div class="wnode wnode--bust">
+        <div class="wnode__icon">${slot('founder-bust', 'kurucu büstü',
+             { fit: 'contain', tight: true })}</div>
+        <div class="wnode__city">${esc(label)}</div>
+      </div>`;
+    const row1 = C.branches.slice(0, 5).map(walkNode).join('');
+    const row2 = C.branches.slice(5).map(walkNode).join('');
     return `
     <section class="page ${pcls(mode)}"
              data-screen-label="Ustanın Yolu · Mod ${mode}">
       ${chrome(mode)}
       <div class="sheet sheet--cover">
         ${runhead(mode, C.brand.docLine)}
-        <div style="height:6mm"></div>
+        <div style="height:5mm"></div>
         <div class="cover-title">${esc(sec.titleLines[0])}</div>
         <div class="cover-title-en">${esc(sec.titleEn)}</div>
         <div class="accent-bar"></div>
-        ${''/* founder-standing zayıf kaldı — figür kaldırıldı, sayfayı
-             * yol/harita bandı kapatıyor */}
-        <div class="ledger-tr" style="margin-top:8mm">${esc(sec.bodyTr)}</div>
+        <div class="ledger-tr" style="margin-top:7mm">${esc(sec.bodyTr)}</div>
         <div class="ledger-en">${esc(sec.bodyEn)}</div>
         <div class="spacer"></div>
-        <div class="branches">${C.branches.map(branchRow).join('')}</div>
+        <div class="walk">
+          <div class="walk__row">${bustNode('Erzurum')}${row1}</div>
+          <div class="walk__turn"></div>
+          <div class="walk__row walk__row--back">${row2}${bustNode('Usta')}</div>
+        </div>
         <div class="spacer"></div>
         <div class="brandline">
-          ${''/* Nusr-Et logosu arka kapağa taşındı; burada yalnız kilit kalır */}
           <div class="brandline__lock">${slot('logo-mark', 'saltbae kilit logo',
                { fit: 'contain', tight: true })}</div>
         </div>
-        ${fillBand('band-route', 16, 'Erzurum’dan yola çıkan yol motifi')}
+        ${fillBand('band-route', 14, 'Erzurum\u2019dan yola çıkan yol motifi')}
       </div>
       ${footmark(mode, true)}
     </section>`;
@@ -525,7 +588,21 @@
       ${chrome(mode)}
       <div class="backcover-photo">${slot('founder-vitrine-duo',
            'et vitrini — bakır duotone', { fit: 'cover', tight: true, plate: true })}</div>
+      ${emboss()}
       <div class="backcover-line">${esc(sec.lineTr)} <em>/ ${esc(sec.lineEn)}</em></div>
+    </section>`;
+  };
+
+  /* Mod E arka kapak — açık tonlu tek kurucu fotoğrafı */
+  const pageBackCoverE = (mode) => {
+    const sec = C.sections.backcover;
+    return `
+    <section class="page ${pcls(mode)} page--photo"
+             data-screen-label="Arka Kapak · Mod ${mode}">
+      ${chrome(mode)}
+      <div class="backcover-photo backcover-photo--light">${slot('founder-light-photo',
+           'usta — açık ton fotoğraf', { fit: 'cover', tight: true, plate: true })}</div>
+      <div class="backcover-line backcover-line--light">${esc(sec.lineTr)} <em>/ ${esc(sec.lineEn)}</em></div>
     </section>`;
   };
 
@@ -540,6 +617,7 @@
       ${chrome(mode)}
       <div class="backcover-photo">${slot('founder-portrait-duo',
            'defteri tutan el — bakır duotone portre', { fit: 'cover', tight: true, plate: true })}</div>
+      ${emboss()}
       <div class="backcover-brand">
         <div class="backcover-brand__line">${esc(j.brandTr)} <em>/ ${esc(j.brandEn)}</em></div>
         <div class="backcover-brand__logo">${slot('nusret-logo', 'Nusr-Et logosu',
@@ -556,15 +634,15 @@
     return pageCover(mode) +
       pageManifesto(mode) +
       /* Vitrin foto sayfası: manifesto sonrası, Ateşten Önce'den önce */
-      (mode === 'C' ? pageVitrine(mode) : '') +
+      (rich(mode) ? pageVitrine(mode) : '') +
       pageStarters(mode) +
       pageSteaks(mode) +
       pageBurgers(mode) +
       pageRitual(mode) +
       pageSides(mode) +
-      (mode === 'C'
+      (rich(mode)
         ? pageJourney(mode) + pageColophon(mode) + pageBackCover(mode)
-        : '');
+        : mode === 'E' ? pageBackCoverE(mode) : '');
   };
 
   /* ================= ARAÇ ÇUBUĞU (yalnız ekran) ================= */
@@ -581,7 +659,8 @@
         ${link({ mode: 'A' }, 'A · İllüstrasyon', MODE === 'A')}
         ${link({ mode: 'B' }, 'B · Karanlık Portre', MODE === 'B')}
         ${link({ mode: 'C' }, 'C · Zengin Defter', MODE === 'C')}
-        ${link({ mode: 'ABC' }, 'Üç mod', MODE === 'ABC')}
+        ${link({ mode: 'D' }, 'D · Fotoğraf Defteri', MODE === 'D')}
+        ${link({ mode: 'E' }, 'E · Riviera', MODE === 'E')}
       </div>
       <div class="toolbar__group">
         <span class="toolbar__label">FİYAT</span>

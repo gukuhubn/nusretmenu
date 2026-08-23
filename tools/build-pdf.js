@@ -46,6 +46,8 @@ const MODES = [
   { mode: 'A', file: 'kasap-defteri-mod-a.pdf', name: 'Mod A · İllüstrasyon', prices: 'mask' },
   { mode: 'B', file: 'kasap-defteri-mod-b.pdf', name: 'Mod B · Karanlık Portre', prices: 'mask' },
   { mode: 'C', file: 'kasap-defteri-mod-c.pdf', name: 'Mod C · Zengin Defter', prices: 'on' },
+  { mode: 'D', file: 'kasap-defteri-mod-d.pdf', name: 'Mod D · Fotoğraf Defteri', prices: 'on' },
+  { mode: 'E', file: 'kasap-defteri-mod-e.pdf', name: 'Mod E · Riviera', prices: 'on' },
 ];
 
 const maxWidthFor = (id) => {
