@@ -97,8 +97,32 @@ window.KasapContent = {
       ledeTr: 'Tuzdan sonra bal gelir. Defter böyle kapanır.',
       ledeEn: 'After the salt comes the honey. This is how the ledger closes.',
       expect: 1
+    },
+
+    /* Kapanış sayfası (şimdilik yalnız Mod C basıyor) */
+    journey: {
+      titleLines: ['Ustanın Yolu'],
+      titleEn: "THE MASTER'S JOURNEY",
+      bodyTr: "Bu defter Erzurum'da bir kasap dükkanında açıldı. Bugün üç kıtada, aynı özenle tutuluyor. Her şube aynı deftere yazar: et ciddiye alınır, gerisi şölendir.",
+      bodyEn: "This ledger was opened in a butcher's shop in Erzurum. Today it is kept, with the same care, on three continents. Every house writes in the same ledger: the meat is taken seriously, everything else is celebration.",
+      /* Aktif şubenin altında basılan satır */
+      hereTr: 'Bu defter burada açık.',
+      hereEn: 'This ledger is open here.'
     }
   },
+
+  /* Şube listesi — kapanış sayfasının alt yarısı. Şube bazlı baskıda
+   * yalnız `aktif` bayrağı taşınır; sıra ve içerik ortaktır. */
+  branches: [
+    { sehir: 'İstanbul', mekan: 'Emaar Square', aktif: true },
+    { sehir: 'İstanbul', mekan: 'Galataport', aktif: false },
+    { sehir: 'İstanbul', mekan: 'Erenköy', aktif: false },
+    { sehir: 'Dubai', mekan: 'Mall of the Emirates', aktif: false },
+    { sehir: 'Riyad', mekan: '', aktif: false },
+    { sehir: 'Doha', mekan: '', aktif: false },
+    { sehir: 'New York', mekan: '', aktif: false },
+    { sehir: 'Londra', mekan: '', aktif: false }
+  ],
 
   /* Görsel yuvasının altındaki gravür kayıt satırı (yalnız Mod A/C kesim
    * diyagramında; Mod B'nin teknik etiket şeritleri final rötuşta kalktı). */

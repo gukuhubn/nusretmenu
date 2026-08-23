@@ -120,6 +120,9 @@ const ASSETS = [
     prompt: 'Horizontal band: a butcher knife set laid side by side — cleaver, breaking knife, boning knife, sharpening steel — evenly spaced, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, consistent stroke weight, no shading blocks, no text' },
   { id: 'band-mezze', ar: '21:9',
     prompt: 'Horizontal vignette of three small bowls in a row: olives in the first, lemon wedges in the second, coarse salt in the third, thin scrollwork flourish between them, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, consistent stroke weight, no text' },
+  { id: 'band-route', ar: '21:9',
+    /* Ustanın Yolu kapanış sayfası: Erzurum'dan dünyaya yol motifi */
+    prompt: 'Thin horizontal engraved map band: a dotted journey route starting at a small butcher shop with mountains on the right, traveling left across stylized hills and a sea with a tiny ship, ending at a distant city skyline, small compass rose accent, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, consistent stroke weight, no shading blocks, no text, no letters, no watermark' },
   { id: 'divider-honey', ar: '21:9',
     prompt: 'Small horizontal vignette: honey dripping from a wooden honey dipper onto a diamond shaped baklava slice, flanked by thin symmetric scrollwork flourishes tapering to points, fine copperplate engraving line art, single copper line on dark charcoal background, flat 2D, no text' },
 

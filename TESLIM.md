@@ -1,7 +1,7 @@
 # TESLİM — Ustanın Defteri / SaltBae Burger
 
 Branch: `claude/konsept-dokumantasyon-gemini-kgko2u` · Repo: `gukuhubn/nusretmenu`
-Son güncelleme: Revizyon turu 4 — final cila (yalnız Mod C)
+Son güncelleme: Revizyon turu 5 — fiyatlar geri, Ustanın Yolu, baskı optimizasyonu (yalnız Mod C)
 
 ---
 
@@ -20,6 +20,46 @@ Son güncelleme: Revizyon turu 4 — final cila (yalnız Mod C)
 | Erenköy ham verisi | `menu/data/source-erenkoy.json` | 10 bölüm · 55 ürün |
 | Eksik ürün analizi | `EKSIK_URUNLER.md` | iki yönlü liste |
 | Üretim betikleri | `tools/build-pdf.js`, `tools/gen-assets.js`, `tools/alpha-key.js`, `tools/gen-galeri.js` | çalışıyor |
+
+## Revizyon turu 5 — yalnız Mod C (A ve B'ye dokunulmadı)
+
+Teslim: `output/kasap-defteri-mod-c.pdf` — 7 sayfa, **7,7 MB** (hedef <15).
+
+1. **Fiyatlar geri.** Mod C PDF'i gerçek Erenköy fiyatlarıyla basılıyor
+   (`build-pdf` mod bazlı fiyat politikası: A/B `mask`, C `on`).
+   Kaynakta karşılığı olmayan 9 ürüne segment emsaliyle **tahmini** fiyat
+   atandı — onaya tabidir:
+
+   | Ürün | Tahmini (TL) | Emsal |
+   |---|---|---|
+   | Meat Sushi | 1.150 | Dana Carpaccio 1.250 (çiğ et başlangıcı) |
+   | Beef Tacos | 850 | Dana Füme 775 üstü |
+   | Steak Tartar | 1.100 | çiğ premium, carpaccio bandı |
+   | Crispy Baby Squid | 750 | deniz başlangıcı |
+   | Burrata | 650 | peynir başlangıcı, salata bandı üstü |
+   | Akdeniz Salatası | 550 | salatalar 470–580 |
+   | Fillet Mignon | 2.400 | NY 2.300 / Dallas 2.600 arası |
+   | Nusret Burger | 850 | Saltbae Burger 825 bandı |
+   | Baharatlı Patates | 225 | sade 175, varyantlar 280–300 |
+
+2. **Mini gravürler büyüdü.** 12 → 21 mm (ızgarada 17 mm). Yer, sayfa içi
+   boşluklardan kırpıldı, metinden değil: C'de liste araları 7→5 mm,
+   cari başlık altı 9→7 mm, Ateşten Önce üst motifi 40→28 mm.
+3. **Renk ve kontrast.** C'de bakır #c88a4a (Ritüel altını #e3bd45),
+   kemik #f4eedd; metin opaklıkları yükseldi (gövde .85→.94, EN .46→.60);
+   gravürlere brightness/saturate filtresi. Yalnız C paleti — A/B değişmedi.
+4. **Yeni sayfa: Ustanın Yolu.** Tatlı Son'dan sonra kapanış sayfası
+   (yalnız C basıyor): köken metni TR+EN, iki sütun şube listesi
+   (`content.js → branches`, şube başına {sehir, mekan, aktif} — şube
+   baskısında tek bayrak değişir). Aktif şube (Emaar Square) bold parlak
+   bakır + mühür ikonu + "Bu defter burada açık." satırı. Altta
+   Erzurum'dan yola çıkan gravür yol bandı (`band-route`).
+5. **Baskı optimizasyonu (kalıcı, build-pdf içinde).** Varlıklar basım
+   öncesi `output/.assets-opt/` önbelleğinde ölçeklenir: mini 300 px,
+   köşe/mühür/madalyon 480 px, geri kalan 1400 px (tam genişliğin ~2x'i);
+   opaklar JPEG q85, şeffaflar sıkıştırılmış PNG; kazançsızsa orijinal
+   korunur. PDF 16,4 → **7,7 MB**. Doğrulama: optimize pakette boş slot
+   yok, 7 sayfa taşmasız.
 
 ## Revizyon turu 4 — final cila (yalnız Mod C; A ve B'ye dokunulmadı)
 

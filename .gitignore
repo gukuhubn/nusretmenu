@@ -1,1 +1,3 @@
 node_modules/
+output/.assets-opt/
+output/.print-pack/

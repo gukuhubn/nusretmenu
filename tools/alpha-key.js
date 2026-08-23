@@ -34,7 +34,7 @@ const FILES = [
       'baklava'].map((s) => ({ id: 'mini-' + s })),
   /* Final cila: dolgu bantları ve tezhip ayracı (ritual-hero opak kalır) */
   { id: 'ritual-band' }, { id: 'band-grill' }, { id: 'band-knives' },
-  { id: 'band-mezze' }, { id: 'divider-honey' },
+  { id: 'band-mezze' }, { id: 'divider-honey' }, { id: 'band-route' },
   /* ritual-gold-leaf'in C köşe motifi için şeffaf türevi; kaynak dosya
    * (Mod A vinyetli kullanım) olduğu gibi kalır. Türev yoksa üretimden
    * önce kopyalanmalıdır: cp ritual-gold-leaf.png ritual-motif.png */

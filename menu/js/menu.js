@@ -313,11 +313,11 @@
         ${sectionHead(sec, 'starters', mode)}
         ${sec.ledeTr ? `<div class="lede">${esc(sec.ledeTr)}</div>` : ''}
         ${sec.ledeEn ? `<div class="lede lede--en">${esc(sec.ledeEn)}</div>` : ''}
-        <div style="margin:8mm 0 2.5mm">
+        <div style="margin:${mode === 'C' ? '5mm' : '8mm'} 0 2.5mm">
           ${a
-            /* C'de üst motif kısalır: mini gravürler + mezze bandına yer açar */
+            /* C'de üst motif kısalır: 21 mm mini gravürler + mezze bandına yer açar */
             ? slot('motif-ember', 'kor gravürü — ateşten önce',
-                   { style: 'width:100%;height:' + (mode === 'C' ? '40mm' : '52mm') })
+                   { style: 'width:100%;height:' + (mode === 'C' ? '28mm' : '52mm') })
             : slot('hero-starter', 'başlangıç tabağı portresi', { style: 'width:100%;height:56mm' })}
         </div>
         <div class="items">
@@ -429,7 +429,46 @@
     </section>`;
   };
 
-  /* Menünün tam yapısı — her mod için aynı sıra. */
+  /* Kapanış — Ustanın Yolu: köken metni + şube listesi.
+   * Şube bazlı baskıda content.branches içindeki tek `aktif` bayrağı
+   * değişir; aktif şube parlak bakır, mühür ikonlu ve altında
+   * "bu defter burada açık" satırıyla basılır. */
+  const pageJourney = (mode) => {
+    const sec = C.sections.journey;
+    const branchRow = (b) => `
+      <div class="branch${b.aktif ? ' branch--active' : ''}">
+        <div class="branch__row">
+          ${b.aktif ? `<div class="branch__seal">${slot('seal', 'mühür',
+                        { shape: 'circle', fit: 'cover', tight: true })}</div>` : ''}
+          <span class="branch__city">${esc(b.sehir)}</span>
+          ${b.mekan ? `<span class="branch__sep">·</span>
+          <span class="branch__venue">${esc(b.mekan)}</span>` : ''}
+        </div>
+        ${b.aktif ? `<div class="branch__here">${esc(sec.hereTr)} <em>/ ${esc(sec.hereEn)}</em></div>` : ''}
+      </div>`;
+    return `
+    <section class="page ${pcls(mode)}"
+             data-screen-label="Ustanın Yolu · Mod ${mode}">
+      ${chrome(mode)}
+      <div class="sheet sheet--cover">
+        ${runhead(mode, C.brand.docLine)}
+        <div class="spacer"></div>
+        <div class="cover-title">${esc(sec.titleLines[0])}</div>
+        <div class="cover-title-en">${esc(sec.titleEn)}</div>
+        <div class="accent-bar"></div>
+        <div class="ledger-tr" style="margin-top:9mm">${esc(sec.bodyTr)}</div>
+        <div class="ledger-en">${esc(sec.bodyEn)}</div>
+        <div class="spacer"></div>
+        <div class="branches">${C.branches.map(branchRow).join('')}</div>
+        <div class="spacer"></div>
+        ${fillBand('band-route', 20, 'Erzurum’dan yola çıkan yol motifi')}
+      </div>
+      ${footmark(mode, true)}
+    </section>`;
+  };
+
+  /* Menünün tam yapısı — her mod için aynı sıra.
+   * Kapanış sayfası (Ustanın Yolu) şimdilik yalnız Mod C'de basılır. */
   const pagesFor = (mode) => {
     cPageNo = 0;
     return pageCover(mode) +
@@ -438,7 +477,8 @@
       pageSteaks(mode) +
       pageBurgers(mode) +
       pageRitual(mode) +
-      pageSides(mode);
+      pageSides(mode) +
+      (mode === 'C' ? pageJourney(mode) : '');
   };
 
   /* ================= ARAÇ ÇUBUĞU (yalnız ekran) ================= */
